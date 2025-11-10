@@ -1,52 +1,60 @@
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	-Wall -Wextra -Werror -MMD
 NAME				=	cub3d
 SRC					=	$(addsuffix .c, files)
 INCLUDES			=	-Ilibft -Imlx
-LINUX				=	-lX11 -lXext -lm
-MACOS				=	-L$(MLX_FOLDER) -framework OpenGL -L/usr/X11/lib -framework AppKit
 OBJ_FOLDER			=	objects/
-OBJ					=	$(addprefix $(OBJ_FOLDER), $(SRC:.cpp =.o))
+OBJ					=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=.o))
+DPD					=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=.d))
 
-LIBFT				=	libft.a
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+	LIBS = -L$(MLX_FOLDER) -framework OpenGL -L/usr/X11/lib -framework AppKit
+else
+	LIBS = -lX11 -lXext -lm -lft -Llibft -lmlx -Lmlx
+endif
+
 LIBFT_FOLDER		=	libft/
+LIBFT				=	$(addprefix $(LIBFT_FOLDER), libft.a)
 
-MLX					=	libmlx.a
 MLX_FOLDER			=	mlx/
+MLX					=	$(addprefix $(MLX_FOLDER), libmlx.a)
 
 all					:	$(LIBFT) $(MLX) $(NAME)
 
-$(NAME)				: $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME)				:	$(OBJ) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 
-$(OBJ_FOLDER)%.o	: %.cpp
-	@mkdir -p $(OBJ_FOLDER)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_FOLDER)%.o	: %.c
+	mkdir -p $(OBJ_FOLDER)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+-include $(DPD)
 
 $(LIBFT):
-	@make -C $(LIBFT_FOLDER) all --no-print-directory
+	make -C $(LIBFT_FOLDER) all
 
 $(MLX):
-	@make -C $(MLX_FOLDER) all --no-print-directory > /dev/null
+	make -C $(MLX_FOLDER) all
 
 clean				:
-	@rm -rf $(OBJ_FOLDER)
-	@make -C $(LIBFT_FOLDER) clean --no-print-directory
-	@make -C $(MLX_FOLDER) clean --no-print-directory > /dev/null
+	rm -rf $(OBJ_FOLDER)
+	make -C $(LIBFT_FOLDER) clean
+	make -C $(MLX_FOLDER) clean
 
 fclean				:	clean
-	@rm -rf $(NAME)
-	@make -C $(LIBFT_FOLDER) fclean --no-print-directory
+	rm -rf $(NAME)
+	make -C $(LIBFT_FOLDER) fclean
 
 re					:	fclean all
 
 debug				:	CFLAGS += -g3
 debug				:	re
-debug				:	@make -C $(LIBFT_FOLDER) debug --no-print-directory
+debug				:	@make -C $(LIBFT_FOLDER) debug
 
 fsanitize			:	CFLAGS += -fsanitize=address
 fsanitize			:	debug
 
 .PHONY				:	all clean fclean re debug fsanitize
 .DELETE_ON_ERROR	:
-.SILENT				:
+#.SILENT				:
