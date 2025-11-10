@@ -30,4 +30,4 @@ git checkout <branch_name>
 
 ### [Github repo](https://github.com/octavegraf/cub3d)
 
-### [Project link](https://projects.intra.42.fr/42cursus-cub3d/ocgraf)
+### [Project link](https://projects.intra.42.fr/cub3d/ocgraf)
