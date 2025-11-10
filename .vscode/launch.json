@@ -2,14 +2,21 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-		"name": "Debug cub3d",
-		"type": "lldb",
-		"request": "launch",
-		"program": "${workspaceFolder}/cub3d",
-		"args": ["maps/valid.cub"],
-		"cwd": "${workspaceFolder}",
-		"stopOnEntry": false,
-		"preLaunchTask": "build",
-		},
+			"name": "Debug philosophers",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/cub3d",
+			"args": ["/maps/valid.cub"],
+			"cwd": "${workspaceFolder}",
+			"console": "integratedTerminal",
+			"preLaunchTask": "build",
+			"initCommands": [
+				"settings set target.process.follow-fork-mode child",
+				"settings set target.process.stop-on-exec false"
+			],
+			"postRunCommands": [
+				"thread list"
+			]
+		}
 	]
 }

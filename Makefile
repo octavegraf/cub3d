@@ -48,9 +48,12 @@ fclean				:	clean
 
 re					:	fclean all
 
+debug				:
+	make -C $(LIBFT_FOLDER) debug
 debug				:	CFLAGS += -g3
 debug				:	re
-	make -C $(LIBFT_FOLDER) debug
+
+
 
 fsanitize			:	CFLAGS += -fsanitize=address
 fsanitize			:	debug
