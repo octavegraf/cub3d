@@ -11,7 +11,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 	LIBS = -L$(MLX_FOLDER) -framework OpenGL -L/usr/X11/lib -framework AppKit
 else
-	LIBS = -lX11 -lXext -lm -lft -Llibft -lmlx -Lmlx
+	LIBS = -L$(LIBFT_FOLDER) -L$(MLX_FOLDER) -lX11 -lXext -lm -lft -lmlx
 endif
 
 LIBFT_FOLDER		=	libft/
@@ -50,7 +50,7 @@ re					:	fclean all
 
 debug				:	CFLAGS += -g3
 debug				:	re
-debug				:	@make -C $(LIBFT_FOLDER) debug
+	make -C $(LIBFT_FOLDER) debug
 
 fsanitize			:	CFLAGS += -fsanitize=address
 fsanitize			:	debug
