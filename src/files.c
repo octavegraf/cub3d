@@ -1,7 +1,6 @@
 #include "libft/libft.h"
 #include "mlx/mlx.h"
 #include <stdio.h>
-#include "files.h"
 
 int main(void)
 {
