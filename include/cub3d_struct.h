@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:46:50 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:47:59 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,6 @@ enum e_key_press
 	MOVE_LEFT,
 	MOVE_RIGHT
 };
-
-typedef struct s_parse{
-	int		state;
-	char	**file;
-	char	**tmp;
-	char	*line;
-	char	*buff;
-	char	*no;
-	char	*so;
-	char	*ea;
-	char	*we;
-	int		floor;
-	int		ceiling;
-	char	**map;
-	int		size;
-	int		size_line;
-	int		index;
-	int		player;
-	int		fd;
-}	t_parse;
 
 typedef struct s_scene
 {

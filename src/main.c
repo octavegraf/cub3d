@@ -6,20 +6,18 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:43:24 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:45:11 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int ac, char **av)
+int	main(int argc, char **argv)
 {
-	t_parse	prs;
 	t_game	game;
 
-	prs = (t_parse){0};
 	game = (t_game){0};
-	if (parsing(&game, &prs, ac, av))
+	if (parsing(&game, argc, argv))
 		return (game_free(game), 0);
 	if (game_init(&game) == 0)
 		return (0);
