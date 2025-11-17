@@ -1,7 +1,8 @@
 CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -MMD
 NAME				=	cub3d
-SRC					=	$(addsuffix .c, files)
+FILES				=	display_frame display_minimap game hooks img_fill ls main movement raycast raycast_dda raycast_init t_img t_mlx t_player
+SRC					=	$(addsuffix .c, $(FILES))
 INCLUDES			=	-Ilibft -Imlx
 OBJ_FOLDER			=	objects/
 OBJ					=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=.o))
