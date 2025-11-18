@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_mlx.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:43:24 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/11/18 14:59:07 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	t_mlx_init(t_mlx *mlx, char *files[4])
 	mlx->frame.img_ptr = NULL;
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
-		return (ft_printf_fd(2, "Error\n mlx_init()\n"), 0);
+		return (ft_dprintf (2, "Error\n mlx_init()\n"), 0);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIDTH, HEIGHT, "Cub3D");
 	if (mlx->win_ptr == NULL)
-		return (ft_printf_fd(2, "Error\n mlx_new_window()\n"),
+		return (ft_dprintf (2, "Error\n mlx_new_window()\n"),
 			mlx_destroy_display(mlx->mlx_ptr), free(mlx->mlx_ptr), 0);
 	if (t_mlx_textures_init(mlx, files) == 0)
 		return (t_mlx_free(mlx), 0);
