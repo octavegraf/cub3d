@@ -3,7 +3,7 @@
 	url = https://github.com/42paris/minilibx-linux
 [submodule "gnl"]
 	path = gnl
-	url = git@github.com:octavegraf/get_next_line.git
+	url = https://github.com/octavegraf/get_next_line
 [submodule "ft_printf"]
 	path = ft_printf
 	url = https://github.com/octavegraf/ft_printf
