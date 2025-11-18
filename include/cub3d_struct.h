@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/17 16:47:59 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/11/18 17:42:06 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ enum e_key_press
 	MOVE_RIGHT
 };
 
+/**
+ * @brief Structure for the scene.
+ * 
+ * @param textures Array of texture file paths (North, South, West, East).
+ * @param floor_color Color of the floor.
+ * @param ceiling_color Color of the ceiling.
+ * @param map 2D array representing the map layout.
+ */
 typedef struct s_scene
 {
 	char	*textures[4];
@@ -60,6 +68,16 @@ typedef struct s_scene
 	char	**map;
 }	t_scene;
 
+/**
+ * @brief Structure for the player.
+ * 
+ * @param pos_x Player's X position in the world.
+ * @param pos_y Player's Y position in the world.
+ * @param dir_x X component of the direction vector.
+ * @param dir_y Y component of the direction vector.
+ * @param plane_x X component of the camera plane vector.
+ * @param plane_y Y component of the camera plane vector.
+ */
 typedef struct s_player
 {
 	double	pos_x;
@@ -70,6 +88,18 @@ typedef struct s_player
 	double	plane_y;
 }	t_player;
 
+/**
+ * @brief Structure for an image.
+ * 
+ * @param mlx_ptr Pointer to the MLX connection.
+ * @param img_ptr Pointer to the MLX image.
+ * @param w Image width in pixels.
+ * @param h Image height in pixels.
+ * @param buf Pointer to the image buffer data.
+ * @param bpp Bits per pixel.
+ * @param size_line Size of one line in bytes.
+ * @param endian Endianness (0 for little endian, 1 for big endian).
+ */
 typedef struct s_img
 {
 	void	*mlx_ptr;
@@ -82,6 +112,14 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+/**
+ * @brief Structure for the MLX library elements.
+ * 
+ * @param mlx_ptr Pointer to the MLX connection.
+ * @param win_ptr Pointer to the MLX window.
+ * @param frame The main frame buffer image.
+ * @param textures Array of 4 texture images (North, South, West, East).
+ */
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
@@ -90,6 +128,14 @@ typedef struct s_mlx
 	t_img	textures[4];
 }	t_mlx;
 
+/**
+ * @brief Main game structure.
+ * 
+ * @param mlx MLX library elements.
+ * @param player Player data.
+ * @param scene Scene data (map, textures, colors).
+ * @param key_press Array of key states for movement and rotation.
+ */
 typedef struct s_game
 {
 	t_mlx		mlx;
@@ -98,6 +144,31 @@ typedef struct s_game
 	char		key_press[6];
 }	t_game;
 
+/**
+ * @brief Structure for raycasting calculations.
+ * 
+ * @param draw_start Starting Y position to draw wall.
+ * @param draw_end Ending Y position to draw wall.
+ * @param color Wall color.
+ * @param camera_x Camera X position in screen space.
+ * @param ray_dir_x Ray direction X component.
+ * @param ray_dir_y Ray direction Y component.
+ * @param map_x Current map X coordinate.
+ * @param map_y Current map Y coordinate.
+ * @param side_dist_x Distance to next vertical grid line.
+ * @param side_dist_y Distance to next horizontal grid line.
+ * @param delta_dist_x Distance between vertical grid lines.
+ * @param delta_dist_y Distance between horizontal grid lines.
+ * @param step_x Direction to step in X (-1 or 1).
+ * @param step_y Direction to step in Y (-1 or 1).
+ * @param side Which side was hit (0 for vertical, 1 for horizontal).
+ * @param wall_x Exact X coordinate on wall.
+ * @param tex_x Texture X coordinate.
+ * @param tex_y Texture Y coordinate.
+ * @param tex_pos Current texture position.
+ * @param texture Pointer to the texture image.
+ * @param step Step for texture Y coordinate.
+ */
 typedef struct s_raycast
 {
 	int				draw_start;

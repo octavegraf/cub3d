@@ -6,9 +6,14 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:07:34 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/18 17:07:53 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/18 17:44:29 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int identify_textures()
+
+int identify_colors()
+
+int identify_map()
