@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:47:25 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/11/18 15:03:47 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # include <mlx.h>
 # include <X11/keysym.h>
 # include <math.h>
-# include "libft.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
 # include "cub3d_struct.h"
 
 // PARSING
