@@ -30,7 +30,7 @@ $(NAME)				:	$(OBJ) $(FT_PRINTF) $(MLX) $(GNL)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 
 $(OBJ_FOLDER)%.o	: %.c
-	mkdir -p $(OBJ_FOLDER)
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 -include $(DPD)
