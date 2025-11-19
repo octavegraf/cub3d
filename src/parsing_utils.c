@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:06:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/18 16:10:43 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/19 14:46:17 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_wstrlen(char *str)
 	int	i;
 
 	i = 0;
-	while (*str)
+	while (str && *str)
 	{
 		if (ft_isalnum(*str))
 			i++;
