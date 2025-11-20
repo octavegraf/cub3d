@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/18 17:39:49 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/20 11:56:00 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "cub3d_struct.h"
-
-// PARSING
-int			parse(t_game *game, int argc, char **argv);
 
 // GAME.C 
 int			game_init(t_game *game);
@@ -55,6 +52,21 @@ int			display_frame(void *param);
 
 // DISPLAY_MINIMAP.C
 int			display_minimap(t_game *game);
+
+// PARSING_IDENTIFY.C
+int			identify(char *line, t_game *game);
+int			identify_textures(char *line, t_game *game);
+int			identify_colors(char *line, t_game *game);
+int			identify_map(char **map, t_game *game);
+char		*search_infos(char *line, int info_type);
+
+// PARSING_UTILS.C
+int			ft_wstrlen(char *str);
+
+// PARSING.C
+int			parsing(t_game *game, int argc, char **argv);
+int			readable_file(char *file_path);
+int			read_cub_file(char *cub_path, t_game *game);
 
 //T_IMG.C
 int			t_img_init(void *mlx_ptr, t_img *img, int width, int height);

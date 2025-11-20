@@ -1,7 +1,7 @@
 CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -MMD
 NAME				=	cub3d
-FILES				=	display_frame display_minimap game hooks img_fill init_scene main movement raycast raycast_dda raycast_init t_img t_mlx t_player
+FILES				=	display_frame display_minimap game hooks img_fill main movement raycast raycast_dda raycast_init parsing parsing_identify parsing_utils t_img t_mlx t_player
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 INCLUDES			=	-Ift_printf -Imlx -Ignl -Iinclude
 OBJ_FOLDER			=	objects/
@@ -12,7 +12,7 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 	LIBS = -L$(MLX_FOLDER) -framework OpenGL -L/usr/X11/lib -framework AppKit
 else
-	LIBS = -L$(FT_PRINTF_FOLDER) -L$(MLX_FOLDER) -L$(GNL_FOLDER) -lX11 -lXext -lm -lftprintf -lmlx -lgnl
+	LIBS = -L$(FT_PRINTF_FOLDER) -L$(MLX_FOLDER) -lX11 -lXext -lm -lftprintf -lmlx $(GNL)
 endif
 
 FT_PRINTF_FOLDER	=	ft_printf/
