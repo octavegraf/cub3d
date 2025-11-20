@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/20 12:05:53 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/20 18:06:48 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	read_cub_file(char *cub_path, t_game *game)
 static int	read_cub_file2(t_game *game, int fd)
 {
 	char	*buff;
+	char	*trim;
 	char	**map;
 
 	map = ft_calloc(1, sizeof(char *));
@@ -76,9 +77,18 @@ static int	read_cub_file2(t_game *game, int fd)
 	}
 	while (ft_wstrlen(buff))
 	{
-		map = ft_array_add_row(map, buff);
+		if (buff[ft_strlen(buff) - 1] == '\n')
+		{
+			trim = ft_substr(buff, 0, ft_strlen(buff) - 1);
+			if (!trim)
+				return (free(buff), close(fd), 1);
+			free(buff);
+		}
+		else
+			trim = buff;
+		map = ft_array_add_row(map, trim);
 		if (!map)
-			return (free(buff), close(fd), 1);
+			return (free(buff), free(trim), close(fd), 1);
 		free(buff);
 		buff = get_next_line(fd);
 	}
