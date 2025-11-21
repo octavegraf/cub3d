@@ -6,18 +6,19 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/20 18:06:48 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/21 18:43:03 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static int	read_cub_file2(t_game *game, int fd);
+static int	read_cub_file3(t_game *game, char *buff, char **map, int fd);
 
 int	parsing(t_game *game, int argc, char **argv)
 {
 	if (argc < 2)
-		return (ft_dprintf(2, "Error\nUse program with one map.\n"), 1);
+		return (ft_dprintf(2, ERR_USAGE), 1);
 	return (read_cub_file(argv[1], game));
 }
 
@@ -27,10 +28,10 @@ int	readable_file(char *file_path)
 
 	fd = -1;
 	if (!file_path || !*file_path)
-		return (ft_dprintf (2, "Error\nnull path\n"), fd);
+		return (ft_dprintf (2, ERR_NULL_PATH), fd);
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
-		return (ft_dprintf (2, "Error\nopen file: %s \n", file_path), fd);
+		return (ft_dprintf (2, ERR_OPEN_FILE, file_path), fd);
 	return (fd);
 }
 
@@ -54,8 +55,7 @@ int	read_cub_file(char *cub_path, t_game *game)
 		}
 		if (identify(buff, game))
 			return (free(buff), close(fd), 1);
-		else
-			lines_read++;
+		lines_read++;
 		free(buff);
 	}
 	return (read_cub_file2(game, fd));
@@ -64,34 +64,37 @@ int	read_cub_file(char *cub_path, t_game *game)
 static int	read_cub_file2(t_game *game, int fd)
 {
 	char	*buff;
-	char	*trim;
 	char	**map;
 
-	map = ft_calloc(1, sizeof(char *));
-	buff = NULL;
+	buff = get_next_line(fd);
+	map = NULL;
 	while (!ft_wstrlen(buff))
 	{
-		if (buff)
-			free(buff);
+		free(buff);
 		buff = get_next_line(fd);
 	}
+	return (read_cub_file3(game, buff, map, fd));
+}
+
+static int	read_cub_file3(t_game *game, char *buff, char **map, int fd)
+{
+	char	*temp;
+
 	while (ft_wstrlen(buff))
 	{
 		if (buff[ft_strlen(buff) - 1] == '\n')
 		{
-			trim = ft_substr(buff, 0, ft_strlen(buff) - 1);
-			if (!trim)
-				return (free(buff), close(fd), 1);
+			temp = ft_substr(buff, 0, ft_strlen(buff) - 1);
+			if (!temp)
+				return (double_free(map), free(buff), close(fd), 1);
 			free(buff);
+			buff = temp;
 		}
-		else
-			trim = buff;
-		map = ft_array_add_row(map, trim);
+		map = ft_array_add_row(map, buff);
 		if (!map)
-			return (free(buff), free(trim), close(fd), 1);
+			return (free(buff), close(fd), 1);
 		free(buff);
 		buff = get_next_line(fd);
 	}
-	free(buff);
-	return (close(fd), identify_map(map, game));
+	return (free(buff), close(fd), identify_map(map, game));
 }

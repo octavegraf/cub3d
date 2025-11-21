@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_minimap.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:43:24 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:54:50 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	minimap_fill_pixel(t_game *game, int nb_pixels, int x, int y)
 			if (game->scene.map[x][y] == '0')
 				img_fill_pixel(game->mlx.frame, nb_pixels * y + i,
 					nb_pixels * x + j, WHITE);
-			else
+			if (game->scene.map[x][y] == '1')
 				img_fill_pixel(game->mlx.frame, nb_pixels * y + i,
 					nb_pixels * x + j, BLACK);
 			j++;

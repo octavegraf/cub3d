@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_dda.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:43:24 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/11/21 15:30:48 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	raycast_dda(t_raycast *raycast, t_game *game)
 			raycast->map_y += raycast->step_y;
 			raycast->side = 1;
 		}
-		if (game->scene.map[raycast->map_x][raycast->map_y] != '0')
+		if (game->scene.map[raycast->map_x][raycast->map_y] == '1')
 			hit = 1;
 	}
 }

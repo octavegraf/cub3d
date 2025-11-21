@@ -6,11 +6,13 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:07:34 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/20 12:17:59 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/21 19:32:24 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	identify_map2(t_game *game, char *set);
 
 int	identify(char *line, t_game *game)
 {
@@ -18,18 +20,16 @@ int	identify(char *line, t_game *game)
 
 	i = 0;
 	if (ft_strlen(line) < 3)
-		return (ft_dprintf(2, "Error\n Wrong line\n"), 1);
+		return (ft_dprintf(2, ERR_WRONG_LINE), 1);
 	while (!ft_isprint(line[i]) || line[i] == ' ')
 		i++;
 	if (!ft_strncmp(line + i, "NO", 2) || !ft_strncmp(line + i, "SO", 2)
 		|| !ft_strncmp(line + i, "WE", 2) || !ft_strncmp(line + i, "EA", 2))
 		return (identify_textures(line + i, game));
-	else if ((game->scene.textures[NO] && game->scene.textures[SO]
-			&& game->scene.textures[WE] && game->scene.textures[EA])
-		&& (!ft_strncmp(line + i, "F", 1) || !ft_strncmp(line + i, "C", 1)))
+	else if (!ft_strncmp(line + i, "F", 1) || !ft_strncmp(line + i, "C", 1))
 		return (identify_colors(line + i, game));
 	else
-		return (ft_dprintf(2, "Error\n Unknown identifier\n"), 1);
+		return (ft_dprintf(2, ERR_UNKNOWN_ID), 1);
 }
 
 int	identify_textures(char *line, t_game *game)
@@ -46,31 +46,47 @@ int	identify_textures(char *line, t_game *game)
 	else if (!ft_strncmp(line, "EA", 2))
 		game->scene.textures[EA] = path;
 	if (readable_file(path) == 1)
-		return (ft_dprintf(2, "Error\n Texture file not readable\n"), 1);
+		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
-		return (ft_dprintf(2, "Error\n Texture file not .xpm\n"), 1);
+		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), 1);
 	return (0);
 }
 
 int	identify_colors(char *line, t_game *game)
 {
-	char	*color_str;
-	int		color;
+	int		rgb[3];
+	int		i;
+	char	*color;
+	char	*temp;
 
-	color_str = search_infos(line + 1, 1);
-	color = atoi(color_str);
-	if (color > 255 || color < 0)
-		return (ft_dprintf(2, "Error\n Color value out of range\n"),
-			free(color_str), 1);
-	if (!ft_strncmp(line, "F", 1))
-		game->scene.floor_color = color;
-	else if (!ft_strncmp(line, "C", 1))
-		game->scene.ceiling_color = color;
+	if (ft_strlen(line) < 1 || (line[0] != 'F' && line[0] != 'C'))
+		return (ft_dprintf(2, ERR_UNKNOWN_COLOR_ID), 1);
+	color = search_infos(line + 1, 1);
+	if (!color || !*color)
+		return (free(color), ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
+	temp = color;
+	i = -1;
+	while (++i < 3 && ft_wstrlen(temp))
+	{
+		rgb[i] = ft_atoi(temp);
+		if (rgb[i] < 0 || rgb[i] > 255)
+			return (free(color), ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
+		if (i < 2)
+		{
+			temp = ft_strchr(temp, ',');
+			if (!temp)
+				return (free(color), ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
+			temp++;
+		}
+		i++;
+	}
+	if (i != 4)
+		return (free(color), ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
+	if (line[0] == 'F')
+		game->scene.floor_color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 	else
-		return (ft_dprintf(2, "Error\n Unknown color identifier\n"),
-			free(color_str), 1);
-	free(color_str);
-	return (0);
+		game->scene.ceiling_color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+	return (free(color), 0);
 }
 
 int	identify_map(char **map, t_game *game)
@@ -87,30 +103,44 @@ int	identify_map(char **map, t_game *game)
 		j = -1;
 		while (map[i][++j])
 		{
-			if (map[i][j] == ' ' || map[i][j] == '\f' || map[i][j] == '\n'
-				|| map[i][j] == '\r' || map[i][j] == '\t' || map[i][j] == '\v')
-				map[i][j] = '1';
-			else if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
 				|| map[i][j] == 'W')
 				p++;
-			else if (map[i][j] != '0' && map[i][j] != '1')
-				return (ft_dprintf(2, "Error\n Invalid map character\n"), 1);
+			else if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' '
+				&& map[i][j] != '\f' && map[i][j] != '\r' && map[i][j] != '\t'
+				&& map[i][j] != '\v')
+				return (ft_dprintf(2, ERR_INVALID_MAP_CHAR), 1);
 		}
 	}
-	return (0);
+	if (p != 1)
+		return (ft_dprintf(2, ERR_INVALID_PLAYER_COUNT), 1);
+	return (identify_map2(game, "10NSEW"));
 }
 
-char	*search_infos(char *line, int info_type)
+static int	identify_map2(t_game *game, char *set)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
+	char	**map;
 
-	i = 0;
-	while ((info_type < 6) && line[i]
-		&& (!ft_isprint(line[i]) || line[i] == ' '))
-		i++;
-	j = i;
-	while (line[j] && ft_isprint(line[j]) && line[j] != ' ')
-		j++;
-	return (ft_substr(line, i, j - i));
+	map = game->scene.map;
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+		{
+			if (ft_strchr(set + 1, map[i][j]))
+			{
+				if (!i || !j || ft_strlen(map[i - 1]) <= j
+					|| ft_strlen(map[i + 1]) <= j
+					|| !ft_strchr(set, map[i - 1][j])
+					|| !ft_strchr(set, map[i + 1][j])
+					|| !ft_strchr(set, map[i][j - 1])
+					|| !ft_strchr(set, map[i][j + 1]))
+					return (ft_dprintf(2, ERR_MAP_OPEN, i, j), 1);
+			}
+		}
+	}
+	return (map_remove_whitespaces(game));
 }
