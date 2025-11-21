@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/20 11:56:00 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/21 19:28:40 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,63 +26,316 @@
 # include "get_next_line.h"
 # include "cub3d_struct.h"
 
-// GAME.C 
+/**
+ * @file cub3d.h
+ * @brief Main header file for the Cub3D raycasting engine.
+ * @details Contains all function declarations and includes for the 3D maze game.
+ */
+
+// game.c
+
+/**
+ * @brief Initialize the game structures and MLX library.
+ * 
+ * @param[in, out] game Pointer to the game structure to initialize.
+ * @return int 1 on success, 0 on failure.
+ */
 int			game_init(t_game *game);
+
+/**
+ * @brief Free all allocated memory for the game.
+ * 
+ * @param[in] game The game structure to free.
+ */
 void		game_free(t_game game);
 
-// IMG_FILL_DISPLAY.C
+/* ========== IMG_FILL.C ========== */
+
+/**
+ * @brief Fill a single pixel in an image with a color.
+ * 
+ * @param[in] img The image to fill.
+ * @param[in] x X coordinate of the pixel.
+ * @param[in] y Y coordinate of the pixel.
+ * @param[in] color The color value to set.
+ */
 void		img_fill_pixel(t_img img, int x, int y, unsigned int color);
+
+/**
+ * @brief Fill a pixel with ceiling or floor color based on Y position.
+ * 
+ * @param[in] game Pointer to the game structure.
+ * @param[in] x X coordinate of the pixel.
+ * @param[in] y Y coordinate of the pixel.
+ */
 void		img_fill_ceiling_floor(t_game *game, int x, int y);
+
+/**
+ * @brief Fill a pixel on the screen with texture data from raycasting.
+ * 
+ * @param[in] game Pointer to the game structure.
+ * @param[in] x X coordinate of the pixel on screen.
+ * @param[in] y Y coordinate of the pixel on screen.
+ * @param[in] raycast Pointer to the raycast structure containing texture info.
+ */
 void		raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast);
 
-// MOVEMENT.C
+// movement.c
+
+/**
+ * @brief Update player position and rotation based on key presses.
+ * 
+ * @param[in, out] game Pointer to the game structure.
+ */
 void		game_update_moves(t_game *game);
 
-// RAYCAST.C
+// raycast.c
+
+/**
+ * @brief Main raycasting function that renders one frame.
+ * 
+ * @details Casts rays for each column of the screen and fills the frame buffer
+ *          with wall textures and ceiling/floor colors.
+ * @param[in, out] game Pointer to the game structure.
+ */
 void		raycast(t_game *game);
 
-// RAYCAST_INIT.C
+// raycast_init.c
+
+/**
+ * @brief Initialize a raycast structure for a specific screen column.
+ * 
+ * @details Sets up ray direction, initial map position, and distance calculations.
+ * @param[in, out] raycast Pointer to the raycast structure to initialize.
+ * @param[in] game Pointer to the game structure.
+ * @param[in] x Screen column index (0 to WIDTH-1).
+ */
 void		raycast_init(t_raycast *raycast, t_game *game, int x);
 
-// RAYCAST_DDA.C
+// raycast_dda.c
+
+/**
+ * @brief DDA (Digital Differential Analyzer) algorithm to find wall intersection.
+ * 
+ * @details Traces a ray until it hits a wall in the map grid.
+ * @param[in, out] raycast Pointer to the raycast structure.
+ * @param[in] game Pointer to the game structure containing the map.
+ */
 void		raycast_dda(t_raycast *raycast, t_game *game);
 
-// DISPLAY_FRAME.C
+// display_frame.c
+
+/**
+ * @brief Display callback function for the MLX loop.
+ * 
+ * @details Called every frame to render the scene and update the window.
+ * @param[in] param Pointer to the game structure.
+ * @return int 1 to continue loop, 0 to exit.
+ */
 int			display_frame(void *param);
 
-// DISPLAY_MINIMAP.C
+// display_minimap.c
+
+/**
+ * @brief Render the minimap overlay on the frame.
+ * 
+ * @details Shows a small top-down view of the map with player position.
+ * @param[in] game Pointer to the game structure.
+ * @return int 1 on success, 0 on failure.
+ */
 int			display_minimap(t_game *game);
 
-// PARSING_IDENTIFY.C
+// parsing_identify.c
+
+/**
+ * @brief Identify and parse a line from the .cub configuration file.
+ * 
+ * @details Determines if the line contains texture paths, colors, or map data.
+ * @param[in, out] line The line to parse.
+ * @param[in, out] game Pointer to the game structure.
+ * @return int 0 on success, 1 on error.
+ */
 int			identify(char *line, t_game *game);
+
+/**
+ * @brief Parse texture path identifiers (NO, SO, WE, EA).
+ * 
+ * @param[in] line The texture identifier line.
+ * @param[in, out] game Pointer to the game structure.
+ * @return int 0 on success, 1 on error.
+ */
 int			identify_textures(char *line, t_game *game);
+
+/**
+ * @brief Parse color identifiers (F for floor, C for ceiling).
+ * 
+ * @param[in] line The color identifier line.
+ * @param[in, out] game Pointer to the game structure.
+ * @attention The line must start with 'F' or 'C'.
+ * @return int 0 on success, 1 on error.
+ */
 int			identify_colors(char *line, t_game *game);
+
+/**
+ * @brief Validate and process the map layout.
+ * 
+ * @details Checks for valid map characters and ensures the map is properly closed.
+ * @param[in, out] map The 2D map array.
+ * @param[in, out] game Pointer to the game structure.
+ * @return int 0 on success, 1 on error.
+ */
 int			identify_map(char **map, t_game *game);
+
+/**
+ * @brief Extract information value from a configuration line.
+ * 
+ * @param[in] line The configuration line.
+ * @param[in] info_type Type of information (0 for texture, 1 for color).
+ * @return char* Pointer to the extracted information string.
+ */
 char		*search_infos(char *line, int info_type);
 
-// PARSING_UTILS.C
+// parsing_utils.c
+
+/**
+ * @brief Count alphanumeric characters in a string.
+ * 
+ * @param[in] str The string to analyze.
+ * @return int Number of alphanumeric characters.
+ */
 int			ft_wstrlen(char *str);
 
-// PARSING.C
+/**
+ * @brief Free a 2D string array.
+ * 
+ * @param[in] to_free The 2D array to free.
+ */
+void		double_free(char **to_free);
+
+/**
+ * @brief Remove leading whitespace from all map lines.
+ * 
+ * @param[in, out] game Pointer to the game structure.
+ * @return int 0 on success, 1 on error.
+ */
+int			map_remove_whitespaces(t_game *game);
+
+// parsing.c
+
+/**
+ * @brief Parse the .cub configuration file and initialize game data.
+ * 
+ * @param[in, out] game Pointer to the game structure.
+ * @param[in] argc Argument count.
+ * @param[in] argv Argument values.
+ * @return int 0 on success, 1 on error.
+ */
 int			parsing(t_game *game, int argc, char **argv);
+
+/**
+ * @brief Check if a file is readable and return its file descriptor.
+ * 
+ * @param[in] file_path Path to the file to check.
+ * @return int File descriptor on success, -1 on error.
+ */
 int			readable_file(char *file_path);
+
+/**
+ * @brief Read and parse the .cub file.
+ * 
+ * @param[in] cub_path Path to the .cub file.
+ * @param[in, out] game Pointer to the game structure.
+ * @return int 0 on success, 1 on error.
+ */
 int			read_cub_file(char *cub_path, t_game *game);
 
-//T_IMG.C
+// t_img.c
+
+/**
+ * @brief Initialize an empty image (frame buffer).
+ * 
+ * @param[in] mlx_ptr Pointer to the MLX connection.
+ * @param[in, out] img Pointer to the image structure to initialize.
+ * @param[in] width Image width in pixels.
+ * @param[in] height Image height in pixels.
+ * @return int 1 on success, 0 on failure.
+ */
 int			t_img_init(void *mlx_ptr, t_img *img, int width, int height);
+
+/**
+ * @brief Initialize an image from an XPM file (texture).
+ * 
+ * @param[in] mlx_ptr Pointer to the MLX connection.
+ * @param[in, out] img Pointer to the image structure to initialize.
+ * @param[in] file Path to the XPM file.
+ * @return int 1 on success, 0 on failure.
+ */
 int			t_img_init_file(void *mlx_ptr, t_img *img, char *file);
 
-// T_MLX.C
+// t_mlx.c
+
+/**
+ * @brief Check if an MLX structure is properly initialized.
+ * 
+ * @param[in] mlx Pointer to the MLX structure to validate.
+ * @return int 1 if valid, 0 otherwise.
+ */
 int			t_mlx_is_valid(t_mlx *mlx);
+
+/**
+ * @brief Initialize MLX library, window, and load textures.
+ * 
+ * @param[in, out] mlx Pointer to the MLX structure to initialize.
+ * @param[in] files Array of 4 texture file paths (NO, SO, WE, EA).
+ * @return int 1 on success, 0 on failure.
+ */
 int			t_mlx_init(t_mlx *mlx, char *files[4]);
+
+/**
+ * @brief Free all MLX resources (window, images, display).
+ * 
+ * @param[in, out] mlx Pointer to the MLX structure to free.
+ */
 void		t_mlx_free(t_mlx *mlx);
 
-// HOOKS.C
+// hooks.c
+
+/**
+ * @brief Handle key release events.
+ * 
+ * @param[in] keycode The key code released.
+ * @param[in, out] param Pointer to the game structure.
+ * @return int 0 on success.
+ */
 int			key_up_hook(int keycode, void *param);
+
+/**
+ * @brief Handle key press events.
+ * 
+ * @param[in] keycode The key code pressed.
+ * @param[in, out] param Pointer to the game structure.
+ * @return int 1 on success.
+ */
 int			key_down_hook(int keycode, void *param);
+
+/**
+ * @brief Handle window close event.
+ * 
+ * @param[in] param Pointer to the MLX structure.
+ * @return int Return value for MLX loop.
+ */
 int			close_window(void *param);
 
-// T_PLAYER.C
+// t_player.c
+
+/**
+ * @brief Initialize player structure based on starting position in map.
+ * 
+ * @details Finds the player spawn position (N, S, E, W) and initializes
+ *          the player with appropriate direction and camera plane vectors.
+ * @param[in, out] map The game map (player character will be replaced with '0').
+ * @return t_player The initialized player structure.
+ */
 t_player	player_init(char **map);
 
 #endif
