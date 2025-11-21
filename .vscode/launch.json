@@ -6,17 +6,10 @@
 			"type": "lldb",
 			"request": "launch",
 			"program": "${workspaceFolder}/cub3d",
-			"args": ["/maps/va.cub"],
+			"args": ["${workspaceFolder}/maps/valid.cub"],
 			"cwd": "${workspaceFolder}",
 			"console": "integratedTerminal",
-			"preLaunchTask": "build",
-			"initCommands": [
-				"settings set target.process.follow-fork-mode child",
-				"settings set target.process.stop-on-exec false"
-			],
-			"postRunCommands": [
-				"thread list"
-			]
+			"preLaunchTask": "build"
 		}
 	]
 }
