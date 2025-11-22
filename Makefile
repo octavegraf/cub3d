@@ -10,7 +10,7 @@ DPD					=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=.d))
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
-	LIBS = -L$(MLX_FOLDER) -framework OpenGL -L/usr/X11/lib -framework AppKit
+	LIBS = -L$(MLX_FOLDER) -L/usr/X11/lib -framework OpenGL -framework AppKit -lX11 -lXext $(MLX) $(FT_PRINTF) $(GNL)
 else
 	LIBS = -L$(FT_PRINTF_FOLDER) -L$(MLX_FOLDER) -lX11 -lXext -lm -lftprintf -lmlx $(GNL)
 endif

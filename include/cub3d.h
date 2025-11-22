@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/21 19:28:40 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/22 09:05:23 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <mlx.h>
-# include <X11/keysym.h>
 # include <math.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
