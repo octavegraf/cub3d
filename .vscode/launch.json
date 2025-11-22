@@ -6,7 +6,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"program": "${workspaceFolder}/cub3d",
-			"args": ["${workspaceFolder}/maps/valid.cub"],
+			"args": ["${workspaceFolder}/maps/lot_of_spaces.cub"],
 			"cwd": "${workspaceFolder}",
 			"console": "integratedTerminal",
 			"preLaunchTask": "build"

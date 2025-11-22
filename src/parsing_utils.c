@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:06:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/21 16:56:48 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/22 10:45:41 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,21 @@ char	*search_infos(char *line, int info_type)
 		&& (!ft_isprint(line[i]) || line[i] == ' '))
 		i++;
 	j = i;
-	while (line[j] && ft_isprint(line[j]) && line[j] != ' ')
-		j++;
+	if (info_type == 0)
+	{
+		while (line[j] && ft_isprint(line[j]) && line[j] != ' ')
+			j++;
+	}
+	else
+	{
+		while (line[j] && (ft_isdigit(line[j]) || line[j] == ','
+				|| line[j] == ' ' || line[j] == '\t'))
+			j++;
+		while (line[j] && (line[j] == ' ' || line[j] == '\t'))
+			j++;
+		if (line[j] && line[j] != '\n')
+			return (NULL);
+	}
 	return (ft_substr(line, i, j - i));
 }
 

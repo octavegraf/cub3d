@@ -68,11 +68,13 @@ static int	read_cub_file2(t_game *game, int fd)
 
 	buff = get_next_line(fd);
 	map = NULL;
-	while (!ft_wstrlen(buff))
+	while (buff && !ft_wstrlen(buff))
 	{
 		free(buff);
 		buff = get_next_line(fd);
 	}
+	if (!buff)
+		return (close(fd), ft_dprintf(2, ERR_WRONG_LINE), 1);
 	return (read_cub_file3(game, buff, map, fd));
 }
 

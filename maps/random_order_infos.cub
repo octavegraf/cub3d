@@ -1,12 +1,12 @@
 WE assets/default.xpm
-F 220,100,0
+F 0,0,0
 NO assets/default.xpm
 
 EA assets/default.xpm
-C 225,30,0
+C 255,255,255
 
 SO assets/default.xpm
 
  111111111111111
-1N000000000000001
+1W000000000000001
  111111111111111

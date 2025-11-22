@@ -1,10 +1,10 @@
-NO															assets/default.xpm
-SO                                                      assets/default.xpm
-WE           assets/default.xpm
-EA  assets/default.xpm
+NO															assets/default.xpm              
+SO                                                      assets/default.xpm             
+WE           assets/default.xpm                                    
+EA  assets/default.xpm                   
 
-F        0,0,0
-C   255,255,255
+F        0,     0     ,     0
+C   255,                                          255,255
 
 
 

@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/22 09:43:45 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/22 20:11:08 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,8 @@ int			identify_textures(char *line, t_game *game);
  * @return int 0 on success, 1 on error.
  */
 int			identify_colors(char *line, t_game *game);
+
+//	parsing_identify2.c
 
 /**
  * @brief Validate and process the map layout.
