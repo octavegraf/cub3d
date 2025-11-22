@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/22 09:05:23 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/22 09:43:45 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,7 @@
 # include "get_next_line.h"
 # include "cub3d_struct.h"
 
-/**
- * @file cub3d.h
- * @brief Main header file for the Cub3D raycasting engine.
- * @details Contains all function declarations and includes for the 3D maze game.
- */
-
-// game.c
+//	game.c
 
 /**
  * @brief Initialize the game structures and MLX library.
@@ -48,7 +42,7 @@ int			game_init(t_game *game);
  */
 void		game_free(t_game game);
 
-/* ========== IMG_FILL.C ========== */
+//	img_fill.c
 
 /**
  * @brief Fill a single pixel in an image with a color.
@@ -79,7 +73,7 @@ void		img_fill_ceiling_floor(t_game *game, int x, int y);
  */
 void		raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast);
 
-// movement.c
+//	movement.c
 
 /**
  * @brief Update player position and rotation based on key presses.
@@ -88,68 +82,61 @@ void		raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast);
  */
 void		game_update_moves(t_game *game);
 
-// raycast.c
+//	raycast.c
 
 /**
  * @brief Main raycasting function that renders one frame.
  * 
- * @details Casts rays for each column of the screen and fills the frame buffer
- *          with wall textures and ceiling/floor colors.
  * @param[in, out] game Pointer to the game structure.
  */
 void		raycast(t_game *game);
 
-// raycast_init.c
+//	raycast_init.c
 
 /**
  * @brief Initialize a raycast structure for a specific screen column.
  * 
- * @details Sets up ray direction, initial map position, and distance calculations.
  * @param[in, out] raycast Pointer to the raycast structure to initialize.
  * @param[in] game Pointer to the game structure.
  * @param[in] x Screen column index (0 to WIDTH-1).
  */
 void		raycast_init(t_raycast *raycast, t_game *game, int x);
 
-// raycast_dda.c
+//	raycast_dda.c
 
 /**
- * @brief DDA (Digital Differential Analyzer) algorithm to find wall intersection.
+ * @brief DDA algorithm to find wall intersection.
  * 
- * @details Traces a ray until it hits a wall in the map grid.
  * @param[in, out] raycast Pointer to the raycast structure.
  * @param[in] game Pointer to the game structure containing the map.
  */
 void		raycast_dda(t_raycast *raycast, t_game *game);
 
-// display_frame.c
+//	display_frame.c
 
 /**
  * @brief Display callback function for the MLX loop.
  * 
- * @details Called every frame to render the scene and update the window.
  * @param[in] param Pointer to the game structure.
  * @return int 1 to continue loop, 0 to exit.
  */
 int			display_frame(void *param);
 
-// display_minimap.c
+//	display_minimap.c
 
 /**
  * @brief Render the minimap overlay on the frame.
  * 
- * @details Shows a small top-down view of the map with player position.
  * @param[in] game Pointer to the game structure.
  * @return int 1 on success, 0 on failure.
  */
 int			display_minimap(t_game *game);
 
-// parsing_identify.c
+//	parsing_identify.c
 
 /**
  * @brief Identify and parse a line from the .cub configuration file.
  * 
- * @details Determines if the line contains texture paths, colors, or map data.
  * @param[in, out] line The line to parse.
  * @param[in, out] game Pointer to the game structure.
  * @return int 0 on success, 1 on error.
@@ -178,7 +165,6 @@ int			identify_colors(char *line, t_game *game);
 /**
  * @brief Validate and process the map layout.
  * 
- * @details Checks for valid map characters and ensures the map is properly closed.
  * @param[in, out] map The 2D map array.
  * @param[in, out] game Pointer to the game structure.
  * @return int 0 on success, 1 on error.
@@ -194,7 +180,7 @@ int			identify_map(char **map, t_game *game);
  */
 char		*search_infos(char *line, int info_type);
 
-// parsing_utils.c
+//	parsing_utils.c
 
 /**
  * @brief Count alphanumeric characters in a string.
@@ -219,7 +205,7 @@ void		double_free(char **to_free);
  */
 int			map_remove_whitespaces(t_game *game);
 
-// parsing.c
+//	parsing.c
 
 /**
  * @brief Parse the .cub configuration file and initialize game data.
@@ -248,7 +234,7 @@ int			readable_file(char *file_path);
  */
 int			read_cub_file(char *cub_path, t_game *game);
 
-// t_img.c
+//	t_img.c
 
 /**
  * @brief Initialize an empty image (frame buffer).
@@ -271,7 +257,7 @@ int			t_img_init(void *mlx_ptr, t_img *img, int width, int height);
  */
 int			t_img_init_file(void *mlx_ptr, t_img *img, char *file);
 
-// t_mlx.c
+//	t_mlx.c
 
 /**
  * @brief Check if an MLX structure is properly initialized.
@@ -297,7 +283,7 @@ int			t_mlx_init(t_mlx *mlx, char *files[4]);
  */
 void		t_mlx_free(t_mlx *mlx);
 
-// hooks.c
+//	hooks.c
 
 /**
  * @brief Handle key release events.
@@ -325,13 +311,11 @@ int			key_down_hook(int keycode, void *param);
  */
 int			close_window(void *param);
 
-// t_player.c
+//	t_player.c
 
 /**
  * @brief Initialize player structure based on starting position in map.
  * 
- * @details Finds the player spawn position (N, S, E, W) and initializes
- *          the player with appropriate direction and camera plane vectors.
  * @param[in, out] map The game map (player character will be replaced with '0').
  * @return t_player The initialized player structure.
  */
