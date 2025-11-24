@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/24 10:49:11 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/24 10:58:36 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	readable_file(char *file_path)
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
 		return (ft_dprintf (2, ERR_OPEN_FILE, file_path), fd);
+	if (read(fd, NULL, 0) < 0)
+		return (ft_dprintf(2, ERR_OPEN_FILE, file_path), close(fd), -1);
 	return (fd);
 }
 
