@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/22 20:11:08 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/24 13:45:13 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,17 @@ int			identify(char *line, t_game *game);
 int			identify_textures(char *line, t_game *game);
 
 /**
+ * @brief Validate and process the map layout.
+ * 
+ * @param[in, out] map The 2D map array.
+ * @param[in, out] game Pointer to the game structure.
+ * @return int 0 on success, 1 on error.
+ */
+int			identify_map(char **map, t_game *game);
+
+//	parsing_identify_colors.c
+
+/**
  * @brief Parse color identifiers (F for floor, C for ceiling).
  * 
  * @param[in] line The color identifier line.
@@ -161,17 +172,6 @@ int			identify_textures(char *line, t_game *game);
  * @return int 0 on success, 1 on error.
  */
 int			identify_colors(char *line, t_game *game);
-
-//	parsing_identify2.c
-
-/**
- * @brief Validate and process the map layout.
- * 
- * @param[in, out] map The 2D map array.
- * @param[in, out] game Pointer to the game structure.
- * @return int 0 on success, 1 on error.
- */
-int			identify_map(char **map, t_game *game);
 
 /**
  * @brief Extract information value from a configuration line.

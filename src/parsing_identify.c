@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_identify.c                                 :+:      :+:    :+:   */
+/*   parsing_identify2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/18 17:07:34 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/24 10:34:36 by ocgraf           ###   ########.fr       */
+/*   Created: 2025/11/22 20:10:33 by ocgraf            #+#    #+#             */
+/*   Updated: 2025/11/24 11:45:34 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	identify_map2(t_game *game, char *set);
 
 int	identify(char *line, t_game *game)
 {
@@ -50,62 +52,58 @@ int	identify_textures(char *line, t_game *game)
 	return (0);
 }
 
-static int	identify_colors2(char *color, int *rgb)
+int	identify_map(char **map, t_game *game)
 {
-	char	*temp;
-	int		i;
+	int	i;
+	int	j;
+	int	p;
 
-	temp = color;
-	i = 0;
-	while (i < 3)
+	i = -1;
+	p = 0;
+	game->scene.map = map;
+	while (map[++i])
 	{
-		while (*temp && (*temp == ' ' || *temp == '\t'))
-			temp++;
-		if (!*temp || !ft_isdigit(*temp))
-			return (1);
-		rgb[i] = ft_atoi(temp);
-		if (rgb[i] < 0 || rgb[i] > 255)
-			return (1);
-		while (*temp && ft_isdigit(*temp))
-			temp++;
-		while (*temp && (*temp == ' ' || *temp == '\t'))
-			temp++;
-		if (i < 2)
+		j = -1;
+		while (map[i][++j])
 		{
-			if (*temp != ',')
-				return (1);
-			temp++;
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
+				|| map[i][j] == 'W')
+				p++;
+			else if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' '
+				&& map[i][j] != '\f' && map[i][j] != '\r' && map[i][j] != '\t'
+				&& map[i][j] != '\v')
+				return (ft_dprintf(2, ERR_INVALID_MAP_CHAR), 1);
 		}
-		i++;
 	}
-	while (*temp && (*temp == ' ' || *temp == '\t'))
-		temp++;
-	if (*temp)
-		return (1);
-	return (0);
+	if (p != 1)
+		return (ft_dprintf(2, ERR_INVALID_PLAYER_COUNT), 1);
+	return (identify_map2(game, "10NSEW"));
 }
 
-static void	identify_colors3(char *line, int *rgb, t_game *game)
+static int	identify_map2(t_game *game, char *set)
 {
-	if (line[0] == 'F')
-		game->scene.floor_color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
-	else
-		game->scene.ceiling_color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+	size_t	i;
+	size_t	j;
+	char	**map;
+
+	map = game->scene.map;
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+		{
+			if (ft_strchr(set + 1, map[i][j]))
+			{
+				if (!i || !j || ft_strlen(map[i - 1]) <= j
+					|| ft_strlen(map[i + 1]) <= j
+					|| !ft_strchr(set, map[i - 1][j])
+					|| !ft_strchr(set, map[i + 1][j])
+					|| !ft_strchr(set, map[i][j - 1])
+					|| !ft_strchr(set, map[i][j + 1]))
+					return (ft_dprintf(2, ERR_MAP_OPEN, i, j), 1);
+			}
+		}
+	}
+	return (map_remove_whitespaces(game));
 }
-
-int	identify_colors(char *line, t_game *game)
-{
-	int		rgb[3];
-	char	*color;
-
-	color = search_infos(line + 1, 1);
-	if (!color)
-		return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
-	if (!*color)
-		return (free(color), ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
-	if (identify_colors2(color, rgb))
-		return (free(color), ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
-	identify_colors3(line, rgb, game);
-	return (free(color), 0);
-}
-
