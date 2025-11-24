@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/24 14:28:51 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/24 16:56:38 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	read_cub_file3(t_game *game, char *buff, char **map, int fd);
 
 int	parsing(t_game *game, int argc, char **argv)
 {
-	if (argc < 2)
+	if (argc != 2)
 		return (ft_dprintf(2, ERR_USAGE), 1);
 	return (read_cub_file(argv[1], game));
 }
