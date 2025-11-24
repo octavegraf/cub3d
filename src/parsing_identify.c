@@ -6,13 +6,11 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 17:07:34 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/22 20:10:30 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/24 10:34:36 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	identify_map2(t_game *game, char *set);
 
 int	identify(char *line, t_game *game)
 {

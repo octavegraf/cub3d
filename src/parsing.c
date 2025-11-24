@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/21 18:43:03 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/24 10:49:11 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	read_cub_file(char *cub_path, t_game *game)
 	int		lines_read;
 	char	*buff;
 
+	if (ft_strncmp(cub_path + ft_strlen(cub_path) - 4, ".cub", 4))
+		return (ft_dprintf(2, ERR_CUB_EXTENSION), 1);
 	fd = readable_file(cub_path);
 	if (fd == -1)
 		return (1);

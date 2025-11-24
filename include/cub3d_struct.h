@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/22 09:14:26 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/24 10:48:59 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,5 +234,6 @@ typedef struct s_raycast
 # define ERR_MLX_NEW_IMAGE "Error\nmlx_new_image()\n"
 # define ERR_MLX_GET_DATA_ADDR "Error\nmlx_get_data_addr()\n"
 # define ERR_MLX_XPM_FILE "Error\nmlx_xpm_file_to_image()\n"
+# define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
 
 #endif
