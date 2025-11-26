@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:06:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/26 13:09:32 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/26 15:04:57 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	map_remove_whitespaces(t_game *game)
 		if (ft_strlen(game->scene.map[i]) - ft_strlen(temp) < min_white)
 			min_white = ft_strlen(game->scene.map[i]) - ft_strlen(temp);
 	}
+	if (!min_white)
+		return (0);
 	i = -1;
 	while (game->scene.map[++i])
 	{

@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 20:10:33 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/26 13:01:09 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/26 14:50:51 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	identify_textures(char *line, t_game *game)
 	temp = path;
 	while (temp && ft_isprint(*temp) && *temp != ' ')
 		temp++;
+	if (ft_wstrlen(temp))
+		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
 	path = ft_substr(path, 0, temp - path);
 	if (!path)
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
@@ -132,7 +134,7 @@ int	identify_colors(char *line, t_game *game)
 			return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
 		temp = skip_whitespaces(temp);
 	}
-	if ((ft_strncmp(line, "C", 1) && ft_strncmp(line, "F", 1)) || *temp)
+	if (*temp)
 		return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
 	if (!ft_strncmp(line, "F", 1))
 		game->scene.floor_color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
