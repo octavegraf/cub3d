@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/24 13:45:13 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/26 13:31:05 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "cub3d_struct.h"
+
+//	libft
+void		double_free(char **to_free);
 
 //	game.c
 
@@ -161,8 +164,6 @@ int			identify_textures(char *line, t_game *game);
  */
 int			identify_map(char **map, t_game *game);
 
-//	parsing_identify_colors.c
-
 /**
  * @brief Parse color identifiers (F for floor, C for ceiling).
  * 
@@ -172,15 +173,6 @@ int			identify_map(char **map, t_game *game);
  * @return int 0 on success, 1 on error.
  */
 int			identify_colors(char *line, t_game *game);
-
-/**
- * @brief Extract information value from a configuration line.
- * 
- * @param[in] line The configuration line.
- * @param[in] info_type Type of information (0 for texture, 1 for color).
- * @return char* Pointer to the extracted information string.
- */
-char		*search_infos(char *line, int info_type);
 
 //	parsing_utils.c
 
@@ -193,11 +185,20 @@ char		*search_infos(char *line, int info_type);
 int			ft_wstrlen(char *str);
 
 /**
- * @brief Free a 2D string array.
+ * @brief Skip whitespace characters in a string.
  * 
- * @param[in] to_free The 2D array to free.
+ * @param[in] str The string to process.
+ * @return char* Pointer to the first non-whitespace character.
  */
-void		double_free(char **to_free);
+char		*skip_whitespaces(char *str);
+
+/**
+ * @brief Skip numeric digits in a string.
+ * 
+ * @param[in] str The string to process.
+ * @return char* Pointer to the first non-digit character.
+ */
+char		*skip_numbers(char *str);
 
 /**
  * @brief Remove leading whitespace from all map lines.

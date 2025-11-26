@@ -6,21 +6,14 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/24 16:56:38 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/25 15:05:55 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static int	read_cub_file2(t_game *game, int fd);
-static int	read_cub_file3(t_game *game, char *buff, char **map, int fd);
-
-int	parsing(t_game *game, int argc, char **argv)
-{
-	if (argc != 2)
-		return (ft_dprintf(2, ERR_USAGE), 1);
-	return (read_cub_file(argv[1], game));
-}
+static int	read_cub_file3(t_game *game, char *buff, int fd);
 
 int	readable_file(char *file_path)
 {
@@ -48,18 +41,19 @@ int	read_cub_file(char *cub_path, t_game *game)
 	fd = readable_file(cub_path);
 	if (fd == -1)
 		return (1);
-	lines_read = 0;
-	while (lines_read < 6)
+	lines_read = -1;
+	while (++lines_read < 6)
 	{
 		buff = get_next_line(fd);
-		if (!ft_wstrlen(buff))
+		if (!buff)
+			return (close(fd), ft_dprintf(2, ERR_WRONG_LINE), 1);
+		if (!ft_wstrlen(buff) && lines_read--)
 		{
 			free(buff);
 			continue ;
 		}
 		if (identify(buff, game))
 			return (free(buff), close(fd), 1);
-		lines_read++;
 		free(buff);
 	}
 	return (read_cub_file2(game, fd));
@@ -68,10 +62,8 @@ int	read_cub_file(char *cub_path, t_game *game)
 static int	read_cub_file2(t_game *game, int fd)
 {
 	char	*buff;
-	char	**map;
 
 	buff = get_next_line(fd);
-	map = NULL;
 	while (buff && !ft_wstrlen(buff))
 	{
 		free(buff);
@@ -79,13 +71,15 @@ static int	read_cub_file2(t_game *game, int fd)
 	}
 	if (!buff)
 		return (close(fd), ft_dprintf(2, ERR_WRONG_LINE), 1);
-	return (read_cub_file3(game, buff, map, fd));
+	return (read_cub_file3(game, buff, fd));
 }
 
-static int	read_cub_file3(t_game *game, char *buff, char **map, int fd)
+static int	read_cub_file3(t_game *game, char *buff, int fd)
 {
+	char	**map;
 	char	*temp;
 
+	map = NULL;
 	while (ft_wstrlen(buff))
 	{
 		if (buff[ft_strlen(buff) - 1] == '\n')

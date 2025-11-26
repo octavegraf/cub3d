@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/22 10:55:00 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/25 14:37:33 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	game = (t_game){0};
-	if (parsing(&game, argc, argv))
+	if (argc != 2)
+		return (ft_dprintf(2, ERR_USAGE), 1);
+	if (read_cub_file(argv[1], &game))
 		return (game_free(game), 1);
 	if (game_init(&game) == 0)
 		return (1);

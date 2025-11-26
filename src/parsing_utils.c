@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:06:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/22 10:45:41 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/11/26 13:09:32 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,19 @@ int	ft_wstrlen(char *str)
 	return (i);
 }
 
-char	*search_infos(char *line, int info_type)
+char	*skip_whitespaces(char *str)
 {
-	int	i;
-	int	j;
+	while (str && (*str == ' ' || *str == '\t' || *str == '\n'
+			|| *str == '\r' || *str == '\v' || *str == '\f'))
+		str++;
+	return (str);
+}
 
-	i = 0;
-	while ((info_type < 6) && line[i]
-		&& (!ft_isprint(line[i]) || line[i] == ' '))
-		i++;
-	j = i;
-	if (info_type == 0)
-	{
-		while (line[j] && ft_isprint(line[j]) && line[j] != ' ')
-			j++;
-	}
-	else
-	{
-		while (line[j] && (ft_isdigit(line[j]) || line[j] == ','
-				|| line[j] == ' ' || line[j] == '\t'))
-			j++;
-		while (line[j] && (line[j] == ' ' || line[j] == '\t'))
-			j++;
-		if (line[j] && line[j] != '\n')
-			return (NULL);
-	}
-	return (ft_substr(line, i, j - i));
+char	*skip_numbers(char *str)
+{
+	while (str && ft_isdigit(*str))
+		str++;
+	return (str);
 }
 
 int	map_remove_whitespaces(t_game *game)
@@ -64,20 +51,19 @@ int	map_remove_whitespaces(t_game *game)
 	min_white = INT_MAX;
 	while (game->scene.map[++i])
 	{
-		if (min_white > ft_strlen(game->scene.map[i])
-			- ft_wstrlen(game->scene.map[i]))
-			min_white = ft_strlen(game->scene.map[i])
-				- ft_wstrlen(game->scene.map[i]);
+		temp = skip_whitespaces(game->scene.map[i]);
+		if (ft_strlen(game->scene.map[i]) - ft_strlen(temp) < min_white)
+			min_white = ft_strlen(game->scene.map[i]) - ft_strlen(temp);
 	}
 	i = -1;
 	while (game->scene.map[++i])
 	{
-		temp = ft_substr(game->scene.map[i], min_white,
-				ft_strlen(game->scene.map[i]) - min_white);
-		if (!temp)
+		temp = game->scene.map[i];
+		game->scene.map[i] = ft_substr(temp, min_white,
+				ft_strlen(temp) - min_white);
+		free(temp);
+		if (!game->scene.map[i])
 			return (1);
-		free(game->scene.map[i]);
-		game->scene.map[i] = temp;
 	}
 	return (0);
 }
