@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/24 10:48:59 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/01 13:57:43 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@
 # define MOVE 0.08
 # define ROTATE 0.08
 # define MINIMAP_RATIO 0.2
+
+# ifdef BONUS
+#  define MAP_ELEMENTS "10NSEWD"
+# else
+#  define MAP_ELEMENTS "10NSEW"
+# endif
 
 enum e_screensize
 {
@@ -85,7 +91,7 @@ enum e_key_press
  */
 typedef struct s_scene
 {
-	char	*textures[4];
+	void	*textures[4];
 	int		floor_color;
 	int		ceiling_color;
 	char	**map;
@@ -235,5 +241,6 @@ typedef struct s_raycast
 # define ERR_MLX_GET_DATA_ADDR "Error\nmlx_get_data_addr()\n"
 # define ERR_MLX_XPM_FILE "Error\nmlx_xpm_file_to_image()\n"
 # define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
+# define ERR_INVALID_CARDINAL "Error\nInvalid cardinal direction\n"
 
 #endif

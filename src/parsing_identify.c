@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 20:10:33 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/26 14:50:51 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/01 12:35:36 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,8 @@ int	identify_textures(char *line, t_game *game)
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), free(path), 1);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), 1);
-	if (!ft_strncmp(line, "NO", 2))
-		game->scene.textures[NO] = path;
-	else if (!ft_strncmp(line, "SO", 2))
-		game->scene.textures[SO] = path;
-	else if (!ft_strncmp(line, "WE", 2))
-		game->scene.textures[WE] = path;
-	else if (!ft_strncmp(line, "EA", 2))
-		game->scene.textures[EA] = path;
+	if (add_texture(game, path))
+		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), free(path), 1);
 	return (0);
 }
 
@@ -84,7 +78,7 @@ int	identify_map(char **map, t_game *game)
 	}
 	if (p != 1)
 		return (ft_dprintf(2, ERR_INVALID_PLAYER_COUNT), 1);
-	return (identify_map2(game, "10NSEW"));
+	return (identify_map2(game, MAP_ELEMENTS));
 }
 
 static int	identify_map2(t_game *game, char *set)
@@ -128,17 +122,18 @@ int	identify_colors(char *line, t_game *game)
 		rgb[i] = ft_atoi(temp);
 		if (rgb[i] < 0 || rgb[i] > 255)
 			return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
-		temp = skip_numbers(temp);
-		temp = skip_whitespaces(temp);
+		temp = skip_whitespaces(skip_numbers(temp));
 		if (i < 2 && *temp++ != ',')
 			return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
 		temp = skip_whitespaces(temp);
 	}
 	if (*temp)
 		return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
-	if (!ft_strncmp(line, "F", 1))
+	if (!ft_strncmp(line, "F", 1) && !game->scene.floor_color)
 		game->scene.floor_color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
-	else if (!ft_strncmp(line, "C", 1))
+	else if (!ft_strncmp(line, "C", 1) && !game->scene.ceiling_color)
 		game->scene.ceiling_color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+	else
+		return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
 	return (0);
 }

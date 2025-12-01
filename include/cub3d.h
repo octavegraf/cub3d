@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/26 13:31:05 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/01 14:23:19 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,5 +323,16 @@ int			close_window(void *param);
  * @return t_player The initialized player structure.
  */
 t_player	player_init(char **map);
+
+//textures_list.c
+/**
+ * @brief Add a texture file path to the game's texture list.
+ * 
+ * @param game Game structure pointer.
+ * @param file_path Path to the texture file.
+ * @param cardinal Cardinal direction identifier.
+ * @return int 0 on success, 1 on error.
+ */
+int		add_texture(t_game *game, char *file_path);
 
 #endif
