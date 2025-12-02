@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/01 16:27:08 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:19:22 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <mlx.h>
 # include <math.h>
+# include <sys/time.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "cub3d_struct.h"
@@ -92,7 +93,7 @@ void		game_update_moves(t_game *game);
  * 
  * @param[in, out] game Pointer to the game structure.
  */
-void		raycast(t_game *game);
+int			raycast(t_game *game);
 
 //	raycast_init.c
 

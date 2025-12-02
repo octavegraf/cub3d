@@ -6,13 +6,25 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/02 11:08:18 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:20:33 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	raycast_get_texture(t_game *game, t_raycast *raycast)
+static int	raycast_update_texture(t_img **texture, t_list **node_img)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) != 0)
+		return (ft_dprintf(2, ERR_GETTIMEOFDAY), 0);
+	if (UPDATE_TEXTURE(tv) != 0)
+		*node_img = (*node_img)->content;
+	*texture = (*node_img)->content;
+	return (1);
+}
+
+static int	raycast_get_texture(t_game *game, t_raycast *raycast)
 {
 	static t_list	*texture_no = NULL;
 	static t_list	*texture_so = NULL;
@@ -25,33 +37,21 @@ static void	raycast_get_texture(t_game *game, t_raycast *raycast)
 		texture_so = game->mlx.textures[SO];
 	if (texture_ea == NULL)
 		texture_ea = game->mlx.textures[EA];
-	if (texture_we)
+	if (texture_we == NULL)
 		texture_we = game->mlx.textures[WE];
 	if (raycast->side == 0)
 	{
 		if (raycast->ray_dir_x < 0)
-		{
-			raycast->texture = texture_no->content; 
-			texture_no = texture_no->next;
-		}
+			return (raycast_update_texture(&(raycast->texture), &texture_no));
 		else
-		{
-			raycast->texture = texture_so->content;
-			texture_so = texture_so->next;
-		}
+			return (raycast_update_texture(&(raycast->texture), &texture_so));
 	}
 	else
 	{
 		if (raycast->ray_dir_y < 0)
-		{
-			raycast->texture = texture_we->content;
-			texture_we = texture_we->next;
-		}
+			return (raycast_update_texture(&(raycast->texture), &texture_we));
 		else
-		{
-			raycast->texture = texture_ea->content;
-			texture_ea = texture_ea->next;
-		}
+			return (raycast_update_texture(&(raycast->texture), &texture_ea));
 	}
 }
 
@@ -71,7 +71,7 @@ static void	raycast_compute_texture(t_game *g, t_raycast *rc, double d, int lh)
 	rc->tex_pos = (rc->draw_start - HEIGHT / 2 + lh / 2) * rc->step;
 }
 
-static void	raycast_compute(int x, t_game *game, t_raycast *rc)
+static int	raycast_compute(int x, t_game *game, t_raycast *rc)
 {
 	double		perp_wall_dist;
 	int			line_height;
@@ -89,11 +89,13 @@ static void	raycast_compute(int x, t_game *game, t_raycast *rc)
 	rc->draw_end = line_height / 2 + HEIGHT / 2;
 	if (rc->draw_end >= HEIGHT)
 		rc->draw_end = HEIGHT - 1;
-	raycast_get_texture(game, rc);
+	if (raycast_get_texture(game, rc) == 0)
+		return (0);
 	raycast_compute_texture(game, rc, perp_wall_dist, line_height);
+	return (1);
 }
 
-void	raycast(t_game *game)
+int	raycast(t_game *game)
 {
 	int			x;
 	int			y;
@@ -103,7 +105,8 @@ void	raycast(t_game *game)
 	x = 0;
 	while (x < WIDTH)
 	{
-		raycast_compute(x, game, &raycast);
+		if (raycast_compute(x, game, &raycast) == 0)
+			return (0);
 		y = 0;
 		while (y < HEIGHT)
 		{
@@ -115,4 +118,5 @@ void	raycast(t_game *game)
 		}
 		x++;
 	}
+	return (1);
 }

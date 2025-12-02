@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/01 16:25:50 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:21:38 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define MOVE 0.08
 # define ROTATE 0.08
 # define MINIMAP_RATIO 0.2
+
+# define TEXTURE_UPDATE_FREQ 500000
+# define UPDATE_TEXTURE(tv) tv.tv_usec % TEXTURE_UPDATE_FREQ == 0
 
 # ifdef BONUS
 #  define MAP_ELEMENTS "10NSEWD"
@@ -242,5 +245,6 @@ typedef struct s_raycast
 # define ERR_MLX_XPM_FILE "Error\nmlx_xpm_file_to_image()\n"
 # define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
 # define ERR_INVALID_CARDINAL "Error\nInvalid cardinal direction\n"
+# define ERR_GETTIMEOFDAY "Error\ngettimeofday()\n"
 
 #endif
