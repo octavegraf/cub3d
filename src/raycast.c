@@ -25,7 +25,7 @@ static void	raycast_get_texture(t_game *game, t_raycast *raycast)
 		texture_so = game->mlx.textures[SO];
 	if (texture_ea == NULL)
 		texture_ea = game->mlx.textures[EA];
-	if (texture_we)
+	if (texture_we == NULL)
 		texture_we = game->mlx.textures[WE];
 	if (raycast->side == 0)
 	{

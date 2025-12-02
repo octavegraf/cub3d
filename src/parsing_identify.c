@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 20:10:33 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/01 12:35:36 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/02 15:21:47 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ int	identify(char *line, t_game *game)
 	else if (!ft_strncmp(temp, "F", 1) || !ft_strncmp(temp, "C", 1))
 		return (identify_colors(temp, game));
 	else
-		return (ft_dprintf(2, ERR_UNKNOWN_ID), 1);
+		return (2);
 }
 
 int	identify_textures(char *line, t_game *game)
 {
 	char	*path;
 	char	*temp;
+	int		fd;
 
 	path = skip_whitespaces(line + 2);
 	temp = path;
@@ -44,13 +45,15 @@ int	identify_textures(char *line, t_game *game)
 	path = ft_substr(path, 0, temp - path);
 	if (!path)
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
-	if (readable_file(path) == -1)
+	fd = readable_file(path);
+	if (fd == -1)
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), free(path), 1);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), 1);
-	if (add_texture(game, path))
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), free(path), 1);
-	return (0);
+		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), close(fd), 1);
+	if (add_texture(game, line, path))
+		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), free(path), close(fd),
+			1);
+	return (close(fd), 0);
 }
 
 int	identify_map(char **map, t_game *game)
@@ -129,9 +132,9 @@ int	identify_colors(char *line, t_game *game)
 	}
 	if (*temp)
 		return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
-	if (!ft_strncmp(line, "F", 1) && !game->scene.floor_color)
+	if (!ft_strncmp(line, "F", 1) && game->scene.floor_color == -1)
 		game->scene.floor_color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
-	else if (!ft_strncmp(line, "C", 1) && !game->scene.ceiling_color)
+	else if (!ft_strncmp(line, "C", 1) && game->scene.ceiling_color == -1)
 		game->scene.ceiling_color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 	else
 		return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);

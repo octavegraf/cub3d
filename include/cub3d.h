@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/01 16:27:08 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/02 14:58:21 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,9 +233,10 @@ int			readable_file(char *file_path);
  * 
  * @param[in] cub_path Path to the .cub file.
  * @param[in, out] game Pointer to the game structure.
+ * @param[in] id Dumb value, will be replaced.
  * @return int 0 on success, 1 on error.
  */
-int			read_cub_file(char *cub_path, t_game *game);
+int		read_cub_file(char *cub_path, t_game *game, int id);
 
 //	t_img.c
 
@@ -333,6 +334,6 @@ t_player	player_init(char **map);
  * @param cardinal Cardinal direction identifier.
  * @return int 0 on success, 1 on error.
  */
-int		add_texture(t_game *game, char *file_path);
+int		add_texture(t_game *game, char *line, char *file_path);
 
 #endif
