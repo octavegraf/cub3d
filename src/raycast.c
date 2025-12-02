@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:43:24 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/02 11:08:18 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,44 @@
 
 static void	raycast_get_texture(t_game *game, t_raycast *raycast)
 {
+	static t_list	*texture_no = NULL;
+	static t_list	*texture_so = NULL;
+	static t_list	*texture_ea = NULL;
+	static t_list	*texture_we = NULL;
+
+	if (texture_no == NULL)
+		texture_no = game->mlx.textures[NO];
+	if (texture_so == NULL)
+		texture_so = game->mlx.textures[SO];
+	if (texture_ea == NULL)
+		texture_ea = game->mlx.textures[EA];
+	if (texture_we)
+		texture_we = game->mlx.textures[WE];
 	if (raycast->side == 0)
 	{
 		if (raycast->ray_dir_x < 0)
-			raycast->texture = &(game->mlx.textures[NO]);
+		{
+			raycast->texture = texture_no->content; 
+			texture_no = texture_no->next;
+		}
 		else
-			raycast->texture = &(game->mlx.textures[SO]);
+		{
+			raycast->texture = texture_so->content;
+			texture_so = texture_so->next;
+		}
 	}
 	else
 	{
 		if (raycast->ray_dir_y < 0)
-			raycast->texture = &(game->mlx.textures[WE]);
+		{
+			raycast->texture = texture_we->content;
+			texture_we = texture_we->next;
+		}
 		else
-			raycast->texture = &(game->mlx.textures[EA]);
+		{
+			raycast->texture = texture_ea->content;
+			texture_ea = texture_ea->next;
+		}
 	}
 }
 

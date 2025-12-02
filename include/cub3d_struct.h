@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/01 13:57:43 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/01 16:25:50 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ enum e_key_press
  */
 typedef struct s_scene
 {
-	void	*textures[4];
+	t_list	*textures[4];
 	int		floor_color;
 	int		ceiling_color;
 	char	**map;
@@ -154,7 +154,7 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	frame;
-	t_img	textures[4];
+	t_list	*textures[4];
 }	t_mlx;
 
 /**

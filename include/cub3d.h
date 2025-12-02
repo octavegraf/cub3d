@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/01 14:23:19 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/01 16:27:08 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ int			t_mlx_is_valid(t_mlx *mlx);
  * @param[in] files Array of 4 texture file paths (NO, SO, WE, EA).
  * @return int 1 on success, 0 on failure.
  */
-int			t_mlx_init(t_mlx *mlx, char *files[4]);
+int			t_mlx_init(t_mlx *mlx, t_list *files[4]);
 
 /**
  * @brief Free all MLX resources (window, images, display).
