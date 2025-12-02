@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/02 11:09:46 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/02 13:51:22 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ static void	t_img_free(t_img *img)
 		mlx_destroy_image(img->mlx_ptr, img->img_ptr);
 		img->img_ptr = NULL;
 	}
+}
+
+static void	t_node_img_free(void *img)
+{
+	t_img_free(img);
+	free(img);
 }
 
 static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
@@ -38,8 +44,12 @@ static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 			node_img = ft_lstnew(NULL);
 			if (node_img == NULL)
 				return (0);
-			if (t_img_init_file(mlx->mlx_ptr, node_img->content, node_file->content) == 0)
-				return (0);
+			node_img->content = malloc(sizeof(t_img));
+			if (node_img->content == NULL)
+				return (free(node_img), 0); // FREE
+			if (!t_img_init_file(mlx->mlx_ptr, node_img->content,
+					node_file->content))
+				return (free(node_img), 0);
 			ft_lstadd_back(&(mlx->textures[i]), node_img);
 			node_file = node_file->next;
 		}
@@ -91,6 +101,7 @@ void	t_mlx_free(t_mlx *mlx)
 {
 	int		i;
 	t_list	*node_img;
+	//t_list	*tmp;
 
 	if (mlx->mlx_ptr == NULL)
 		return ;
@@ -99,11 +110,15 @@ void	t_mlx_free(t_mlx *mlx)
 	while (i < 4)
 	{
 		node_img = mlx->textures[i];
-		while (node_img != NULL)
+		ft_lstclear(&(mlx->textures[i]), t_node_img_free);
+		/*while (node_img != NULL)
 		{
 			t_img_free(node_img->content);
+			free(node_img->content);
+			tmp = node_img;
 			node_img = node_img->next;
-		}
+			free(tmp);
+		}*/
 		i++;
 	}
 	if (mlx->win_ptr != NULL)
