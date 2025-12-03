@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/02 15:15:35 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/02 16:51:09 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int	readable_file(char *file_path)
 	if (read(fd, NULL, 0) < 0)
 		return (ft_dprintf(2, ERR_OPEN_FILE, file_path), close(fd), -1);
 	return (fd);
+}
+
+static void	print_name(void *content)
+{
+	ft_printf("content: %s\n", content);
 }
 
 int	read_cub_file(char *cub_path, t_game *game, int id)
@@ -55,6 +60,14 @@ int	read_cub_file(char *cub_path, t_game *game, int id)
 		if (id == 1)
 			return (free(buff), close(fd), 1);
 	}
+	ft_lstiter(game->scene.textures[NO], &print_name);
+	ft_printf("\n");
+	ft_lstiter(game->scene.textures[SO], &print_name);
+	ft_printf("\n");
+	ft_lstiter(game->scene.textures[EA], &print_name);
+	ft_printf("\n");
+	ft_lstiter(game->scene.textures[WE], &print_name);
+	ft_printf("\n");
 	return (read_cub_file2(game, buff, fd));
 }
 

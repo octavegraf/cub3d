@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/02 16:21:38 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:49:52 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 # define ROTATE 0.08
 # define MINIMAP_RATIO 0.2
 
-# define TEXTURE_UPDATE_FREQ 500000
-# define UPDATE_TEXTURE(tv) tv.tv_usec % TEXTURE_UPDATE_FREQ == 0
+# define TEXTURE_UPDATE_FREQ 5
+# define UPDATE_TEXTURE(sec) (sec % TEXTURE_UPDATE_FREQ) == 0
 
 # ifdef BONUS
 #  define MAP_ELEMENTS "10NSEWD"

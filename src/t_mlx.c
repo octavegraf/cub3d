@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/02 13:51:22 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/02 17:19:20 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ static void	t_node_img_free(void *img)
 	free(img);
 }
 
+static void	print_name(void *content)
+{
+	ft_printf("init: %s\n", content);
+}
+
 static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 {
 	int		i;
@@ -39,6 +44,7 @@ static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 	while (i < 4)
 	{
 		node_file = files[i];
+		ft_lstiter(node_file, &print_name);
 		while (node_file != NULL)
 		{
 			node_img = ft_lstnew(NULL);
@@ -47,6 +53,7 @@ static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 			node_img->content = malloc(sizeof(t_img));
 			if (node_img->content == NULL)
 				return (free(node_img), 0); // FREE
+			ft_printf("\t%s\n", node_file->content);
 			if (!t_img_init_file(mlx->mlx_ptr, node_img->content,
 					node_file->content))
 				return (free(node_img), 0);
@@ -54,6 +61,7 @@ static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 			node_file = node_file->next;
 		}
 		i++;
+		ft_printf("\n");
 	}
 	return (1);
 }

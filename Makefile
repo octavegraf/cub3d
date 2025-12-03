@@ -9,6 +9,7 @@ OBJ_FOLDER			=	objects/
 OBJ					=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=.o))
 OBJ_BONUS			=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=_bonus.o))
 DPD					=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=.d))
+DPD_BONUS			=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=_bonus.d))
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
@@ -42,7 +43,7 @@ $(OBJ_FOLDER)%_bonus.o	: %.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
--include $(DPD)
+-include $(DPD) $(DPD_BONUS)
 
 $(FT_PRINTF):
 	make -C $(FT_PRINTF_FOLDER) all
