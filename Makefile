@@ -2,7 +2,7 @@ CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -MMD
 bonus			: CFLAGS += -DBONUS
 NAME				=	cub3d
-FILES				=	add_texture display_frame display_minimap game hooks img_fill main movement raycast raycast_dda raycast_init parsing parsing_identify parsing_utils t_img t_mlx t_player
+FILES				=	add_texture display_frame display_minimap game hooks img_fill main movement timeval raycast raycast_dda raycast_init parsing parsing_identify parsing_utils t_img t_mlx t_player
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 INCLUDES			=	-Ift_printf -Imlx -Ignl -Iinclude
 OBJ_FOLDER			=	objects/
@@ -32,8 +32,10 @@ all					:	$(NAME)
 $(NAME)				:	$(OBJ) $(FT_PRINTF) $(MLX) $(GNL)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 
-bonus				:	$(OBJ_BONUS)  $(FT_PRINTF) $(MLX) $(GNL)
+$(NAME)_bonus		:	$(OBJ_BONUS)  $(FT_PRINTF) $(MLX) $(GNL)
 	$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(NAME)_bonus $(LIBS)
+
+bonus				: $(NAME)_bonus	
 
 $(OBJ_FOLDER)%.o	: %.c
 	mkdir -p $(dir $@)

@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/02 15:15:19 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/03 17:25:39 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main(int argc, char **argv)
 	game = (t_game){0};
 	game.scene.ceiling_color = -1;
 	game.scene.floor_color = -1;
+	if (gettimeofday(&(game.tv), NULL) != 0)
+		return (ft_dprintf(2, ERR_GETTIMEOFDAY), 1);
 	if (read_cub_file(argv[1], &game, 0))
 		return (game_free(game), 1);
 	if (game_init(&game) == 0)

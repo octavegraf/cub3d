@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/02 17:49:52 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/03 16:56:32 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@
 # define ROTATE 0.08
 # define MINIMAP_RATIO 0.2
 
-# define TEXTURE_UPDATE_FREQ 5
-# define UPDATE_TEXTURE(sec) (sec % TEXTURE_UPDATE_FREQ) == 0
+# define FREQ_SEC 0
+# define FREQ_USEC 100000
+# define FREQ_UPDATE FREQ_SEC * 1000 + FREQ_USEC / 1000
 
 # ifdef BONUS
 #  define MAP_ELEMENTS "10NSEWD"
@@ -170,10 +171,11 @@ typedef struct s_mlx
  */
 typedef struct s_game
 {
-	t_mlx		mlx;
-	t_player	player;
-	t_scene		scene;
-	char		key_press[6];
+	t_mlx			mlx;
+	t_player		player;
+	t_scene			scene;
+	char			key_press[6];
+	struct timeval	tv; 
 }	t_game;
 
 /**

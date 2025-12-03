@@ -6,27 +6,37 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/02 17:50:53 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/03 16:50:50 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	raycast_update_texture(t_img **texture, t_list **node_img, struct timeval *tv)
+static void	update_texture(t_list **node_img, t_list *head_img, struct timeval *tv_old, struct timeval *tv)
 {
-	*texture = (*node_img)->content;
-	if (UPDATE_TEXTURE((long long)tv->tv_sec) != 0)
+	if (*node_img == NULL)
+		*node_img = head_img;
+	else if (diff_time_tv(tv_old, tv) != 0)
+	{
 		*node_img = (*node_img)->next;
-	return (1);
+		if (*node_img == NULL)
+			*node_img = head_img;
+	}
 }
 
-static int	raycast_get_texture(t_game *game, t_raycast *raycast, struct timeval *tv)
+static void	raycast_get_texture(t_game *game, t_raycast *raycast, struct timeval *tv)
 {
 	static t_list	*texture_no = NULL;
 	static t_list	*texture_so = NULL;
 	static t_list	*texture_ea = NULL;
 	static t_list	*texture_we = NULL;
 
+	update_texture(&texture_no, game->mlx.textures[NO], &(game->tv), tv);
+	update_texture(&texture_so, game->mlx.textures[SO], &(game->tv), tv);
+	update_texture(&texture_ea, game->mlx.textures[EA], &(game->tv), tv);
+	update_texture(&texture_we, game->mlx.textures[WE], &(game->tv), tv);
+	if (diff_time_tv(&(game->tv), tv) != 0)
+		update_time_tv(&(game->tv), FREQ_SEC, FREQ_USEC);
 	if (texture_no == NULL)
 		texture_no = game->mlx.textures[NO];
 	if (texture_so == NULL)
@@ -38,16 +48,16 @@ static int	raycast_get_texture(t_game *game, t_raycast *raycast, struct timeval 
 	if (raycast->side == 0)
 	{
 		if (raycast->ray_dir_x < 0)
-			return (raycast_update_texture(&(raycast->texture), &texture_no, tv));
+			raycast->texture = texture_no->content;
 		else
-			return (raycast_update_texture(&(raycast->texture), &texture_so, tv));
+			raycast->texture = texture_so->content;
 	}
 	else
 	{
 		if (raycast->ray_dir_y < 0)
-			return (raycast_update_texture(&(raycast->texture), &texture_we, tv));
+			raycast->texture = texture_we->content;
 		else
-			return (raycast_update_texture(&(raycast->texture), &texture_ea, tv));
+			raycast->texture = texture_ea->content;
 	}
 }
 
@@ -67,7 +77,7 @@ static void	raycast_compute_texture(t_game *g, t_raycast *rc, double d, int lh)
 	rc->tex_pos = (rc->draw_start - HEIGHT / 2 + lh / 2) * rc->step;
 }
 
-static int	raycast_compute(int x, t_game *game, t_raycast *rc, struct timeval *tv)
+static void	raycast_compute(int x, t_game *game, t_raycast *rc, struct timeval *tv)
 {
 	double		perp_wall_dist;
 	int			line_height;
@@ -85,10 +95,8 @@ static int	raycast_compute(int x, t_game *game, t_raycast *rc, struct timeval *t
 	rc->draw_end = line_height / 2 + HEIGHT / 2;
 	if (rc->draw_end >= HEIGHT)
 		rc->draw_end = HEIGHT - 1;
-	if (raycast_get_texture(game, rc, tv) == 0)
-		return (0);
+	raycast_get_texture(game, rc, tv);
 	raycast_compute_texture(game, rc, perp_wall_dist, line_height);
-	return (1);
 }
 
 int	raycast(t_game *game)
@@ -104,8 +112,7 @@ int	raycast(t_game *game)
 	x = 0;
 	while (x < WIDTH)
 	{
-		if (raycast_compute(x, game, &raycast, &tv) == 0)
-			return (0);
+		raycast_compute(x, game, &raycast, &tv);
 		y = 0;
 		while (y < HEIGHT)
 		{
