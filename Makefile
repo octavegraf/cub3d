@@ -1,12 +1,14 @@
 CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -MMD
 NAME				=	cub3d
-FILES				=	display_frame display_minimap game hooks img_fill main movement raycast raycast_dda raycast_init parsing parsing_identify parsing_utils t_img t_mlx t_player
+FILES				=	add_texture display_frame display_minimap game hooks img_fill main movement timeval raycast raycast_dda raycast_init parsing parsing_identify parsing_utils t_img t_mlx t_player
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 INCLUDES			=	-Ift_printf -Imlx -Ignl -Iinclude
 OBJ_FOLDER			=	objects/
 OBJ					=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=.o))
+OBJ_BONUS			=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=_bonus.o))
 DPD					=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=.d))
+DPD_BONUS			=	$(addprefix $(OBJ_FOLDER), $(SRC:.c=_bonus.d))
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
@@ -24,16 +26,20 @@ MLX					=	$(addprefix $(MLX_FOLDER), libmlx.a)
 GNL_FOLDER			=	gnl/
 GNL					=	$(addprefix $(GNL_FOLDER), get_next_line.a)
 
-all					:	$(FT_PRINTF) $(MLX) $(GNL) $(NAME)
+all					:	$(NAME)
 
 $(NAME)				:	$(OBJ) $(FT_PRINTF) $(MLX) $(GNL)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 
-$(OBJ_FOLDER)%.o	: %.c
+$(OBJ_FOLDER)%.o	:	%.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
--include $(DPD)
+$(OBJ_FOLDER)%_bonus.o	: %.c
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+-include $(DPD) $(DPD_BONUS)
 
 $(FT_PRINTF):
 	make -C $(FT_PRINTF_FOLDER) all
@@ -43,6 +49,11 @@ $(MLX):
 
 $(GNL):
 	make -C $(GNL_FOLDER) all
+
+$(NAME)_bonus		:	$(OBJ_BONUS)  $(FT_PRINTF) $(MLX) $(GNL)
+	$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(NAME)_bonus $(LIBS)
+bonus				:	CFLAGS += -DBONUS -g3
+bonus				:	$(NAME)_bonus
 
 clean				:
 	rm -rf $(OBJ_FOLDER)

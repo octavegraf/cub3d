@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/26 13:31:05 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/04 12:20:08 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <mlx.h>
 # include <math.h>
+# include <sys/time.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "cub3d_struct.h"
@@ -92,7 +93,7 @@ void		game_update_moves(t_game *game);
  * 
  * @param[in, out] game Pointer to the game structure.
  */
-void		raycast(t_game *game);
+int			raycast(t_game *game);
 
 //	raycast_init.c
 
@@ -233,9 +234,10 @@ int			readable_file(char *file_path);
  * 
  * @param[in] cub_path Path to the .cub file.
  * @param[in, out] game Pointer to the game structure.
+ * @param[in] id Dumb value, will be replaced.
  * @return int 0 on success, 1 on error.
  */
-int			read_cub_file(char *cub_path, t_game *game);
+int			read_cub_file(char *cub_path, t_game *game, int id);
 
 //	t_img.c
 
@@ -277,7 +279,7 @@ int			t_mlx_is_valid(t_mlx *mlx);
  * @param[in] files Array of 4 texture file paths (NO, SO, WE, EA).
  * @return int 1 on success, 0 on failure.
  */
-int			t_mlx_init(t_mlx *mlx, char *files[4]);
+int			t_mlx_init(t_mlx *mlx, t_list *files[4]);
 
 /**
  * @brief Free all MLX resources (window, images, display).
@@ -323,5 +325,19 @@ int			close_window(void *param);
  * @return t_player The initialized player structure.
  */
 t_player	player_init(char **map);
+
+//textures_list.c
+/**
+ * @brief Add a texture file path to the game's texture list.
+ * 
+ * @param game Game structure pointer.
+ * @param file_path Path to the texture file.
+ * @param cardinal Cardinal direction identifier.
+ * @return int 0 on success, 1 on error.
+ */
+int			add_texture(t_game *game, char *line, char *file_path);
+
+int			diff_time_tv(struct timeval *tv1, struct timeval *t2);
+void		update_time_tv(struct timeval *tv, long long sec, long long usec);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/24 10:48:59 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/04 12:22:32 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@
 # define MOVE 0.08
 # define ROTATE 0.08
 # define MINIMAP_RATIO 0.2
+
+# define FREQ_SEC 0
+# define FREQ_USEC 100000
+
+# ifdef BONUS
+#  define MAP_ELEMENTS "10NSEWD"
+# else
+#  define MAP_ELEMENTS "10NSEW"
+# endif
 
 enum e_screensize
 {
@@ -85,7 +94,7 @@ enum e_key_press
  */
 typedef struct s_scene
 {
-	char	*textures[4];
+	t_list	*textures[4];
 	int		floor_color;
 	int		ceiling_color;
 	char	**map;
@@ -148,7 +157,7 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	frame;
-	t_img	textures[4];
+	t_list	*textures[4];
 }	t_mlx;
 
 /**
@@ -161,10 +170,11 @@ typedef struct s_mlx
  */
 typedef struct s_game
 {
-	t_mlx		mlx;
-	t_player	player;
-	t_scene		scene;
-	char		key_press[6];
+	t_mlx			mlx;
+	t_player		player;
+	t_scene			scene;
+	char			key_press[6];
+	struct timeval	tv;
 }	t_game;
 
 /**
@@ -235,5 +245,7 @@ typedef struct s_raycast
 # define ERR_MLX_GET_DATA_ADDR "Error\nmlx_get_data_addr()\n"
 # define ERR_MLX_XPM_FILE "Error\nmlx_xpm_file_to_image()\n"
 # define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
+# define ERR_INVALID_CARDINAL "Error\nInvalid cardinal direction\n"
+# define ERR_GETTIMEOFDAY "Error\ngettimeofday()\n"
 
 #endif

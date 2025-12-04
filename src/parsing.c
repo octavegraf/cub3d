@@ -6,14 +6,13 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/11/25 15:05:55 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/04 11:44:02 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	read_cub_file2(t_game *game, int fd);
-static int	read_cub_file3(t_game *game, char *buff, int fd);
+static int	read_cub_file2(t_game *game, char *buff, int fd);
 
 int	readable_file(char *file_path)
 {
@@ -30,10 +29,9 @@ int	readable_file(char *file_path)
 	return (fd);
 }
 
-int	read_cub_file(char *cub_path, t_game *game)
+int	read_cub_file(char *cub_path, t_game *game, int id)
 {
 	int		fd;
-	int		lines_read;
 	char	*buff;
 
 	if (ft_strncmp(cub_path + ft_strlen(cub_path) - 4, ".cub", 4))
@@ -41,44 +39,34 @@ int	read_cub_file(char *cub_path, t_game *game)
 	fd = readable_file(cub_path);
 	if (fd == -1)
 		return (1);
-	lines_read = -1;
-	while (++lines_read < 6)
+	buff = NULL;
+	while (true)
 	{
+		if (buff)
+			free(buff);
 		buff = get_next_line(fd);
 		if (!buff)
 			return (close(fd), ft_dprintf(2, ERR_WRONG_LINE), 1);
-		if (!ft_wstrlen(buff) && lines_read--)
-		{
-			free(buff);
+		if (!ft_wstrlen(buff))
 			continue ;
-		}
-		if (identify(buff, game))
+		id = identify(buff, game);
+		if (id == 2)
+			break ;
+		if (id == 1)
 			return (free(buff), close(fd), 1);
-		free(buff);
 	}
-	return (read_cub_file2(game, fd));
+	return (read_cub_file2(game, buff, fd));
 }
 
-static int	read_cub_file2(t_game *game, int fd)
-{
-	char	*buff;
-
-	buff = get_next_line(fd);
-	while (buff && !ft_wstrlen(buff))
-	{
-		free(buff);
-		buff = get_next_line(fd);
-	}
-	if (!buff)
-		return (close(fd), ft_dprintf(2, ERR_WRONG_LINE), 1);
-	return (read_cub_file3(game, buff, fd));
-}
-
-static int	read_cub_file3(t_game *game, char *buff, int fd)
+static int	read_cub_file2(t_game *game, char *buff, int fd)
 {
 	char	**map;
 	char	*temp;
 
+	if (game->scene.ceiling_color == -1 || game->scene.floor_color == -1
+		|| !game->scene.textures[NO] || !game->scene.textures[SO]
+		|| !game->scene.textures[WE] || !game->scene.textures[EA])
+		return (free(buff), close(fd), ft_dprintf(2, ERR_UNKNOWN_ID), 1);
 	map = NULL;
 	while (ft_wstrlen(buff))
 	{
