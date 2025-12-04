@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/04 14:57:22 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/04 16:19:44 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@
 
 # define MOVE 0.08
 # define ROTATE 0.08
-# define MINIMAP_RATIO 0.2
+
+# define RADIUS_MAP 1
+#define SCALE_SCREEN_MAP 100 
 # define RADIUS_PIXELS 1000
 
 # define FREQ_SEC 0
