@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/24 10:48:59 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/04 14:39:16 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define MOVE 0.08
 # define ROTATE 0.08
 # define MINIMAP_RATIO 0.2
+# define RADIUS_PIXELS 1000
 
 enum e_screensize
 {
@@ -74,6 +75,15 @@ enum e_key_press
 	MOVE_LEFT,
 	MOVE_RIGHT
 };
+
+typedef struct s_quadri
+{
+	int	x_start;
+	int	x_end;
+	int	y_start;
+	int	y_end;
+	int	color;
+}	t_quadri;
 
 /**
  * @brief Structure for the scene.
