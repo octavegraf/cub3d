@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures_list.c                                    :+:      :+:    :+:   */
+/*   add_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 11:31:38 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/02 15:25:09 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/04 18:20:16 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 #ifdef BONUS
+
+int	add_texture2(t_game *game, int fd, int cardinal, t_list *lst);
 
 int	add_texture(t_game *game, char *line, char *file_path)
 {
@@ -31,16 +33,24 @@ int	add_texture(t_game *game, char *line, char *file_path)
 		cardinal = WE;
 	else if (!ft_strncmp(line, "EA", 2))
 		cardinal = EA;
+	else if (!ft_strncmp(line, "D", 1))
+		cardinal = D;
 	else
 		return (ft_dprintf(2, ERR_INVALID_CARDINAL), close(fd), 1);
 	lst = ft_lstnew(file_path);
 	if (!lst)
 		return (close(fd), 1);
+	return (add_texture2(game, fd, cardinal, lst));
+}
+
+int	add_texture2(t_game *game, int fd, int cardinal, t_list *lst)
+{
 	if (!game->scene.textures[cardinal])
 		game->scene.textures[cardinal] = lst;
 	else
 		ft_lstadd_back(&game->scene.textures[cardinal], lst);
-	return (close(fd), 0);
+	close(fd);
+	return (0);
 }
 
 #else
