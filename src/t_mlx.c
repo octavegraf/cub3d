@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/02 17:19:20 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/04 11:58:13 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ static void	t_node_img_free(void *img)
 	free(img);
 }
 
-static void	print_name(void *content)
-{
-	ft_printf("init: %s\n", content);
-}
-
 static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 {
 	int		i;
@@ -44,7 +39,6 @@ static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 	while (i < 4)
 	{
 		node_file = files[i];
-		ft_lstiter(node_file, &print_name);
 		while (node_file != NULL)
 		{
 			node_img = ft_lstnew(NULL);
@@ -52,39 +46,17 @@ static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 				return (0);
 			node_img->content = malloc(sizeof(t_img));
 			if (node_img->content == NULL)
-				return (free(node_img), 0); // FREE
-			ft_printf("\t%s\n", node_file->content);
+				return (free(node_img), 0);
 			if (!t_img_init_file(mlx->mlx_ptr, node_img->content,
 					node_file->content))
-				return (free(node_img), 0);
+				return (free(node_img->content), free(node_img), 0);
 			ft_lstadd_back(&(mlx->textures[i]), node_img);
 			node_file = node_file->next;
 		}
 		i++;
-		ft_printf("\n");
 	}
 	return (1);
 }
-/*
-static int	t_mlx_textures_init(t_mlx *mlx, char *files[4])
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		mlx->textures[i].img_ptr = NULL;
-		i++;
-	}
-	i = 0;
-	while (i < 4)
-	{
-		if (t_img_init_file(mlx->mlx_ptr, &(mlx->textures[i]), files[i]) == 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}*/
 
 int	t_mlx_init(t_mlx *mlx, t_list *files[4])
 {
@@ -109,7 +81,6 @@ void	t_mlx_free(t_mlx *mlx)
 {
 	int		i;
 	t_list	*node_img;
-	//t_list	*tmp;
 
 	if (mlx->mlx_ptr == NULL)
 		return ;
@@ -119,14 +90,6 @@ void	t_mlx_free(t_mlx *mlx)
 	{
 		node_img = mlx->textures[i];
 		ft_lstclear(&(mlx->textures[i]), t_node_img_free);
-		/*while (node_img != NULL)
-		{
-			t_img_free(node_img->content);
-			free(node_img->content);
-			tmp = node_img;
-			node_img = node_img->next;
-			free(tmp);
-		}*/
 		i++;
 	}
 	if (mlx->win_ptr != NULL)

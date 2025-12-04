@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/03 16:56:32 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/04 12:22:32 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 
 # define FREQ_SEC 0
 # define FREQ_USEC 100000
-# define FREQ_UPDATE FREQ_SEC * 1000 + FREQ_USEC / 1000
 
 # ifdef BONUS
 #  define MAP_ELEMENTS "10NSEWD"
@@ -175,7 +174,7 @@ typedef struct s_game
 	t_player		player;
 	t_scene			scene;
 	char			key_press[6];
-	struct timeval	tv; 
+	struct timeval	tv;
 }	t_game;
 
 /**

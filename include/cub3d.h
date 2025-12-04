@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/03 16:11:54 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/04 12:20:08 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ int			readable_file(char *file_path);
  * @param[in] id Dumb value, will be replaced.
  * @return int 0 on success, 1 on error.
  */
-int		read_cub_file(char *cub_path, t_game *game, int id);
+int			read_cub_file(char *cub_path, t_game *game, int id);
 
 //	t_img.c
 
@@ -335,9 +335,8 @@ t_player	player_init(char **map);
  * @param cardinal Cardinal direction identifier.
  * @return int 0 on success, 1 on error.
  */
-int		add_texture(t_game *game, char *line, char *file_path);
+int			add_texture(t_game *game, char *line, char *file_path);
 
-long long	get_time_tv(struct timeval *tv);
 int			diff_time_tv(struct timeval *tv1, struct timeval *t2);
 void		update_time_tv(struct timeval *tv, long long sec, long long usec);
 
