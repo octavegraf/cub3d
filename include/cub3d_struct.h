@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/04 12:22:32 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/04 18:23:05 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,18 @@
 # define FREQ_SEC 0
 # define FREQ_USEC 100000
 
+
 # ifdef BONUS
 #  define MAP_ELEMENTS "10NSEWD"
+/** \brief Closed door left. */
+#  define C_L 'L'
+/** \brief Closed door up. */
+#  define C_U 'U'
+/** \brief Open door left. */
+#  define O_L 'M'
+/** \brief Open door up. */
+#  define O_U 'V'
+
 # else
 #  define MAP_ELEMENTS "10NSEW"
 # endif
@@ -66,12 +76,13 @@ enum e_color
 
 enum e_direction
 {
-	NO = 0,
-	SO = 1,
-	WE = 2,
-	EA = 3,
-	F = 4,
-	C = 5
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C,
+	D,
 };
 
 enum e_key_press
@@ -94,7 +105,7 @@ enum e_key_press
  */
 typedef struct s_scene
 {
-	t_list	*textures[4];
+	t_list	*textures[7];
 	int		floor_color;
 	int		ceiling_color;
 	char	**map;
@@ -157,7 +168,7 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	frame;
-	t_list	*textures[4];
+	t_list	*textures[6];
 }	t_mlx;
 
 /**
@@ -247,5 +258,6 @@ typedef struct s_raycast
 # define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
 # define ERR_INVALID_CARDINAL "Error\nInvalid cardinal direction\n"
 # define ERR_GETTIMEOFDAY "Error\ngettimeofday()\n"
+# define ERR_DOOR_MISS_WALLS "Error\n Missing texture or wall with a door\n"
 
 #endif
