@@ -5,8 +5,8 @@
 			"name": "Debug philosophers",
 			"type": "lldb",
 			"request": "launch",
-			"program": "${workspaceFolder}/cub3d",
-			"args": ["${workspaceFolder}/maps/valid.cub"],
+			"program": "${workspaceFolder}/cub3d_bonus",
+			"args": ["${workspaceFolder}/maps/bonus_door.cub"],
 			"cwd": "${workspaceFolder}",
 			"console": "integratedTerminal",
 			"preLaunchTask": "build"

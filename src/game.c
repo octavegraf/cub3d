@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/02 11:47:31 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/05 10:23:04 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	t_scene_free(t_scene scene)
 		free(scene.map);
 	}
 	i = 0;
-	while (i < 4)
+	while (i <= D)
 	{
 		ft_lstclear(&scene.textures[i], free);
 		i++;

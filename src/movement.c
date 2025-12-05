@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:43:24 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:45:23 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,8 @@ void	game_update_moves(t_game *game)
 		game_rotate(game, ROTATE);
 	if (game->key_press[ARROW_LEFT] == 1)
 		game_rotate(game, -ROTATE);
+	if (game->mouse_move[MOUSE_LEFT])
+		game_rotate(game, -(game->mouse_move[MOUSE_LEFT]));
+	if (game->mouse_move[MOUSE_RIGHT])
+		game_rotate(game, (game->mouse_move[MOUSE_RIGHT]));
 }

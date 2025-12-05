@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/04 12:20:08 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:58:46 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ void		img_fill_ceiling_floor(t_game *game, int x, int y);
  * @param[in] raycast Pointer to the raycast structure containing texture info.
  */
 void		raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast);
+
+// mouse.c
+int		mouse(int x, int y, void *param);
 
 //	movement.c
 
