@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/04 18:23:05 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/05 10:08:01 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,6 @@ typedef struct s_raycast
 # define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
 # define ERR_INVALID_CARDINAL "Error\nInvalid cardinal direction\n"
 # define ERR_GETTIMEOFDAY "Error\ngettimeofday()\n"
-# define ERR_DOOR_MISS_WALLS "Error\n Missing texture or wall with a door\n"
+# define ERR_DOOR_MISS_WALLS "Error\nMissing texture or walls around a door\n"
 
 #endif
