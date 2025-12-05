@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/04 16:19:44 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:17:40 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@
 # define MOVE 0.08
 # define ROTATE 0.08
 
-# define RADIUS_MAP 1
-#define SCALE_SCREEN_MAP 100 
+# define RADIUS_MAP 3
+# define SCALE_SCREEN_MAP 100 
+# define MIN_DIM_RATIO 0.4
 # define RADIUS_PIXELS 1000
+# define SIZE_PLAYER 10
 
 # define FREQ_SEC 0
 # define FREQ_USEC 100000
@@ -187,6 +189,8 @@ typedef struct s_game
 	t_scene			scene;
 	char			key_press[6];
 	struct timeval	tv;
+	int				minimap_radius_screen;
+	int				minimap_scale_screen_map;		
 }	t_game;
 
 /**

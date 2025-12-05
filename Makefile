@@ -56,6 +56,7 @@ $(NAME)_bonus		:	$(OBJ_BONUS)  $(FT_PRINTF) $(MLX) $(GNL)
 	$(CC) $(CFLAGS) $(OBJ_BONUS) -o $(NAME)_bonus $(LIBS)
 bonus				:	CFLAGS += -DBONUS -g3
 bonus				:	$(NAME)_bonus
+b					:	bonus
 
 clean				:
 	rm -rf $(OBJ_FOLDER)
