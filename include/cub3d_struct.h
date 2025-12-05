@@ -6,43 +6,40 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/05 10:08:01 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/05 17:48:50 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_STRUCT_H
 # define CUB3D_STRUCT_H
 
-# ifdef __linux__
-#  define KEY_ESC 65307
-#  define KEY_W 119
-#  define KEY_S 115
-#  define KEY_A 97
-#  define KEY_D 100
-#  define KEY_UP 65362
-#  define KEY_DOWN 65364
-#  define KEY_LEFT 65361
-#  define KEY_RIGHT 65363
-
-# elif __APPLE__
-#  define KEY_ESC 53
-#  define KEY_W 119
-#  define KEY_S 115
-#  define KEY_A 97
-#  define KEY_D 100
-#  define KEY_UP 65362
-#  define KEY_DOWN 65364
-#  define KEY_LEFT 65361
-#  define KEY_RIGHT 65363
-# endif
-
 # define MOVE 0.08
 # define ROTATE 0.08
+# define MOUSE_SENSITIVITY 0.3
 # define MINIMAP_RATIO 0.2
 
 # define FREQ_SEC 0
 # define FREQ_USEC 100000
 
+# define KEY_W 119
+# define KEY_S 115
+# define KEY_A 97
+# define KEY_D 100
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+
+# ifdef __linux__
+#  define KEY_ESC 65307
+#  define KEY_SPACE 32
+#  define LEFT_CLICK 1
+
+# elif __APPLE__
+#  define KEY_ESC 53
+#  define KEY_SPACE 49
+#  define LEFT_CLICK 1
+# endif
 
 # ifdef BONUS
 #  define MAP_ELEMENTS "10NSEWD"
@@ -93,6 +90,12 @@ enum e_key_press
 	MOVE_DOWN,
 	MOVE_LEFT,
 	MOVE_RIGHT
+};
+
+enum e_mouse_move
+{
+	MOUSE_LEFT,
+	MOUSE_RIGHT
 };
 
 /**
@@ -169,6 +172,8 @@ typedef struct s_mlx
 	void	*win_ptr;
 	t_img	frame;
 	t_list	*textures[6];
+	int		mouse_x;
+	int		mouse_y;
 }	t_mlx;
 
 /**
@@ -185,6 +190,7 @@ typedef struct s_game
 	t_player		player;
 	t_scene			scene;
 	char			key_press[6];
+	float			mouse_move[2];
 	struct timeval	tv;
 }	t_game;
 
