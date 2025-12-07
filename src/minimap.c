@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 14:57:29 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/07 17:34:55 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/07 18:32:12 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,29 @@ static void	print_minimap(char minimap[(RADIUS_MAP * 2) + 1][(RADIUS_MAP * 2) + 
 	}
 }*/
 
+static void	draw_player_fov_minimap(t_game *game)
+{
+	int	ray_pos_x;
+	int	ray_pos_y;
+	int	i;
+
+	i = 0;
+	while (i < MINIMAP_NB_PIXELS_FOV)
+	{
+		// get partial ray_dir
+		ray_pos_x = (game->player.dir_x - game->player.plane_x) * game->minimap_scale_screen_map * i * MINIMAP_FOV_STEP;
+		ray_pos_y = (game->player.dir_y - game->player.plane_y) * game->minimap_scale_screen_map * i * MINIMAP_FOV_STEP;
+		img_fill_pixel(game->mlx.frame, RADIUS_MAP * game->minimap_scale_screen_map + ray_pos_y, RADIUS_MAP * game->minimap_scale_screen_map + ray_pos_x, RED);
+		ray_pos_x = (game->player.dir_x + game->player.plane_x) * game->minimap_scale_screen_map * i * MINIMAP_FOV_STEP;
+		ray_pos_y = (game->player.dir_y + game->player.plane_y) * game->minimap_scale_screen_map * i * MINIMAP_FOV_STEP;
+		img_fill_pixel(game->mlx.frame, RADIUS_MAP * game->minimap_scale_screen_map + ray_pos_y, RADIUS_MAP * game->minimap_scale_screen_map + ray_pos_x, RED);
+		i++;
+	}
+
+
+
+}
+
 int	display_minimap(t_game *game)
 {
 	char		minimap[(RADIUS_MAP * 2) + 1][(RADIUS_MAP * 2) + 1];
@@ -219,6 +242,7 @@ int	display_minimap(t_game *game)
 	fill_minimap(game, &quadri);
 	// draw outline minimap
 	// draw player FOV
+	draw_player_fov_minimap(game);
 	return (1);
 }
 #endif
