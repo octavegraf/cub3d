@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/04 11:58:13 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/08 17:44:40 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	t_mlx_free(t_mlx *mlx)
 	int		i;
 	t_list	*node_img;
 
+	(void)node_img;
 	if (mlx->mlx_ptr == NULL)
 		return ;
 	t_img_free(&(mlx->frame));
