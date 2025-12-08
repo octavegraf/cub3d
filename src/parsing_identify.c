@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 20:10:33 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/05 10:00:18 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/08 17:39:13 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	identify(char *line, t_game *game)
 {
 	char	*temp;
 
-	if (ft_strlen(line) < 7)
-		return (ft_dprintf(2, ERR_WRONG_LINE), 1);
 	temp = skip_whitespaces(line);
 	if (!ft_strncmp(temp, "NO", 2) || !ft_strncmp(temp, "SO", 2)
 		|| !ft_strncmp(temp, "WE", 2) || !ft_strncmp(temp, "EA", 2)
@@ -65,8 +63,6 @@ int	identify(char *line, t_game *game)
 {
 	char	*temp;
 
-	if (ft_strlen(line) < 7)
-		return (ft_dprintf(2, ERR_WRONG_LINE), 1);
 	temp = skip_whitespaces(line);
 	if (!ft_strncmp(temp, "NO", 2) || !ft_strncmp(temp, "SO", 2)
 		|| !ft_strncmp(temp, "WE", 2) || !ft_strncmp(temp, "EA", 2))
