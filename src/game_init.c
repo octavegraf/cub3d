@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
+/*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/09 12:22:17 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/09 17:08:51 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	game_init(t_game *game)
 		return (t_scene_free(&(game->scene)), 0);
 	ft_memset(game->key_press, 0, 8);
 	game->key_press[MINIMAP_HIDE] = 1;
-	game->key_press[MINIMAP_MAXIMIZE] = 1;
+	game->key_press[MINIMAP_MAXIMIZE] = 0;
 	game->scene.minimap = NULL;
 	return (1);
 }

@@ -8,7 +8,7 @@ FILES				=	add_texture display_frame display_minimap \
 						raycast raycast_dda raycast_init \
 						parsing parsing_identify parsing_utils \
 						t_img t_mlx t_player \
-						quadri_get_x quadri_get_y quadri_set \
+						quadri_get_x quadri_get_y \
 						minimap_draw_player_fov minimap_get minimap_free minimap_set_params \
 						t_scene_free
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
