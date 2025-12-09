@@ -3,119 +3,132 @@
 /*                                                        :::      ::::::::   */
 /*   display_minimap.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/21 14:54:50 by ocgraf           ###   ########.fr       */
+/*   Created: 2025/11/28 14:57:29 by rchan-re          #+#    #+#             */
+/*   Updated: 2025/12/09 12:04:27 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	minimap_get_dimensions(t_game *game, int *nb_pixels)
-{
-	int		j;
-	int		dim_screen;
-	int		width;
-	int		height;
+#ifdef BONUS
 
-	width = 0;
-	height = 0;
-	while (game->scene.map[height] != NULL)
-	{
-		j = 0;
-		while (game->scene.map[height][j] != '\0')
-			j++;
-		if (j > width)
-			width = j;
-		height += 1;
-	}
-	dim_screen = MINIMAP_RATIO * HEIGHT;
-	*nb_pixels = dim_screen / height;
-	if (width >= height)
-	{
-		dim_screen = MINIMAP_RATIO * WIDTH;
-		*nb_pixels = dim_screen / width;
-	}
-}
-
-static void	minimap_fill_pixel(t_game *game, int nb_pixels, int x, int y)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < nb_pixels)
-	{
-		j = 0;
-		while (j < nb_pixels)
-		{
-			if (game->scene.map[x][y] == '0')
-				img_fill_pixel(game->mlx.frame, nb_pixels * y + i,
-					nb_pixels * x + j, WHITE);
-			if (game->scene.map[x][y] == '1')
-				img_fill_pixel(game->mlx.frame, nb_pixels * y + i,
-					nb_pixels * x + j, BLACK);
-			j++;
-		}
-		i++;
-	}
-}
-
-static void	minimap_fill(t_game *game, int nb_pixels)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (game->scene.map[i] != NULL)
-	{
-		j = 0;
-		while (game->scene.map[i][j] != '\0')
-		{
-			minimap_fill_pixel(game, nb_pixels, i, j);
-			j++;
-		}
-		i++;
-	}
-}
-
-static void	minimap_update_player_position(t_game *game, int nb_pixels)
+static void	fill_quadri_minimap(t_game *game, t_quadri *quadri)
 {
 	int	x;
 	int	y;
-	int	i;
-	int	j;
 
-	x = game->player.pos_x;
-	y = game->player.pos_y;
-	i = 0;
-	while (i < nb_pixels)
+	x = quadri->x_start;
+	while (x <= quadri->x_end)
 	{
-		j = 0;
-		while (j < nb_pixels)
+		y = quadri->y_start;
+		while (y <= quadri->y_end)
 		{
-			img_fill_pixel(game->mlx.frame, nb_pixels * y + i,
-				nb_pixels * x + j, RED);
-			j++;
+			img_fill_pixel(game->mlx.frame, y, x, quadri->color);
+			y++;
+		}
+		x++;
+	}
+}
+
+static void	draw_quadri_minimap(t_game *game, char **minimap, int radius_map)
+{
+	int			i;
+	int			j;
+	t_quadri	quadri;
+
+	i = 0;
+	j = 0;
+	while (i < (radius_map * 2) + 1)
+	{
+		if (quadri_get_x(game, i, &quadri, radius_map))
+		{
+			j = 0;
+			while (j < (radius_map * 2) + 1)
+			{
+				if (quadri_get_y(game, j, &quadri, radius_map))
+				{
+					quadri.color = BLACK;
+					if (ft_strchr("0", minimap[i][j]) != NULL)
+						quadri.color = WHITE;
+					fill_quadri_minimap(game, &quadri);
+				}
+				j++;
+			}
 		}
 		i++;
 	}
 }
 
-int	display_minimap(t_game *game)
+static void	draw_outline_minimap(t_game *game, int radius_map)
 {
-	static int	nb_pixels = 0;
-	static int	n = 0;
+	t_quadri	quadri;
 
-	if (n == 0)
-	{
-		minimap_get_dimensions(game, &nb_pixels);
-		n++;
-	}
-	if (nb_pixels == 0)
+	quadri.color = GREEN;
+	quadri.x_start = 0;
+	quadri.x_end = (radius_map * 2 * game->scene.minimap_scale_screen_map) + 1;
+	quadri.y_start = 0;
+	quadri.y_end = 0;
+	fill_quadri_minimap(game, &quadri);
+	quadri.x_start = 0;
+	quadri.x_end = 0;
+	quadri.y_start = 0;
+	quadri.y_end = (radius_map * 2 * game->scene.minimap_scale_screen_map) + 1;
+	fill_quadri_minimap(game, &quadri);
+	quadri.x_start = 0;
+	quadri.x_end = (radius_map * 2 * game->scene.minimap_scale_screen_map) + 1;
+	quadri.y_start = (radius_map * 2 * game->scene.minimap_scale_screen_map)
+		+ 1;
+	quadri.y_end = (radius_map * 2 * game->scene.minimap_scale_screen_map) + 1;
+	fill_quadri_minimap(game, &quadri);
+	quadri.x_start = (radius_map * 2 * game->scene.minimap_scale_screen_map)
+		+ 1;
+	quadri.x_end = (radius_map * 2 * game->scene.minimap_scale_screen_map) + 1;
+	quadri.y_start = 0;
+	quadri.y_end = (radius_map * 2 * game->scene.minimap_scale_screen_map) + 1;
+	fill_quadri_minimap(game, &quadri);
+}
+
+static int	is_valid_quadri(t_quadri *quadri)
+{
+	if (quadri->x_start < 0 || quadri->x_start >= HEIGHT)
 		return (0);
-	minimap_fill(game, nb_pixels);
-	minimap_update_player_position(game, nb_pixels);
+	if (quadri->x_end < 0 || quadri->x_end >= HEIGHT)
+		return (0);
+	if (quadri->x_start > quadri->x_end)
+		return (0);
+	if (quadri->y_start < 0 || quadri->y_start >= WIDTH)
+		return (0);
+	if (quadri->y_end < 0 || quadri->y_end >= WIDTH)
+		return (0);
+	if (quadri->y_start > quadri->y_end)
+		return (0);
 	return (1);
 }
+
+int	display_minimap(t_game *game, int radius_map)
+{
+	t_quadri	quadri;
+
+	if (minimap_get(game, radius_map) == 0)
+		return (0);
+	draw_quadri_minimap(game, game->scene.minimap, radius_map);
+	quadri.x_start = radius_map * game->scene.minimap_scale_screen_map
+		- SIZE_PLAYER;
+	quadri.x_end = radius_map * game->scene.minimap_scale_screen_map
+		+ SIZE_PLAYER;
+	quadri.y_start = radius_map * game->scene.minimap_scale_screen_map
+		- SIZE_PLAYER;
+	quadri.y_end = radius_map * game->scene.minimap_scale_screen_map
+		+ SIZE_PLAYER;
+	if (SIZE_PLAYER <= 0 || is_valid_quadri(&quadri) == 0)
+		return (ft_dprintf(2, ERR_MINIMAP_PLAYER), 0);
+	quadri.color = RED;
+	fill_quadri_minimap(game, &quadri);
+	draw_outline_minimap(game, radius_map);
+	draw_player_fov_minimap(game, radius_map);
+	minimap_free(&(game->scene.minimap), (radius_map * 2) + 1, radius_map);
+	return (1);
+}
+#endif

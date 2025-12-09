@@ -6,12 +6,14 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/05 16:17:40 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:49:42 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_STRUCT_H
 # define CUB3D_STRUCT_H
+
+# include <X11/keysym.h>
 
 # ifdef __linux__
 #  define KEY_ESC 65307
@@ -19,6 +21,8 @@
 #  define KEY_S 115
 #  define KEY_A 97
 #  define KEY_D 100
+#  define KEY_H 104
+#  define KEY_M  109
 #  define KEY_UP 65362
 #  define KEY_DOWN 65364
 #  define KEY_LEFT 65361
@@ -30,6 +34,8 @@
 #  define KEY_S 115
 #  define KEY_A 97
 #  define KEY_D 100
+#  define KEY_H 104
+#  define KEY_M  109
 #  define KEY_UP 65362
 #  define KEY_DOWN 65364
 #  define KEY_LEFT 65361
@@ -43,7 +49,9 @@
 # define SCALE_SCREEN_MAP 100 
 # define MIN_DIM_RATIO 0.4
 # define RADIUS_PIXELS 1000
-# define SIZE_PLAYER 10
+# define SIZE_PLAYER 1
+# define MINIMAP_NB_PIXELS_FOV 100
+# define MINIMAP_FOV_STEP 0.01
 
 # define FREQ_SEC 0
 # define FREQ_USEC 100000
@@ -79,6 +87,8 @@ enum e_direction
 	C = 5
 };
 
+# ifdef BONUS
+
 enum e_key_press
 {
 	ARROW_LEFT,
@@ -86,8 +96,22 @@ enum e_key_press
 	MOVE_UP,
 	MOVE_DOWN,
 	MOVE_LEFT,
-	MOVE_RIGHT
+	MOVE_RIGHT,
+	MINIMAP_HIDE,
+	MINIMAP_MAXIMIZE
 };
+# else
+
+enum e_key_press
+{
+	ARROW_LEFT,
+	ARROW_RIGHT,
+	MOVE_UP,
+	MOVE_DOWN,
+	MOVE_LEFT,
+	MOVE_RIGHT,
+};
+# endif
 
 typedef struct s_quadri
 {
@@ -106,6 +130,21 @@ typedef struct s_quadri
  * @param ceiling_color Color of the ceiling.
  * @param map 2D array representing the map layout.
  */
+# ifdef BONUS
+
+typedef struct s_scene
+{
+	t_list	*textures[4];
+	int		floor_color;
+	int		ceiling_color;
+	char	**map;
+	char	**minimap;
+	int		minimap_radius_screen;
+	int		minimap_scale_screen_map;
+	int		minimap_radius_map;
+}	t_scene;
+# else
+
 typedef struct s_scene
 {
 	t_list	*textures[4];
@@ -113,6 +152,7 @@ typedef struct s_scene
 	int		ceiling_color;
 	char	**map;
 }	t_scene;
+# endif
 
 /**
  * @brief Structure for the player.
@@ -182,6 +222,19 @@ typedef struct s_mlx
  * @param scene Scene data (map, textures, colors).
  * @param key_press Array of key states for movement and rotation.
  */
+
+# ifdef BONUS
+
+typedef struct s_game
+{
+	t_mlx			mlx;
+	t_player		player;
+	t_scene			scene;
+	char			key_press[8];
+	struct timeval	tv;
+}	t_game;
+# else
+
 typedef struct s_game
 {
 	t_mlx			mlx;
@@ -192,6 +245,8 @@ typedef struct s_game
 	int				minimap_radius_screen;
 	int				minimap_scale_screen_map;		
 }	t_game;
+
+# endif
 
 /**
  * @brief Structure for raycasting calculations.
@@ -263,5 +318,6 @@ typedef struct s_raycast
 # define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
 # define ERR_INVALID_CARDINAL "Error\nInvalid cardinal direction\n"
 # define ERR_GETTIMEOFDAY "Error\ngettimeofday()\n"
-
+# define ERR_MALLOC "Error\nmalloc()\n"
+# define ERR_MINIMAP_PLAYER "Error\nMinimap: invalid player size\n"
 #endif

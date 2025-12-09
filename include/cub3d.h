@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/04 12:20:08 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/09 12:24:06 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,22 @@
 # include "get_next_line.h"
 # include "cub3d_struct.h"
 
+int			quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map);
+int			quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map);
+void		quadri_set_y(t_quadri *quadri, int y_start, int y_end);
+void		quadri_set_x(t_quadri *quadri, int y_start, int y_end);
+int			minimap_get(t_game *game, int radius_map);
+void		draw_player_fov_minimap(t_game *game, int radius_map);
+void		t_scene_free(t_scene *scene);
+
 //	libft
 void		double_free(char **to_free);
 
 //	game.c
 
+void		game_minimap_set_params(t_game *game, int radius,
+				float min_dim_ratio);
+void		minimap_free(char ***minimap, int n, int radius_map);
 /**
  * @brief Initialize the game structures and MLX library.
  * 
@@ -44,7 +55,7 @@ int			game_init(t_game *game);
  * 
  * @param[in] game The game structure to free.
  */
-void		game_free(t_game game);
+void		game_free(t_game *game);
 
 //	img_fill.c
 
@@ -134,7 +145,7 @@ int			display_frame(void *param);
  * @param[in] game Pointer to the game structure.
  * @return int 1 on success, 0 on failure.
  */
-int			display_minimap(t_game *game);
+int			display_minimap(t_game *game, int radius);
 
 //	parsing_identify.c
 
