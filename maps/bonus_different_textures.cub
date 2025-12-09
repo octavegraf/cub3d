@@ -1,22 +1,49 @@
-EA assets/boat.xpm
-NO assets/default.xpm
-SO assets/default.xpm
-WE assets/default.xpm
-EA assets/default.xpm
-NO assets/default.xpm
-NO assets/default.xpm
-NO assets/default.xpm
-NO assets/default.xpm
-NO assets/default.xpm
-EA assets/mouse.xpm
-EA assets/sd.xpm
-EA assets/car.xpm
+NO assets/minecraft/minecraft_n1.xpm
+NO assets/minecraft/minecraft_n2.xpm
+NO assets/minecraft/minecraft_n3.xpm
+NO assets/minecraft/minecraft_n2.xpm
+SO assets/minecraft/minecraft_s1.xpm
+SO assets/minecraft/minecraft_s2.xpm
+SO assets/minecraft/minecraft_s3.xpm
+SO assets/minecraft/minecraft_s4.xpm
+SO assets/minecraft/minecraft_s5.xpm
+SO assets/minecraft/minecraft_s6.xpm
+SO assets/minecraft/minecraft_s7.xpm
+WE assets/minecraft/minecraft_w1.xpm
+WE assets/minecraft/minecraft_w2.xpm
+WE assets/minecraft/minecraft_w3.xpm
+WE assets/minecraft/minecraft_w2.xpm
+EA assets/minecraft/minecraft_e1.xpm
+EA assets/minecraft/minecraft_e2.xpm
+EA assets/minecraft/minecraft_e3.xpm
+EA assets/minecraft/minecraft_e2.xpm
+
+C 32,32,32
+F 28,35,19
 
 
-F 0,0,0
-C 255,255,255
-
-
- 111111111111111
-1E000000000000001
- 111111111111111
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                       111111111111111                          
+                 111111           111110000000000000001111                      
+               1110000011111111111100000000111111000000001111                   
+       1111111110000000000000000000001000010000000000000000011111111            
+     1110000000000000010101110000010101100000111111000000000000000011111        
+     1000001000110011011000101111100001100101101000011000001000000000001        
+     100W000111111111000000001000101000100001000011011000000000000000011        
+     110000110001000000010100110000000000000001000000010110110011110001         
+      100110100000111110000000111111111111110001000000001111000001100001        
+      1001100001000010110000110001000000111100000101100001000000010000011       
+      1100110001000000000000000000111100011110110110010100101100110000001       
+       110011100000011111100000111100000000011110000000000110111011000001       
+        110000000111     1111000000000000000000000101111001100000000000011      
+          1111111           111111111111111111111000000000000000000000011       
+                                                 1111000000000000000011         
+                                                     11110000000001111          
+                                                         111111111              
+                                                                                
+                                                                                
+                                                                                
+                                                                                
