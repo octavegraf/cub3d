@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/09 17:08:51 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/10 12:10:44 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@
 int	game_init(t_game *game)
 {
 	game->player = player_init(game->scene.map);
-	if (MIN_DIM_RATIO > 1 || RADIUS_MAP <= 0)
-		return (t_scene_free(&(game->scene)), 0);
+	if (MIN_DIM_RATIO <= 0 || MIN_DIM_RATIO > 1 || RADIUS_MAP <= 0)
+		return (ft_dprintf(2, ERR_MINIMAP_SIZE),
+			t_scene_free(&(game->scene)), 0);
+	if (FREQ_SEC < 0 || FREQ_USEC < 0 || (FREQ_SEC == 0 && FREQ_USEC == 0))
+		return (ft_dprintf(2, ERR_FREQ_ANIMATION),
+			t_scene_free(&(game->scene)), 0);
 	game_minimap_set_params(game, RADIUS_MAP, MIN_DIM_RATIO);
 	if (t_mlx_init(&(game->mlx), game->scene.textures) == 0)
 		return (t_scene_free(&(game->scene)), 0);

@@ -6,34 +6,50 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:43:24 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/10 11:45:00 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static int	check_jump(double jump)
+{
+	if (jump > 1 || jump < -1)
+		return (0);
+	return (1);
+}
+
+static int	is_available(char **map, int i, int j)
+{
+	if (map[i][j] == '0')
+		return (1);
+	return (0);
+}
+
 static void	game_move(t_game *g, double move_dir, double mv_plane)
 {
-	if (move_dir != 0)
+	if (check_jump(2 * g->player.dir_x * move_dir) == 1)
 	{
-		if (g->scene.map[(int)(g->player.pos_x
-				+ 2 * g->player.dir_x * move_dir)]
-				[(int)(g->player.pos_y)] == '0')
+		if (is_available(g->scene.map, g->player.pos_x + 2 * g->player.dir_x
+				* move_dir, g->player.pos_y))
 			g->player.pos_x += g->player.dir_x * move_dir;
-		if (g->scene.map[(int)(g->player.pos_x)]
-				[(int)(g->player.pos_y
-				+ 2 * g->player.dir_y * move_dir)] == '0')
+	}
+	if (check_jump(2 * g->player.dir_y * move_dir) == 1)
+	{
+		if (is_available(g->scene.map, g->player.pos_x, g->player.pos_y
+				+ 2 * g->player.dir_y * move_dir))
 			g->player.pos_y += g->player.dir_y * move_dir;
 	}
-	if (mv_plane != 0)
+	if (check_jump(2 * g->player.plane_x * mv_plane) == 1)
 	{
-		if (g->scene.map[(int)(g->player.pos_x
-				+ 2 * g->player.plane_x * mv_plane)]
-				[(int)(g->player.pos_y)] == '0')
+		if (is_available(g->scene.map, g->player.pos_x + 2 * g->player.plane_x
+				* mv_plane, g->player.pos_y))
 			g->player.pos_x += g->player.plane_x * mv_plane;
-		if (g->scene.map[(int)(g->player.pos_x)]
-				[(int)(g->player.pos_y
-				+ 2 * g->player.plane_y * mv_plane)] == '0')
+	}
+	if (check_jump(2 * g->player.plane_y * mv_plane) == 1)
+	{
+		if (is_available(g->scene.map, g->player.pos_x, g->player.pos_y
+				+ 2 * g->player.plane_y * mv_plane))
 			g->player.pos_y += g->player.plane_y * mv_plane;
 	}
 }

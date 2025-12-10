@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 14:08:53 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/09 14:09:56 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/10 12:00:27 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 
 int	key_down_hook(int keycode, void *param)
 {
-	if (keycode == XK_Left)
+	if (keycode == KEY_LEFT)
 		(((t_game *)param)->key_press)[ARROW_LEFT] = 1;
-	if (keycode == XK_Right)
+	if (keycode == KEY_RIGHT)
 		(((t_game *)param)->key_press)[ARROW_RIGHT] = 1;
-	if (keycode == XK_s)
+	if (keycode == KEY_S)
 		(((t_game *)param)->key_press)[MOVE_DOWN] = 1;
-	if (keycode == XK_w)
+	if (keycode == KEY_W)
 		(((t_game *)param)->key_press)[MOVE_UP] = 1;
-	if (keycode == XK_a)
+	if (keycode == KEY_A)
 		(((t_game *)param)->key_press)[MOVE_LEFT] = 1;
-	if (keycode == XK_d)
+	if (keycode == KEY_D)
 		(((t_game *)param)->key_press)[MOVE_RIGHT] = 1;
 	return (1);
 }
@@ -35,17 +35,17 @@ int	key_down_hook(int keycode, void *param)
 
 int	key_down_hook(int keycode, void *param)
 {
-	if (keycode == XK_Left)
+	if (keycode == KEY_LEFT)
 		(((t_game *)param)->key_press)[ARROW_LEFT] = 1;
-	if (keycode == XK_Right)
+	if (keycode == KEY_RIGHT)
 		(((t_game *)param)->key_press)[ARROW_RIGHT] = 1;
-	if (keycode == XK_s)
+	if (keycode == KEY_S)
 		(((t_game *)param)->key_press)[MOVE_DOWN] = 1;
-	if (keycode == XK_w)
+	if (keycode == KEY_W)
 		(((t_game *)param)->key_press)[MOVE_UP] = 1;
-	if (keycode == XK_a)
+	if (keycode == KEY_A)
 		(((t_game *)param)->key_press)[MOVE_LEFT] = 1;
-	if (keycode == XK_d)
+	if (keycode == KEY_D)
 		(((t_game *)param)->key_press)[MOVE_RIGHT] = 1;
 	return (1);
 }
