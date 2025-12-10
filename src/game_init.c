@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/10 12:10:44 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/10 14:20:32 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int	game_init(t_game *game)
 int	game_init(t_game *game)
 {
 	game->player = player_init(game->scene.map);
+	if (FREQ_SEC < 0 || FREQ_USEC < 0 || (FREQ_SEC == 0 && FREQ_USEC == 0))
+		return (ft_dprintf(2, ERR_FREQ_ANIMATION),
+			t_scene_free(&(game->scene)), 0);
 	if (t_mlx_init(&(game->mlx), game->scene.textures) == 0)
 		return (t_scene_free(&(game->scene)), 0);
 	ft_memset(game->key_press, 0, 6);

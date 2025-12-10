@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/09 12:24:06 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/10 14:21:17 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@
 # include "get_next_line.h"
 # include "cub3d_struct.h"
 
+// NEED TO BE REORGANISED !!!!!!!
 int			quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map);
 int			quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map);
-void		quadri_set_y(t_quadri *quadri, int y_start, int y_end);
-void		quadri_set_x(t_quadri *quadri, int y_start, int y_end);
 int			minimap_get(t_game *game, int radius_map);
 void		draw_player_fov_minimap(t_game *game, int radius_map);
 void		t_scene_free(t_scene *scene);
+int			check_jump(double jump);
+int			is_available(char **map, int i, int j);
+int			diff_time_tv(struct timeval *tv1, struct timeval *t2);
+void		update_time_tv(struct timeval *tv, long long sec, long long usec);
 
 //	libft
 void		double_free(char **to_free);
@@ -87,6 +90,9 @@ void		img_fill_ceiling_floor(t_game *game, int x, int y);
  * @param[in] raycast Pointer to the raycast structure containing texture info.
  */
 void		raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast);
+
+// mouse.c
+int			mouse(int x, int y, void *param);
 
 //	movement.c
 
@@ -347,8 +353,5 @@ t_player	player_init(char **map);
  * @return int 0 on success, 1 on error.
  */
 int			add_texture(t_game *game, char *line, char *file_path);
-
-int			diff_time_tv(struct timeval *tv1, struct timeval *t2);
-void		update_time_tv(struct timeval *tv, long long sec, long long usec);
 
 #endif

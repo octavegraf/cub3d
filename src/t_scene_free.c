@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_scene_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 12:19:13 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/09 12:23:00 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/10 13:38:59 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	t_scene_free(t_scene *scene)
 		free(scene->map);
 	}
 	i = 0;
-	while (i < 4)
+	while (i <= D)
 	{
 		ft_lstclear(&(scene->textures[i]), free);
 		i++;
