@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 20:10:33 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/08 17:39:13 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/10 13:08:31 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,11 @@ int	identify_textures(char *line, t_game *game)
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
 	fd = readable_file(path);
 	if (fd == -1)
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), free(path), 1);
+		return (free(path), 1);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), close(fd), 1);
 	if (add_texture(game, line, path))
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), free(path), close(fd),
-			1);
+		return (free(path), close(fd), 1);
 	return (close(fd), 0);
 }
 #else
@@ -90,12 +89,11 @@ int	identify_textures(char *line, t_game *game)
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
 	fd = readable_file(path);
 	if (fd == -1)
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), free(path), 1);
+		return (free(path), 1);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), close(fd), 1);
 	if (add_texture(game, line, path))
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), free(path), close(fd),
-			1);
+		return (free(path), close(fd), 1);
 	return (close(fd), 0);
 }
 #endif
