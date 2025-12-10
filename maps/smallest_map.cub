@@ -1,7 +1,7 @@
-NO assets/default.xpm
-SO assets/default.xpm
-WE assets/default.xpm
-EA assets/default.xpm
+NO assets/louvre/louvre_n.xpm
+SO assets/louvre/louvre_s.xpm
+WE assets/louvre/louvre_w.xpm
+EA assets/louvre/louvre_e.xpm
 
 F 0,0,0
 C 255,255,255
