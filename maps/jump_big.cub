@@ -1,7 +1,7 @@
-EA assets/default.xpm
-NO assets/default.xpm
-SO assets/default.xpm
-WE assets/default.xpm
+EA assets/whatsapp/whatsapp_e.xpm
+NO assets/whatsapp/whatsapp_n.xpm
+SO assets/whatsapp/whatsapp_s.xpm
+WE assets/whatsapp/whatsapp_w.xpm
 
 F 0,0,0
 C 255,255,255
