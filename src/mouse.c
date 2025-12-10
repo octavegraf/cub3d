@@ -6,11 +6,12 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:56:28 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/05 17:37:15 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/10 14:09:52 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifdef BONUS
+# include "cub3d.h"
 
 int	mouse(int x, int y, void *param)
 {
@@ -30,3 +31,4 @@ int	mouse(int x, int y, void *param)
 		game->mouse_move[MOUSE_RIGHT] = value;
 	return (0);
 }
+#endif

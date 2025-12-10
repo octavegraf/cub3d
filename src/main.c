@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/05 17:39:18 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/10 14:09:29 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	if (gettimeofday(&(game.tv), NULL) != 0)
 		return (ft_dprintf(2, ERR_GETTIMEOFDAY), 1);
 	if (read_cub_file(argv[1], &game, 0))
-		return (game_free(game), 1);
+		return (game_free(&game), 1);
 	if (game_init(&game) == 0)
 		return (1);
 	mlx_hook(game.mlx.win_ptr, 2, 1L << 0, &key_down_hook, &game);
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 	mlx_hook(game.mlx.win_ptr, 6, 1L << 6, &mouse, &game);
 	mlx_loop_hook(game.mlx.mlx_ptr, &display_frame, &game);
 	mlx_loop(game.mlx.mlx_ptr);
-	game_free(game);
+	game_free(&game);
 	return (0);
 }
 #else
@@ -49,10 +49,8 @@ int	main(int argc, char **argv)
 	game = (t_game){0};
 	game.scene.ceiling_color = -1;
 	game.scene.floor_color = -1;
-	if (gettimeofday(&(game.tv), NULL) != 0)
-		return (ft_dprintf(2, ERR_GETTIMEOFDAY), 1);
 	if (read_cub_file(argv[1], &game, 0))
-		return (game_free(game), 1);
+		return (game_free(&game), 1);
 	if (game_init(&game) == 0)
 		return (1);
 	mlx_hook(game.mlx.win_ptr, 2, 1L << 0, &key_down_hook, &game);
@@ -60,7 +58,7 @@ int	main(int argc, char **argv)
 	mlx_hook(game.mlx.win_ptr, 17, 0, &close_window, &(game.mlx));
 	mlx_loop_hook(game.mlx.mlx_ptr, &display_frame, &game);
 	mlx_loop(game.mlx.mlx_ptr);
-	game_free(game);
+	game_free(&game);
 	return (0);
 }
 #endif
