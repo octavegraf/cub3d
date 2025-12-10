@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/05 16:58:46 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/10 14:21:17 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,25 @@
 # include "get_next_line.h"
 # include "cub3d_struct.h"
 
+// NEED TO BE REORGANISED !!!!!!!
+int			quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map);
+int			quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map);
+int			minimap_get(t_game *game, int radius_map);
+void		draw_player_fov_minimap(t_game *game, int radius_map);
+void		t_scene_free(t_scene *scene);
+int			check_jump(double jump);
+int			is_available(char **map, int i, int j);
+int			diff_time_tv(struct timeval *tv1, struct timeval *t2);
+void		update_time_tv(struct timeval *tv, long long sec, long long usec);
+
 //	libft
 void		double_free(char **to_free);
 
 //	game.c
 
+void		game_minimap_set_params(t_game *game, int radius,
+				float min_dim_ratio);
+void		minimap_free(char ***minimap, int n, int radius_map);
 /**
  * @brief Initialize the game structures and MLX library.
  * 
@@ -44,7 +58,7 @@ int			game_init(t_game *game);
  * 
  * @param[in] game The game structure to free.
  */
-void		game_free(t_game game);
+void		game_free(t_game *game);
 
 //	img_fill.c
 
@@ -78,7 +92,7 @@ void		img_fill_ceiling_floor(t_game *game, int x, int y);
 void		raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast);
 
 // mouse.c
-int		mouse(int x, int y, void *param);
+int			mouse(int x, int y, void *param);
 
 //	movement.c
 
@@ -137,7 +151,7 @@ int			display_frame(void *param);
  * @param[in] game Pointer to the game structure.
  * @return int 1 on success, 0 on failure.
  */
-int			display_minimap(t_game *game);
+int			display_minimap(t_game *game, int radius);
 
 //	parsing_identify.c
 
@@ -339,8 +353,5 @@ t_player	player_init(char **map);
  * @return int 0 on success, 1 on error.
  */
 int			add_texture(t_game *game, char *line, char *file_path);
-
-int			diff_time_tv(struct timeval *tv1, struct timeval *t2);
-void		update_time_tv(struct timeval *tv, long long sec, long long usec);
 
 #endif

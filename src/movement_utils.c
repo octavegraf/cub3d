@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   timeval.c                                          :+:      :+:    :+:   */
+/*   movement_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/03 16:02:21 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/10 14:12:29 by ocgraf           ###   ########.fr       */
+/*   Created: 2025/12/10 14:01:16 by ocgraf            #+#    #+#             */
+/*   Updated: 2025/12/10 14:20:51 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static long long	get_time_tv(long long sec, long long usec)
+int	check_jump(double jump)
 {
-	return (sec * 1000 + usec / 1000);
-}
-
-int	diff_time_tv(struct timeval *tv1, struct timeval *tv2)
-{
-	if (get_time_tv(tv2->tv_sec, tv2->tv_usec)
-		- get_time_tv(tv1->tv_sec, tv1->tv_usec)
-		< get_time_tv(FREQ_SEC, FREQ_USEC))
+	if (jump > 1 || jump < -1)
 		return (0);
 	return (1);
 }
 
-void	update_time_tv(struct timeval *tv, long long sec, long long usec)
+int	is_available(char **map, int i, int j)
 {
-	tv->tv_sec += sec;
-	tv->tv_usec += usec;
+	if (map[i][j] == '0')
+		return (1);
+	return (0);
 }
