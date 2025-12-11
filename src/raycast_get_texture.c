@@ -6,13 +6,14 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:08:32 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 11:23:56 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/11 12:09:57 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 #ifdef BONUS
+
 static void	update_texture(t_list **node_img, t_list *head_img,
 		struct timeval *tv_old, struct timeval *tv)
 {
@@ -26,7 +27,7 @@ static void	update_texture(t_list **node_img, t_list *head_img,
 	}
 }
 
-static void assign_texture(t_raycast *raycast, t_list *textures[D + 1])
+static void	assign_texture(t_raycast *raycast, t_list *textures[D + 1])
 {
 //	static int	i = 0;
 
@@ -61,7 +62,7 @@ void	raycast_get_texture(t_game *game, t_raycast *raycast,
 	int				i;
 
 	i = 0;
-	while (i < 4) // ??
+	while (i < D + 1) // ??
 	{
 		update_texture(&(textures[i]), game->mlx.textures[i], &(game->tv), tv);
 		i++;
@@ -72,26 +73,24 @@ void	raycast_get_texture(t_game *game, t_raycast *raycast,
 }
 #else
 
-void	raycast_get_texture(t_raycast *raycast, struct timeval *tv)
+void	raycast_get_texture(t_game *game, t_raycast *raycast)
 {
-	static t_list	*textures[4] = {0};
 	int				i;
 
-	(void) tv; // FIX
 	i = 0;
 	if (raycast->side == 0)
 	{
 		if (raycast->ray_dir_x < 0)
-			raycast->texture = textures[NO]->content;
+			raycast->texture = game->mlx.textures[NO]->content;
 		else
-			raycast->texture = textures[SO]->content;
+			raycast->texture = game->mlx.textures[SO]->content;
 	}
 	else
 	{
 		if (raycast->ray_dir_y < 0)
-			raycast->texture = textures[WE]->content;
+			raycast->texture = game->mlx.textures[WE]->content;
 		else
-			raycast->texture = textures[EA]->content;
+			raycast->texture = game->mlx.textures[EA]->content;
 	}
 }
 #endif

@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 11:26:18 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 11:28:51 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/11 11:46:01 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	raycast_compute(int x, t_game *game, t_raycast *rc, struct timeval *tv)
 
 #else
 
-void	raycast_compute(int x, t_game *game, t_raycast *rc, struct timeval *tv)
+void	raycast_compute(int x, t_game *game, t_raycast *rc)
 {
 	double		perp_wall_dist;
 	int			line_height;
@@ -72,7 +72,7 @@ void	raycast_compute(int x, t_game *game, t_raycast *rc, struct timeval *tv)
 	rc->draw_end = line_height / 2 + HEIGHT / 2;
 	if (rc->draw_end >= HEIGHT)
 		rc->draw_end = HEIGHT - 1;
-	raycast_get_texture(rc, tv);
+	raycast_get_texture(game, rc);
 	raycast_compute_texture(game, rc, perp_wall_dist, line_height);
 }
 #endif
