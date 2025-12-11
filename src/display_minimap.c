@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 14:57:29 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/09 12:04:27 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/11 13:21:18 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	draw_quadri_minimap(t_game *game, char **minimap, int radius_map)
 				if (quadri_get_y(game, j, &quadri, radius_map))
 				{
 					quadri.color = BLACK;
-					if (ft_strchr("0", minimap[i][j]) != NULL)
+					if (ft_strchr(MINIMAP_WHITE, minimap[i][j]) != NULL)
 						quadri.color = WHITE;
 					fill_quadri_minimap(game, &quadri);
 				}

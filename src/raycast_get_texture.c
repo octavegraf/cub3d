@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:08:32 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 12:09:57 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/11 13:48:41 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	update_texture(t_list **node_img, t_list *head_img,
 	}
 }
 
-static void	assign_texture(t_raycast *raycast, t_list *textures[D + 1])
+static void	assign_texture(t_game *game, t_raycast *raycast, t_list *textures[D + 1])
 {
 //	static int	i = 0;
 
@@ -37,20 +37,38 @@ static void	assign_texture(t_raycast *raycast, t_list *textures[D + 1])
 	{
 		if (raycast->ray_dir_x < 0)
 		{
-		/*	// door up closed
-			if (game->scene.map[raycast->map_x][raycast->map_y - 1] == c_u)
-				raycast->texture = texture[D]->content;*/
-			raycast->texture = textures[NO]->content;
+			// door up closed, from below
+			if (game->scene.map[raycast->map_x + 1][raycast->map_y] == c_u)
+				raycast->texture = textures[D]->content;
+			else
+				raycast->texture = textures[NO]->content;
 		}
 		else
-			raycast->texture = textures[SO]->content;
+		{
+			// door up closed, from above
+			if (game->scene.map[raycast->map_x][raycast->map_y] == c_u)
+				raycast->texture = textures[D]->content;
+			else
+				raycast->texture = textures[SO]->content;
+		}
 	}
 	else
 	{
 		if (raycast->ray_dir_y < 0)
-			raycast->texture = textures[WE]->content;
+		{
+			// door left closed, from the right
+			if (game->scene.map[raycast->map_x][raycast->map_y + 1] == c_l)
+				raycast->texture = textures[D]->content;
+			else
+				raycast->texture = textures[WE]->content;
+		}
 		else
-			raycast->texture = textures[EA]->content;
+		{
+			if (game->scene.map[raycast->map_x][raycast->map_y] == c_l)
+				raycast->texture = textures[D]->content;
+			else
+				raycast->texture = textures[EA]->content;
+		}
 	}
 
 }
@@ -69,7 +87,7 @@ void	raycast_get_texture(t_game *game, t_raycast *raycast,
 	}
 	if (diff_time_tv(&(game->tv), tv) != 0)
 		update_time_tv(&(game->tv), FREQ_SEC, FREQ_USEC);
-	assign_texture(raycast, textures);
+	assign_texture(game, raycast, textures);
 }
 #else
 

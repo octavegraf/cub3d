@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 12:06:18 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/11 17:00:28 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int			minimap_get(t_game *game, int radius_map);
 void		draw_player_fov_minimap(t_game *game, int radius_map);
 void		t_scene_free(t_scene *scene);
 int			check_jump(double jump);
-int			is_available(char **map, int i, int j);
 int			diff_time_tv(struct timeval *tv1, struct timeval *t2);
 void		update_time_tv(struct timeval *tv, long long sec, long long usec);
 
 int			t_mlx_init(t_mlx *mlx, t_list *files[D + 1]);
+int			is_available(t_game *game, double jump_x, double jump_y);
 
 # ifdef BONUS
 

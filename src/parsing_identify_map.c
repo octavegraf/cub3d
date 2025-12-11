@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:15:30 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/11 14:57:44 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/11 15:52:14 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ static int	identify_map3(t_game *game)
 					return (ft_dprintf(2, ERR_DOOR_MISS_WALLS), 1);
 				map[i][j] = c_l;
 				if (map[i][j - 1] == '1' && map[i][j + 1] == '1')
-					map[i][j] = o_u;
+					map[i][j] = c_u;
 			}
 		}
 	}

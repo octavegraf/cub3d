@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 15:32:30 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/11 17:06:57 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@
 #  define MINIMAP_FOV_STEP 0.01
 
 #  define MINIMAP_WHITE "0MVYIO."
+
+#  define HIT_OPEN "YIO."
+
+#  define AVAILABLE_X_NEG "0VUML"
+#  define AVAILABLE_X_POS "0VUML"
+#  define AVAILABLE_Y_NEG "0MLVU"
+#  define AVAILABLE_Y_POS "0MLVU"
 
 enum e_door
 {
