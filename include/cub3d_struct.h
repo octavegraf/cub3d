@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 14:58:00 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/11 15:32:30 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 #  define MIN_DIM_RATIO 0.2
 #  define SIZE_PLAYER 1
 #  define MINIMAP_FOV_STEP 0.01
+
+#  define MINIMAP_WHITE "0MVYIO."
 
 enum e_door
 {
@@ -254,7 +256,6 @@ typedef struct s_game
 	t_mlx			mlx;
 	t_player		player;
 	t_scene			scene;
-	struct timeval	tv;
 	char			key_press[6];
 }	t_game;
 
