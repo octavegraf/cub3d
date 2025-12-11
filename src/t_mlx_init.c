@@ -1,33 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_mlx.c                                            :+:      :+:    :+:   */
+/*   t_mlx_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/08 17:44:40 by ocgraf           ###   ########.fr       */
+/*   Created: 2025/12/11 10:55:58 by rchan-re          #+#    #+#             */
+/*   Updated: 2025/12/11 11:10:05 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	t_img_free(t_img *img)
+#ifdef BONUS
+
+static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[D + 1])
 {
-	if (img == NULL)
-		return ;
-	if (img->img_ptr != NULL)
+	int		i;
+	t_list	*node_file;
+	t_list	*node_img;
+
+	i = 0;
+	while (i < D + 1)
 	{
-		mlx_destroy_image(img->mlx_ptr, img->img_ptr);
-		img->img_ptr = NULL;
+		node_file = files[i];
+		while (node_file != NULL)
+		{
+			node_img = ft_lstnew(NULL);
+			if (node_img == NULL)
+				return (0);
+			node_img->content = malloc(sizeof(t_img));
+			if (node_img->content == NULL)
+				return (free(node_img), 0);
+			if (!t_img_init_file(mlx->mlx_ptr, node_img->content,
+					node_file->content))
+				return (free(node_img->content), free(node_img), 0);
+			ft_lstadd_back(&(mlx->textures[i]), node_img);
+			node_file = node_file->next;
+		}
+		i++;
 	}
+	return (1);
 }
 
-static void	t_node_img_free(void *img)
-{
-	t_img_free(img);
-	free(img);
-}
+#else
 
 static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 {
@@ -58,6 +74,8 @@ static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 	return (1);
 }
 
+#endif
+
 int	t_mlx_init(t_mlx *mlx, t_list *files[4])
 {
 	if (mlx == NULL)
@@ -75,30 +93,4 @@ int	t_mlx_init(t_mlx *mlx, t_list *files[4])
 	if (t_img_init(mlx->mlx_ptr, &(mlx->frame), WIDTH, HEIGHT) == 0)
 		return (t_mlx_free(mlx), 0);
 	return (1);
-}
-
-void	t_mlx_free(t_mlx *mlx)
-{
-	int		i;
-	t_list	*node_img;
-
-	(void)node_img;
-	if (mlx->mlx_ptr == NULL)
-		return ;
-	t_img_free(&(mlx->frame));
-	i = 0;
-	while (i < 4)
-	{
-		node_img = mlx->textures[i];
-		ft_lstclear(&(mlx->textures[i]), t_node_img_free);
-		i++;
-	}
-	if (mlx->win_ptr != NULL)
-	{
-		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-		mlx->win_ptr = NULL;
-	}
-	mlx_destroy_display(mlx->mlx_ptr);
-	free(mlx->mlx_ptr);
-	mlx->mlx_ptr = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/10 14:22:11 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/11 11:20:45 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,18 @@
 #  define MIN_DIM_RATIO 0.2
 #  define SIZE_PLAYER 1
 #  define MINIMAP_FOV_STEP 0.01
-/** \brief Closed door left. */
-#  define C_L 'L'
-/** \brief Closed door up. */
-#  define C_U 'U'
-/** \brief Open door left. */
-#  define O_L 'M'
-/** \brief Open door up. */
-#  define O_U 'V'
+
+enum e_door
+{
+	c_l = 'L',
+	c_u = 'U',
+	o_l = 'M',
+	o_u = 'V',
+	d_u_l = 'Y',
+	d_u_r = 'I',
+	d_l_u = 'O',
+	d_l_d = '.'
+};
 
 # else
 #  define MAP_ELEMENTS "10NSEW"
@@ -81,9 +85,9 @@ enum e_direction
 	SO,
 	WE,
 	EA,
+	D,
 	F,
 	C,
-	D,
 };
 
 # ifdef BONUS
@@ -216,7 +220,7 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	frame;
-	t_list	*textures[6];
+	t_list	*textures[D + 1];
 	int		mouse_x;
 	int		mouse_y;
 }	t_mlx;
