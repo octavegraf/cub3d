@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 13:27:51 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/11 15:32:30 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,7 @@ typedef struct s_raycast
 # define ERR_TEXTURE_NOT_XPM "Error\nTexture file not .xpm\n"
 # define ERR_COLOR_OUT_OF_RANGE "Error\nColor value out of range\n"
 # define ERR_UNKNOWN_COLOR_ID "Error\nUnknown color identifier\n"
-# define ERR_INVALID_MAP_CHAR "Error\nInvalid map character\n"
+# define ERR_INVALID_MAP_CHAR "Error\nInvalid map character or not closed.\n"
 # define ERR_INVALID_PLAYER_COUNT "Error\nInvalid number of player\n"
 # define ERR_MAP_OPEN "Error\nMap open %d,%d \n"
 # define ERR_MLX_INIT "Error\nmlx_init()\n"
