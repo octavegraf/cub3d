@@ -1,12 +1,20 @@
-NO assets/default.xpm
-SO assets/default.xpm
-WE assets/default.xpm
-EA assets/default.xpm
+NO assets/heart/heart.xpm
+SO assets/heart/heart.xpm
+WE assets/heart/heart.xpm
+EA assets/heart/heart.xpm
 
-F 0,0,0
-C 255,255,255
+C 250,165,208
+F 250,165,208
 
 
-         111111   111111   
+          1111     1111   
+         100001   100001   
         1E000001110000001     
-         111111111111111    
+         100000000000001                      
+          1000000000001   
+           10000000001          
+            100000001             
+             1000001  
+              10001  
+               101      
+                1    

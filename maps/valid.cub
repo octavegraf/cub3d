@@ -1,10 +1,10 @@
-NO assets/default.xpm
-SO assets/default.xpm
-WE assets/default.xpm
-EA assets/default.xpm
+NO assets/max_payne/max_payne_n.xpm
+SO assets/max_payne/max_payne_s.xpm
+WE assets/max_payne/max_payne_ew.xpm
+EA assets/max_payne/max_payne_ew.xpm
 
-F 0,0,0
-C 255,255,255
+C 34,31,24
+F 34,31,24
 
 
  111111111111111

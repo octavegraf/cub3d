@@ -6,13 +6,14 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/04 11:44:02 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/11 15:21:45 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static int	read_cub_file2(t_game *game, char *buff, int fd);
+static int	read_cub_file3(t_game *game, char *buff, int fd, char **map);
 
 int	readable_file(char *file_path)
 {
@@ -80,9 +81,22 @@ static int	read_cub_file2(t_game *game, char *buff, int fd)
 		}
 		map = ft_array_add_row(map, buff);
 		if (!map)
-			return (free(buff), close(fd), 1);
+			return (free(buff), double_free(map), close(fd), 1);
 		free(buff);
 		buff = get_next_line(fd);
 	}
-	return (free(buff), close(fd), identify_map(map, game));
+	return (read_cub_file3(game, buff, fd, map));
+}
+
+static int	read_cub_file3(t_game *game, char *buff, int fd, char **map)
+{
+	while (buff)
+	{
+		free(buff);
+		buff = get_next_line(fd);
+		if (ft_wstrlen(buff))
+			return (double_free(map), free(buff), close(fd),
+				ft_dprintf(2, ERR_WRONG_LINE), 1);
+	}
+	return (close(fd), free(buff), identify_map(map, game));
 }

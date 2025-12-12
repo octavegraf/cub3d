@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/10 14:10:37 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/11 16:58:08 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,22 @@ static void	game_move(t_game *g, double move_dir, double mv_plane)
 {
 	if (check_jump(2 * g->player.dir_x * move_dir) == 1)
 	{
-		if (is_available(g->scene.map, g->player.pos_x + 2 * g->player.dir_x
-				* move_dir, g->player.pos_y))
+		if (is_available(g, 2 * g->player.dir_x * move_dir, 0))
 			g->player.pos_x += g->player.dir_x * move_dir;
 	}
 	if (check_jump(2 * g->player.dir_y * move_dir) == 1)
 	{
-		if (is_available(g->scene.map, g->player.pos_x, g->player.pos_y
-				+ 2 * g->player.dir_y * move_dir))
+		if (is_available(g, 0, 2 * g->player.dir_y * move_dir))
 			g->player.pos_y += g->player.dir_y * move_dir;
 	}
 	if (check_jump(2 * g->player.plane_x * mv_plane) == 1)
 	{
-		if (is_available(g->scene.map, g->player.pos_x + 2 * g->player.plane_x
-				* mv_plane, g->player.pos_y))
+		if (is_available(g, 2 * g->player.plane_x * mv_plane, 0))
 			g->player.pos_x += g->player.plane_x * mv_plane;
 	}
 	if (check_jump(2 * g->player.plane_y * mv_plane) == 1)
 	{
-		if (is_available(g->scene.map, g->player.pos_x, g->player.pos_y
-				+ 2 * g->player.plane_y * mv_plane))
+		if (is_available(g, 0, 2 * g->player.plane_y * mv_plane))
 			g->player.pos_y += g->player.plane_y * mv_plane;
 	}
 }

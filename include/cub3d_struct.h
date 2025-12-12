@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/10 14:22:11 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/11 17:06:57 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,27 @@
 #  define MIN_DIM_RATIO 0.2
 #  define SIZE_PLAYER 1
 #  define MINIMAP_FOV_STEP 0.01
-/** \brief Closed door left. */
-#  define C_L 'L'
-/** \brief Closed door up. */
-#  define C_U 'U'
-/** \brief Open door left. */
-#  define O_L 'M'
-/** \brief Open door up. */
-#  define O_U 'V'
+
+#  define MINIMAP_WHITE "0MVYIO."
+
+#  define HIT_OPEN "YIO."
+
+#  define AVAILABLE_X_NEG "0VUML"
+#  define AVAILABLE_X_POS "0VUML"
+#  define AVAILABLE_Y_NEG "0MLVU"
+#  define AVAILABLE_Y_POS "0MLVU"
+
+enum e_door
+{
+	c_l = 'L',
+	c_u = 'U',
+	o_l = 'M',
+	o_u = 'V',
+	d_u_l = 'Y',
+	d_u_r = 'I',
+	d_l_u = 'O',
+	d_l_d = '.'
+};
 
 # else
 #  define MAP_ELEMENTS "10NSEW"
@@ -81,9 +94,9 @@ enum e_direction
 	SO,
 	WE,
 	EA,
+	D,
 	F,
 	C,
-	D,
 };
 
 # ifdef BONUS
@@ -216,7 +229,7 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	frame;
-	t_list	*textures[6];
+	t_list	*textures[D + 1];
 	int		mouse_x;
 	int		mouse_y;
 }	t_mlx;
@@ -250,7 +263,6 @@ typedef struct s_game
 	t_mlx			mlx;
 	t_player		player;
 	t_scene			scene;
-	struct timeval	tv;
 	char			key_press[6];
 }	t_game;
 
@@ -315,7 +327,7 @@ typedef struct s_raycast
 # define ERR_TEXTURE_NOT_XPM "Error\nTexture file not .xpm\n"
 # define ERR_COLOR_OUT_OF_RANGE "Error\nColor value out of range\n"
 # define ERR_UNKNOWN_COLOR_ID "Error\nUnknown color identifier\n"
-# define ERR_INVALID_MAP_CHAR "Error\nInvalid map character\n"
+# define ERR_INVALID_MAP_CHAR "Error\nInvalid map character or not closed.\n"
 # define ERR_INVALID_PLAYER_COUNT "Error\nInvalid number of player\n"
 # define ERR_MAP_OPEN "Error\nMap open %d,%d \n"
 # define ERR_MLX_INIT "Error\nmlx_init()\n"

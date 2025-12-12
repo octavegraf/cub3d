@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:56:28 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/10 14:09:52 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/12 12:36:05 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,16 @@ int	mouse(int x, int y, void *param)
 		game->mouse_move[MOUSE_RIGHT] = value;
 	return (0);
 }
+
+int	click(int click_hook, int x, int y, void *param)
+{
+	t_game	*game;
+
+	(void)x;
+	(void)y;
+	game = (t_game *)param;
+	key_up_hook(click_hook, game);
+	return (0);
+}
+
 #endif

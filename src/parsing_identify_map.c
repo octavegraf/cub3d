@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:15:30 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/04 18:21:33 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/11 15:52:14 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	identify_map(char **map, t_game *game)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
 				|| map[i][j] == 'W')
 				p++;
-			else if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' '
+			else if ((map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' '
 				&& map[i][j] != '\f' && map[i][j] != '\r' && map[i][j] != '\t'
-				&& map[i][j] != '\v')
+				&& map[i][j] != '\v') || !ft_wstrlen(map[i]))
 				return (ft_dprintf(2, ERR_INVALID_MAP_CHAR), 1);
 		}
 	}
@@ -124,9 +124,9 @@ static int	identify_map3(t_game *game)
 						+ 1] != '1') && (map[i - 1][j] != '1' && map[i + 1]
 									[j] != '1')) || !game->scene.textures[D])
 					return (ft_dprintf(2, ERR_DOOR_MISS_WALLS), 1);
-				map[i][j] = C_L;
+				map[i][j] = c_l;
 				if (map[i][j - 1] == '1' && map[i][j + 1] == '1')
-					map[i][j] = O_U;
+					map[i][j] = c_u;
 			}
 		}
 	}
