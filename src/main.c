@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/10 14:09:29 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/12 12:33:35 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv)
 	mlx_hook(game.mlx.win_ptr, 3, 1L << 1, &key_up_hook, &game);
 	mlx_hook(game.mlx.win_ptr, 17, 0, &close_window, &(game.mlx));
 	mlx_hook(game.mlx.win_ptr, 6, 1L << 6, &mouse, &game);
+	mlx_mouse_hook(game.mlx.win_ptr, &click, &game);
 	mlx_loop_hook(game.mlx.mlx_ptr, &display_frame, &game);
 	mlx_loop(game.mlx.mlx_ptr);
 	game_free(&game);

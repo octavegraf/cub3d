@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 17:32:49 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 14:06:42 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	minimap_hook(int keycode, t_game *game)
 }
 
 
-static void	print_map(char **map)
+/* static void	print_map(char **map)
 {
 	int	i;
 	int	j;
@@ -46,83 +46,7 @@ static void	print_map(char **map)
 		ft_printf("\n");
 		i++;
 	}
-}
-
-static void	door_hook(int keycode, t_game *game)
-{
-	int	x;
-	int	y;
-
-	x = game->player.pos_x;
-	y = game->player.pos_y;
-	if (keycode == KEY_SPACE)
-	{
-		if (game->scene.map[x][y] == c_l)
-		{
-			print_map(game->scene.map);
-			game->scene.map[x][y] = o_l;
-			game->scene.map[x - 1][y] = d_l_u;
-			game->scene.map[x + 1][y] = d_l_d;
-			print_map(game->scene.map);
-		}
-		else if (game->scene.map[x][y + 1] == c_l)
-		{
-			print_map(game->scene.map);
-			game->scene.map[x][y + 1] = o_l;
-			game->scene.map[x - 1][y + 1] = d_l_u;
-			game->scene.map[x + 1][y + 1] = d_l_d;
-			print_map(game->scene.map);
-		}
-		else if (game->scene.map[x][y] == c_u)
-		{
-			print_map(game->scene.map);
-			game->scene.map[x][y] = o_u;
-			game->scene.map[x][y - 1] = d_u_l;
-			game->scene.map[x][y + 1] = d_u_r;
-			print_map(game->scene.map);
-		}
-		else if (game->scene.map[x + 1][y] == c_u)
-		{
-			print_map(game->scene.map);
-			game->scene.map[x + 1][y] = o_u;
-			game->scene.map[x + 1][y - 1] = d_u_l;
-			game->scene.map[x + 1][y + 1] = d_u_r;
-			print_map(game->scene.map);
-		}
-		else if (game->scene.map[x][y] == o_l)
-		{
-			print_map(game->scene.map);
-			game->scene.map[x][y] = c_l;
-			game->scene.map[x - 1][y] = '1';
-			game->scene.map[x + 1][y] = '1';
-			print_map(game->scene.map);
-		}
-		else if (game->scene.map[x][y + 1] == o_l)
-		{
-			print_map(game->scene.map);
-			game->scene.map[x][y + 1] = c_l;
-			game->scene.map[x - 1][y + 1] = '1';
-			game->scene.map[x + 1][y + 1] = '1';
-			print_map(game->scene.map);
-		}
-		else if (game->scene.map[x][y] == o_u)
-		{
-			print_map(game->scene.map);
-			game->scene.map[x][y] = c_u;
-			game->scene.map[x][y - 1] = '1';
-			game->scene.map[x][y + 1] = '1';
-			print_map(game->scene.map);
-		}
-		else if (game->scene.map[x + 1][y] == o_u)
-		{
-			print_map(game->scene.map);
-			game->scene.map[x + 1][y] = c_u;
-			game->scene.map[x + 1][y - 1] = '1';
-			game->scene.map[x + 1][y + 1] = '1';
-			print_map(game->scene.map);
-		}
-	}
-}
+} */
 
 int	key_up_hook(int keycode, void *param)
 {
@@ -143,8 +67,9 @@ int	key_up_hook(int keycode, void *param)
 		(game->key_press)[MOVE_LEFT] = 0;
 	if (keycode == KEY_D)
 		(game->key_press)[MOVE_RIGHT] = 0;
+	if (keycode == KEY_SPACE || keycode == LEFT_CLICK)
+		door_hook(game);
 	minimap_hook(keycode, game);
-	door_hook(keycode, game);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 17:00:28 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 14:04:59 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void		raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast);
 
 // mouse.c
 int			mouse(int x, int y, void *param);
+int			click(int click_hook, int x, int y, void *param);
 
 //	movement.c
 
@@ -164,6 +165,9 @@ int			display_frame(void *param);
  * @return int 1 on success, 0 on failure.
  */
 int			display_minimap(t_game *game, int radius);
+
+//	doors.c
+void		door_hook(t_game *game);
 
 //	parsing_identify.c
 
