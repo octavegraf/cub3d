@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 17:00:28 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 14:47:54 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,24 @@ int			is_available(t_game *game, double jump_x, double jump_y);
 
 # ifdef BONUS
 
-void		raycast_get_texture(t_game *g, t_raycast *r, struct timeval *tv);
-void		raycast_compute(int x, t_game *g, t_raycast *r, struct timeval *tv);
+int			raycast_get_texture(t_game *g,
+				t_raycast *rc, struct timeval *tv, int n);
+int			raycast_compute(t_game *g, t_raycast *r, struct timeval *tv, int n);
+int			raycast(t_game *game, int n);
 # else
 
 void		raycast_get_texture(t_game *game, t_raycast *raycast);
 void		raycast_compute(int x, t_game *g, t_raycast *r);
+
+//	raycast.c
+
+/**
+ * @brief Main raycasting function that renders one frame.
+ * 
+ * @param[in, out] game Pointer to the game structure.
+ */
+int			raycast(t_game *game);
+
 # endif
 
 //	libft
@@ -114,15 +126,6 @@ int			mouse(int x, int y, void *param);
  * @param[in, out] game Pointer to the game structure.
  */
 void		game_update_moves(t_game *game);
-
-//	raycast.c
-
-/**
- * @brief Main raycasting function that renders one frame.
- * 
- * @param[in, out] game Pointer to the game structure.
- */
-int			raycast(t_game *game);
 
 //	raycast_init.c
 

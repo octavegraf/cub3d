@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 11:26:18 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 11:46:01 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 14:05:47 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@ static void	raycast_compute_texture(t_game *g, t_raycast *rc, double d, int lh)
 
 #ifdef BONUS
 
-void	raycast_compute(int x, t_game *game, t_raycast *rc, struct timeval *tv)
+int	raycast_compute(t_game *game, t_raycast *rc, struct timeval *tv, int n)
 {
 	double		perp_wall_dist;
 	int			line_height;
+	int			res;
 
-	raycast_init(rc, game, x);
 	raycast_dda(rc, game);
+	res = raycast_get_texture(game, rc, tv, n);
+	if (n == 2 && res == '1')
+		return ('1');
 	if (rc->side == 0)
 		perp_wall_dist = (rc->side_dist_x - rc->delta_dist_x);
 	else
@@ -48,8 +51,8 @@ void	raycast_compute(int x, t_game *game, t_raycast *rc, struct timeval *tv)
 	rc->draw_end = line_height / 2 + HEIGHT / 2;
 	if (rc->draw_end >= HEIGHT)
 		rc->draw_end = HEIGHT - 1;
-	raycast_get_texture(game, rc, tv);
 	raycast_compute_texture(game, rc, perp_wall_dist, line_height);
+	return (res);
 }
 
 #else

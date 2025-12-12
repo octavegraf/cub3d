@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 12:06:58 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 14:42:57 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 
 #ifdef BONUS
 
-int	raycast(t_game *game)
+static int	raycast_param(t_game *g, t_raycast *rc, struct timeval *tv, int n)
+{
+	int				res;
+
+	res = raycast_compute(g, rc, tv, n);
+	if (n == 2 && res == '1')
+		return (HEIGHT);
+	if ((res == d_u_l || res == d_l_d) && rc->tex_x < rc->texture->w / 2)
+		return (HEIGHT);
+	if ((res == d_u_r || res == d_l_u) && rc->tex_x > rc->texture->w / 2)
+		return (HEIGHT);
+	return (0);
+}
+
+int	raycast(t_game *game, int n)
 {
 	int				x;
 	int				y;
@@ -27,13 +41,13 @@ int	raycast(t_game *game)
 	x = 0;
 	while (x < WIDTH)
 	{
-		raycast_compute(x, game, &raycast, &tv);
-		y = 0;
+		raycast_init(&raycast, game, x);
+		y = raycast_param(game, &raycast, &tv, n);
 		while (y < HEIGHT)
 		{
 			if (raycast.draw_start <= y && y <= raycast.draw_end)
 				raycast_fill_img(game, x, y, &raycast);
-			else
+			else if (n == 1)
 				img_fill_ceiling_floor(game, x, y);
 			y++;
 		}
