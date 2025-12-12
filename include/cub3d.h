@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 14:49:47 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 15:44:44 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,13 @@
 # include "get_next_line.h"
 # include "cub3d_struct.h"
 
-// NEED TO BE REORGANISED !!!!!!!
-int			quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map);
-int			quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map);
-int			minimap_get(t_game *game, int radius_map);
-void		draw_player_fov_minimap(t_game *game, int radius_map);
-void		t_scene_free(t_scene *scene);
-int			check_jump(double jump);
-int			diff_time_tv(struct timeval *tv1, struct timeval *t2);
-void		update_time_tv(struct timeval *tv, long long sec, long long usec);
-
-int			t_mlx_init(t_mlx *mlx, t_list *files[D + 1]);
-int			is_available(t_game *game, double jump_x, double jump_y);
-
 # ifdef BONUS
 
 int			raycast_get_texture(t_game *g,
 				t_raycast *rc, struct timeval *tv, int n);
 int			raycast_compute(t_game *g, t_raycast *r, struct timeval *tv, int n);
 int			raycast(t_game *game, int n);
+
 # else
 
 void		raycast_get_texture(t_game *game, t_raycast *raycast);
@@ -128,6 +116,10 @@ int			click(int click_hook, int x, int y, void *param);
  */
 void		game_update_moves(t_game *game);
 
+//	movement_utils.c
+int			check_jump(double jump);
+int			is_available(t_game *game, double jump_x, double jump_y);
+
 //	raycast_init.c
 
 /**
@@ -168,6 +160,8 @@ int			display_frame(void *param);
  * @return int 1 on success, 0 on failure.
  */
 int			display_minimap(t_game *game, int radius);
+void		draw_player_fov_minimap(t_game *game, int radius_map);
+int			minimap_get(t_game *game, int radius_map);
 
 //	doors.c
 void		door_hook(t_game *game);
@@ -275,6 +269,11 @@ int			readable_file(char *file_path);
  */
 int			read_cub_file(char *cub_path, t_game *game, int id);
 
+//	quadri_get_x.c
+int			quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map);
+//	quadri_get_y.c
+int			quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map);
+
 //	t_img.c
 
 /**
@@ -323,6 +322,8 @@ int			t_mlx_init(t_mlx *mlx, t_list *files[4]);
  * @param[in, out] mlx Pointer to the MLX structure to free.
  */
 void		t_mlx_free(t_mlx *mlx);
+int			t_mlx_init(t_mlx *mlx, t_list *files[D + 1]);
+void		t_scene_free(t_scene *scene);
 
 //	hooks.c
 
@@ -362,7 +363,7 @@ int			close_window(void *param);
  */
 t_player	player_init(char **map);
 
-//textures_list.c
+//	textures_list.c
 /**
  * @brief Add a texture file path to the game's texture list.
  * 
@@ -372,5 +373,9 @@ t_player	player_init(char **map);
  * @return int 0 on success, 1 on error.
  */
 int			add_texture(t_game *game, char *line, char *file_path);
+
+//	timeval.c
+int			diff_time_tv(struct timeval *tv1, struct timeval *t2);
+void		update_time_tv(struct timeval *tv, long long sec, long long usec);
 
 #endif
