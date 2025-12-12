@@ -1,11 +1,11 @@
-WE assets/default.xpm
+WE assets/sleeping_smurfs/sleeping_smurfs_w.xpm
 F 0,0,0
-NO assets/default.xpm
+NO assets/sleeping_smurfs/sleeping_smurfs_n.xpm
 
-EA assets/default.xpm
+EA assets/sleeping_smurfs/sleeping_smurfs_e.xpm
 C 255,255,255
 
-SO assets/default.xpm
+SO assets/sleeping_smurfs/sleeping_smurfs_s.xpm
 
  111111111111111
 1E000000000000001
