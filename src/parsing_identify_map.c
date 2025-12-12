@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:15:30 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/11 15:52:14 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 18:00:02 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ static int	identify_map3(t_game *game)
 			if (map[i][j] == 'D')
 			{
 				if (!i || !j || ft_strlen(map[i - 1]) <= j || ft_strlen(map[i
-							+ 1]) <= j || ((map[i][j - 1] != '1' && map[i][j
-						+ 1] != '1') && (map[i - 1][j] != '1' && map[i + 1]
+							+ 1]) <= j || ((map[i][j - 1] != '1' || map[i][j
+						+ 1] != '1') && (map[i - 1][j] != '1' || map[i + 1]
 									[j] != '1')) || !game->scene.textures[D])
 					return (ft_dprintf(2, ERR_DOOR_MISS_WALLS), 1);
 				map[i][j] = c_l;

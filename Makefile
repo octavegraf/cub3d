@@ -63,7 +63,7 @@ clean				:
 	make -C $(GNL_FOLDER) clean
 
 fclean				:	clean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(NAME)_bonus
 	make -C $(FT_PRINTF_FOLDER) fclean
 	make -C $(GNL_FOLDER) fclean
 
