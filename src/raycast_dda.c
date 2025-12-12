@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 17:07:28 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 14:52:28 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,20 @@ static void	resolve_hit(t_raycast *raycast, t_game *game, int *hit)
 		*hit = 1;
 	else if (raycast->side == 0)
 	{
-		// door up closed, hit up side from above
 		if (raycast->ray_dir_x > 0
-				&& game->scene.map[raycast->map_x][raycast->map_y] == c_u)
+			&& game->scene.map[raycast->map_x][raycast->map_y] == c_u)
 			*hit = 1;
-		// door up closed, hit up side from below
 		else if (raycast->ray_dir_x < 0
-				&& game->scene.map[raycast->map_x + 1][raycast->map_y] == c_u)
+			&& game->scene.map[raycast->map_x + 1][raycast->map_y] == c_u)
 			*hit = 1;
 	}
 	else
 	{
-		// door left closed, hit left side from the left
 		if (raycast->ray_dir_y > 0
-				&& game->scene.map[raycast->map_x][raycast->map_y] == c_l)
+			&& game->scene.map[raycast->map_x][raycast->map_y] == c_l)
 			*hit = 1;
-		// door left closed, hit left side from the right
 		else if (raycast->ray_dir_y < 0
-				&& game->scene.map[raycast->map_x][raycast->map_y + 1] == c_l)
+			&& game->scene.map[raycast->map_x][raycast->map_y + 1] == c_l)
 			*hit = 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 14:06:42 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/12 14:53:13 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	minimap_hook(int keycode, t_game *game)
 			MIN_DIM_RATIO + game->key_press[MINIMAP_MAXIMIZE] * MIN_DIM_RATIO);
 	}
 }
-
 
 /* static void	print_map(char **map)
 {
