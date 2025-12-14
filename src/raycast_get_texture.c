@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_get_texture.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:08:32 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 14:45:17 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 15:11:41 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,63 +26,66 @@ static void	update_texture(t_list **node_img, t_list *head_img,
 			*node_img = head_img;
 	}
 }
+static int	assign_texture2(t_game *game, t_raycast *raycast,
+				t_list *textures[D + 1], int n);
 
-static int	assign_texture(t_game *game, t_raycast *raycast, t_list *textures[D + 1], int n)
+static int	assign_texture(t_game *g, t_raycast *rc,
+	t_list *textures[D + 1], int n)
 {
-	if (raycast->side == 0)
+	if (rc->side == 0)
 	{
-		if (raycast->ray_dir_x < 0)
+		if (rc->ray_dir_x < 0)
 		{
-			// door up closed, from below
-			if (game->scene.map[raycast->map_x + 1][raycast->map_y] == c_u)
-				raycast->texture = textures[D]->content;
-			// door left open, up door
-			else if (n == 2 && game->scene.map[raycast->map_x][raycast->map_y] == d_l_u)
-				return (raycast->texture = textures[D]->content, d_l_u);
+			if (g->scene.map[rc->map_x + 1][rc->map_y] == c_u)
+				rc->texture = textures[D]->content;
+			else if (n == 2 && g->scene.map[rc->map_x][rc->map_y] == d_l_u)
+				return (rc->texture = textures[D]->content, d_l_u);
 			else
-				raycast->texture = textures[NO]->content;
+				rc->texture = textures[NO]->content;
 		}
 		else
 		{
-			// door up closed, from above
-			if (game->scene.map[raycast->map_x][raycast->map_y] == c_u)
-				raycast->texture = textures[D]->content;
-			// door left open, down door
-			else if (n == 2 && game->scene.map[raycast->map_x][raycast->map_y] == d_l_d)
-				return (raycast->texture = textures[D]->content, d_l_d);
+			if (g->scene.map[rc->map_x][rc->map_y] == c_u)
+				rc->texture = textures[D]->content;
+			else if (n == 2 && g->scene.map[rc->map_x][rc->map_y] == d_l_d)
+				return (rc->texture = textures[D]->content, d_l_d);
 			else
-				raycast->texture = textures[SO]->content;
+				rc->texture = textures[SO]->content;
 		}
 	}
 	else
+		return (assign_texture2(g, rc, textures, n));
+	return ('1');
+}
+
+static int	assign_texture2(t_game *g, t_raycast *rc,
+				t_list *textures[D + 1], int n)
+{
 	{
-		if (raycast->ray_dir_y < 0)
+		if (rc->ray_dir_y < 0)
 		{
-			// door left closed, from the right
-			if (game->scene.map[raycast->map_x][raycast->map_y + 1] == c_l)
-				raycast->texture = textures[D]->content;
-			// door up open, left door
-			else if (n == 2 && game->scene.map[raycast->map_x][raycast->map_y] == d_u_l)
-				return (raycast->texture = textures[D]->content, d_u_l);
+			if (g->scene.map[rc->map_x][rc->map_y + 1] == c_l)
+				rc->texture = textures[D]->content;
+			else if (n == 2 && g->scene.map[rc->map_x][rc->map_y] == d_u_l)
+				return (rc->texture = textures[D]->content, d_u_l);
 			else
-				raycast->texture = textures[WE]->content;
+				rc->texture = textures[WE]->content;
 		}
 		else
 		{
-			// door left closed, from the left
-			if (game->scene.map[raycast->map_x][raycast->map_y] == c_l)
-				raycast->texture = textures[D]->content;
-			// door up open, right door
-			else if (n == 2 && game->scene.map[raycast->map_x][raycast->map_y] == d_u_r)
-				return (raycast->texture = textures[D]->content, d_u_r);
+			if (g->scene.map[rc->map_x][rc->map_y] == c_l)
+				rc->texture = textures[D]->content;
+			else if (n == 2 && g->scene.map[rc->map_x][rc->map_y] == d_u_r)
+				return (rc->texture = textures[D]->content, d_u_r);
 			else
-				raycast->texture = textures[EA]->content;
+				rc->texture = textures[EA]->content;
 		}
 	}
 	return ('1');
 }
 
-int	raycast_get_texture(t_game *game, t_raycast *raycast, struct timeval *tv, int n)
+int	raycast_get_texture(t_game *game, t_raycast *raycast, struct timeval *tv,
+	int n)
 {
 	static t_list	*textures[D + 1] = {0};
 	int				i;

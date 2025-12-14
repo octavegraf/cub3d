@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 14:42:57 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/12 15:20:21 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	raycast(t_game *game, int n)
 
 	if (gettimeofday(&tv, NULL) != 0)
 		return (ft_dprintf(2, ERR_GETTIMEOFDAY), 0);
-	game_update_moves(game);
 	x = 0;
 	while (x < WIDTH)
 	{
