@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 20:10:33 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/10 13:08:31 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/14 18:54:31 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	identify_textures(char *line, t_game *game)
 	if (ft_strncmp(line, "D", 1))
 		fd++;
 	path = skip_whitespaces(line + fd + 1);
+	if (path == line + fd + 1)
+		return (ft_dprintf(2, ERR_UNKNOWN_ID), 1);
 	temp = path;
 	while (temp && ft_isprint(*temp) && *temp != ' ')
 		temp++;
@@ -46,15 +48,12 @@ int	identify_textures(char *line, t_game *game)
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
 	path = ft_substr(path, 0, temp - path);
 	if (!path)
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
-	fd = readable_file(path);
-	if (fd == -1)
-		return (free(path), 1);
+		return (ft_dprintf(2, ERR_MALLOC), 1);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), close(fd), 1);
 	if (add_texture(game, line, path))
-		return (free(path), close(fd), 1);
-	return (close(fd), 0);
+		return (free(path), 1);
+	return (0);
 }
 #else
 
@@ -76,9 +75,10 @@ int	identify_textures(char *line, t_game *game)
 {
 	char	*path;
 	char	*temp;
-	int		fd;
 
 	path = skip_whitespaces(line + 2);
+	if (path == line + 2)
+		return (ft_dprintf(2, ERR_UNKNOWN_ID), 1);
 	temp = path;
 	while (temp && ft_isprint(*temp) && *temp != ' ')
 		temp++;
@@ -86,15 +86,12 @@ int	identify_textures(char *line, t_game *game)
 		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
 	path = ft_substr(path, 0, temp - path);
 	if (!path)
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_READABLE), 1);
-	fd = readable_file(path);
-	if (fd == -1)
-		return (free(path), 1);
+		return (ft_dprintf(2, ERR_MALLOC), 1);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), close(fd), 1);
+		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), 1);
 	if (add_texture(game, line, path))
-		return (free(path), close(fd), 1);
-	return (close(fd), 0);
+		return (free(path), 1);
+	return (0);
 }
 #endif
 
@@ -123,6 +120,6 @@ int	identify_colors(char *line, t_game *game)
 	else if (!ft_strncmp(line, "C", 1) && game->scene.ceiling_color == -1)
 		game->scene.ceiling_color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 	else
-		return (ft_dprintf(2, ERR_COLOR_OUT_OF_RANGE), 1);
+		return (ft_dprintf(2, ERR_MULTIPLE_COLOR), 1);
 	return (0);
 }

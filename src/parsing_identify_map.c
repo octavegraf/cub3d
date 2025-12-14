@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:15:30 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/12 18:00:02 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/14 17:43:27 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	identify_map(char **map, t_game *game)
 				p++;
 			else if ((map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' '
 				&& map[i][j] != '\f' && map[i][j] != '\r' && map[i][j] != '\t'
-				&& map[i][j] != '\v') || !ft_wstrlen(map[i]))
+				&& map[i][j] != '\v'))
 				return (ft_dprintf(2, ERR_INVALID_MAP_CHAR), 1);
 		}
 	}
