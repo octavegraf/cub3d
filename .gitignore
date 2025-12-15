@@ -1,5 +1,6 @@
 objects
 *.o*
-cub3d*
+cub3d
+cub3d_bonus
 *.png
 *.jp*

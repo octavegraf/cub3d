@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 17:06:57 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/14 19:11:46 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,7 +318,7 @@ typedef struct s_raycast
 	double			step;
 }	t_raycast;
 
-# define ERR_USAGE "Error\nUse program with one map.\n"
+# define ERR_USAGE "Error\nUse program with one map\n"
 # define ERR_NULL_PATH "Error\nnull path\n"
 # define ERR_OPEN_FILE "Error\nopen file: %s \n"
 # define ERR_WRONG_LINE "Error\nWrong line\n"
@@ -326,17 +326,18 @@ typedef struct s_raycast
 # define ERR_TEXTURE_NOT_READABLE "Error\nTexture file not readable\n"
 # define ERR_TEXTURE_NOT_XPM "Error\nTexture file not .xpm\n"
 # define ERR_COLOR_OUT_OF_RANGE "Error\nColor value out of range\n"
+# define ERR_MULTIPLE_COLOR "Error\nDuplicate color value\n"
 # define ERR_UNKNOWN_COLOR_ID "Error\nUnknown color identifier\n"
-# define ERR_INVALID_MAP_CHAR "Error\nInvalid map character or not closed.\n"
+# define ERR_INVALID_MAP_CHAR "Error\nInvalid map character or not closed\n"
 # define ERR_INVALID_PLAYER_COUNT "Error\nInvalid number of player\n"
-# define ERR_MAP_OPEN "Error\nMap open %d,%d \n"
+# define ERR_MAP_OPEN "Error\nMap open %d,%d\n"
 # define ERR_MLX_INIT "Error\nmlx_init()\n"
 # define ERR_MLX_NEW_WINDOW "Error\nmlx_new_window()\n"
 # define ERR_MLX_NEW_IMAGE "Error\nmlx_new_image()\n"
 # define ERR_MLX_GET_DATA_ADDR "Error\nmlx_get_data_addr()\n"
 # define ERR_MLX_XPM_FILE "Error\nmlx_xpm_file_to_image()\n"
 # define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
-# define ERR_INVALID_CARDINAL "Error\nInvalid cardinal direction\n"
+# define ERR_INVALID_CARDINAL "Error\nInvalid texture identifier\n"
 # define ERR_GETTIMEOFDAY "Error\ngettimeofday()\n"
 # define ERR_MALLOC "Error\nmalloc()\n"
 # define ERR_MINIMAP_PLAYER "Error\nMinimap: invalid player size\n"

@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/11 15:21:45 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/14 18:51:43 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	readable_file(char *file_path)
 
 	fd = -1;
 	if (!file_path || !*file_path)
-		return (ft_dprintf (2, ERR_NULL_PATH), fd);
+		return (fd);
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
-		return (ft_dprintf (2, ERR_OPEN_FILE, file_path), fd);
+		return (fd);
 	if (read(fd, NULL, 0) < 0)
-		return (ft_dprintf(2, ERR_OPEN_FILE, file_path), close(fd), -1);
+		return (close(fd), -1);
 	return (fd);
 }
 
@@ -81,7 +81,7 @@ static int	read_cub_file2(t_game *game, char *buff, int fd)
 		}
 		map = ft_array_add_row(map, buff);
 		if (!map)
-			return (free(buff), double_free(map), close(fd), 1);
+			return (free(buff), close(fd), ft_dprintf(2, ERR_MALLOC), 1);
 		free(buff);
 		buff = get_next_line(fd);
 	}
@@ -90,6 +90,9 @@ static int	read_cub_file2(t_game *game, char *buff, int fd)
 
 static int	read_cub_file3(t_game *game, char *buff, int fd, char **map)
 {
+	map = ft_array_add_row(map, "");
+	if (!map)
+		return (free(buff), close(fd), ft_dprintf(2, ERR_MALLOC), 1);
 	while (buff)
 	{
 		free(buff);

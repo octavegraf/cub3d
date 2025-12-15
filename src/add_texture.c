@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 11:31:38 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/04 18:20:16 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/14 19:13:44 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ int	add_texture(t_game *game, char *line, char *file_path)
 
 int	add_texture2(t_game *game, int fd, int cardinal, t_list *lst)
 {
-	if (!game->scene.textures[cardinal])
-		game->scene.textures[cardinal] = lst;
-	else
-		ft_lstadd_back(&game->scene.textures[cardinal], lst);
+	ft_lstadd_back(&game->scene.textures[cardinal], lst);
 	close(fd);
 	return (0);
 }

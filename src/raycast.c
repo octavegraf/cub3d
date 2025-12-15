@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 15:20:21 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/12 18:02:49 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	raycast_param(t_game *g, t_raycast *rc, struct timeval *tv, int n)
 {
-	int				res;
+	int	res;
 
 	res = raycast_compute(g, rc, tv, n);
 	if (n == 2 && res == '1')
