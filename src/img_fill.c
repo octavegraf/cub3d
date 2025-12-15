@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/15 14:35:56 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 14:46:30 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast)
 
 #else
 
-
 void	raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast)
 {
 	raycast->tex_y = ((int)raycast->tex_pos) & (raycast->texture->h - 1);
@@ -45,7 +44,6 @@ void	raycast_fill_img(t_game *game, int x, int y, t_raycast *raycast)
 		raycast->texture->buf + ((raycast->texture->size_line * raycast->tex_y)
 			+ raycast->tex_x * raycast->texture->bpp), game->mlx.frame.bpp);
 }
-
 
 #endif
 
