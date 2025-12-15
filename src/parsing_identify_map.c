@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:15:30 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/14 17:43:27 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/15 11:29:34 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	identify_map2(t_game *game)
 		{
 			if (ft_strchr(&MAP_ELEMENTS[1], map[i][j]))
 			{
-				if (!i || !j || ft_strlen(map[i - 1]) <= j
+				if (!i || !j || !map[i][j + 1] || ft_strlen(map[i - 1]) <= j
 					|| ft_strlen(map[i + 1]) <= j
 					|| !ft_strchr(MAP_ELEMENTS, map[i - 1][j])
 					|| !ft_strchr(MAP_ELEMENTS, map[i + 1][j])

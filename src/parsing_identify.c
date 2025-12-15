@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 20:10:33 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/14 18:54:31 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/14 19:09:28 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	identify_textures(char *line, t_game *game)
 {
 	char	*path;
 	char	*temp;
-	int		fd;
+	int		is_wall;
 
-	fd = 0;
+	is_wall = 0;
 	if (ft_strncmp(line, "D", 1))
-		fd++;
-	path = skip_whitespaces(line + fd + 1);
-	if (path == line + fd + 1)
+		is_wall++;
+	path = skip_whitespaces(line + is_wall + 1);
+	if (path == line + is_wall + 1)
 		return (ft_dprintf(2, ERR_UNKNOWN_ID), 1);
 	temp = path;
 	while (temp && ft_isprint(*temp) && *temp != ' ')
@@ -50,7 +50,7 @@ int	identify_textures(char *line, t_game *game)
 	if (!path)
 		return (ft_dprintf(2, ERR_MALLOC), 1);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4))
-		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), close(fd), 1);
+		return (ft_dprintf(2, ERR_TEXTURE_NOT_XPM), free(path), 1);
 	if (add_texture(game, line, path))
 		return (free(path), 1);
 	return (0);

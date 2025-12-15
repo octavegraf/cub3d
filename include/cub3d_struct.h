@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/14 17:44:20 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/14 19:11:46 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,7 +337,7 @@ typedef struct s_raycast
 # define ERR_MLX_GET_DATA_ADDR "Error\nmlx_get_data_addr()\n"
 # define ERR_MLX_XPM_FILE "Error\nmlx_xpm_file_to_image()\n"
 # define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
-# define ERR_INVALID_CARDINAL "Error\nInvalid cardinal direction\n"
+# define ERR_INVALID_CARDINAL "Error\nInvalid texture identifier\n"
 # define ERR_GETTIMEOFDAY "Error\ngettimeofday()\n"
 # define ERR_MALLOC "Error\nmalloc()\n"
 # define ERR_MINIMAP_PLAYER "Error\nMinimap: invalid player size\n"
