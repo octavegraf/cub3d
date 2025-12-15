@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 12:33:35 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 17:03:11 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv)
 		return (ft_dprintf(2, ERR_GETTIMEOFDAY), 1);
 	if (read_cub_file(argv[1], &game, 0))
 		return (game_free(&game), 1);
+	replace_char(&game);
 	if (game_init(&game) == 0)
 		return (1);
 	mlx_hook(game.mlx.win_ptr, 2, 1L << 0, &key_down_hook, &game);

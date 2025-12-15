@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/15 14:58:33 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/15 17:14:05 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ char		*skip_numbers(char *str);
  * @return int 0 on success, 1 on error.
  */
 int			map_remove_whitespaces(t_game *game);
-
+void		replace_char(t_game *game);
 //	parsing.c
 
 /**
