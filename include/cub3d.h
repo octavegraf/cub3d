@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/15 17:14:05 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/15 22:36:30 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int			raycast_compute(t_game *g, t_raycast *r, struct timeval *tv, int n);
 int			raycast(t_game *game, int n);
 int			t_mlx_init(t_mlx *mlx, t_list *files[D + 1]);
 void		raycast_dda(t_raycast *raycast, t_game *game, int);
+int			e_chr_white(int c);
+int			e_chr_hit_open(int c);
+int			e_chr_available(int c);
 
 # else
 /**

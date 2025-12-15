@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 16:32:03 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/15 17:02:05 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 22:52:26 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 int	e_chr_white(int c)
 {
-	if (c == -1 || c == o_l || c == o_u || c & d_u_l == 1 || c == t
-		|| c & d_u_r == 1 || c & d_l_u == 1 || c & d_l_d == 1)
+	if (c == -1 || c == o_l || c == o_u || (c & d_u_l) == d_u_l || c == t
+		|| (c & d_u_r) == d_u_r || (c & d_l_u) == d_l_u || (c & d_l_d) == d_l_d)
 		return (1);
 	return (0);
 }
 
-int	e_chr_h_open(int c)
+int	e_chr_hit_open(int c)
 {
-	if (c & d_u_l == 1 || c & d_u_r == 1 || c & d_l_u == 1 || c & d_l_d == 1)
+	if ((c & d_u_l) == d_u_l || (c & d_u_r) == d_u_r || (c & d_l_u) == d_l_u || (c & d_l_d) == d_l_d)
 		return (1);
 	return (0);
 }

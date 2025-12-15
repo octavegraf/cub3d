@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/15 16:57:24 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/15 22:38:00 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ static void	resolve_hit(t_raycast *raycast, t_game *game, int *hit, int n)
 			&& raycast->ray_dir_x < 0
 			&& game->scene.map[raycast->map_x + 1][raycast->map_y] == t)
 		*hit = 1;
-	else if (ft_strchr(HIT_OPEN,
-			game->scene.map[raycast->map_x][raycast->map_y]) != NULL)
+	//else if (ft_strchr(HIT_OPEN,
+	//		game->scene.map[raycast->map_x][raycast->map_y]) != NULL)
+	else if (e_chr_hit_open(game->scene.map[raycast->map_x][raycast->map_y]))
 		*hit = 1;
 	else if (raycast->side == 0)
 	{

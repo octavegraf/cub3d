@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 14:01:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/12 15:09:23 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 22:40:18 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	is_available(t_game *game, double jump_x, double jump_y)
 		if (game->scene.map[(int)(game->player.pos_x)][try_y] == c_u
 			&& game->scene.map[try_x][try_y] != c_u)
 			return (0);
-		if (ft_strchr(AVAILABLE_X_NEG, game->scene.map[try_x][try_y]) != NULL)
+		//if (ft_strchr(AVAILABLE_X_NEG, game->scene.map[try_x][try_y]) != NULL)
+		if (e_chr_available(game->scene.map[try_x][try_y]))
 			return (1);
 	}
 	else if (jump_x > 0)
@@ -36,8 +37,9 @@ int	is_available(t_game *game, double jump_x, double jump_y)
 		if (game->scene.map[(int)(game->player.pos_x)][try_y] != c_u
 			&& game->scene.map[try_x][try_y] == c_u)
 			return (0);
-		else if (ft_strchr(AVAILABLE_X_POS, game->scene.map[try_x][try_y])
-			!= NULL)
+		//else if (ft_strchr(AVAILABLE_X_POS, game->scene.map[try_x][try_y])
+		//	!= NULL)
+		if (e_chr_available(game->scene.map[try_x][try_y]))
 			return (1);
 	}
 	return (is_available2(game, jump_x, jump_y));
@@ -55,8 +57,9 @@ static int	is_available2(t_game *game, double jump_x, double jump_y)
 		if (game->scene.map[try_x][(int)(game->player.pos_y)] == c_l
 			&& game->scene.map[try_x][try_y] != c_l)
 			return (0);
-		else if (ft_strchr(AVAILABLE_Y_NEG, game->scene.map[try_x][try_y])
-			!= NULL)
+		//else if (ft_strchr(AVAILABLE_Y_NEG, game->scene.map[try_x][try_y])
+		//	!= NULL)
+		if (e_chr_available(game->scene.map[try_x][try_y]))
 			return (1);
 	}
 	else if (jump_y > 0)
@@ -64,8 +67,9 @@ static int	is_available2(t_game *game, double jump_x, double jump_y)
 		if (game->scene.map[try_x][(int)(game->player.pos_y)] != c_l
 			&& game->scene.map[try_x][try_y] == c_l)
 			return (0);
-		else if (ft_strchr(AVAILABLE_Y_POS, game->scene.map[try_x][try_y])
-			!= NULL)
+		//else if (ft_strchr(AVAILABLE_Y_POS, game->scene.map[try_x][try_y])
+		//	!= NULL)
+		if (e_chr_available(game->scene.map[try_x][try_y]))
 			return (1);
 	}
 	return (0);
