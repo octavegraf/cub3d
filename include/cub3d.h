@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/15 14:17:55 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 14:58:33 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int			raycast_get_texture(t_game *g,
 int			raycast_compute(t_game *g, t_raycast *r, struct timeval *tv, int n);
 int			raycast(t_game *game, int n);
 int			t_mlx_init(t_mlx *mlx, t_list *files[D + 1]);
+void		raycast_dda(t_raycast *raycast, t_game *game, int);
 
 # else
 /**
@@ -45,6 +46,17 @@ int			t_mlx_init(t_mlx *mlx, t_list *files[D + 1]);
 int			t_mlx_init(t_mlx *mlx, t_list *files[4]);
 void		raycast_get_texture(t_game *game, t_raycast *raycast);
 void		raycast_compute(int x, t_game *g, t_raycast *r);
+
+//	raycast_dda.c
+
+/**
+ * @brief DDA algorithm to find wall intersection.
+ * 
+ * @param[in, out] raycast Pointer to the raycast structure.
+ * @param[in] game Pointer to the game structure containing the map.
+ */
+void		raycast_dda(t_raycast *raycast, t_game *game);
+
 
 //	raycast.c
 
@@ -138,16 +150,6 @@ int			is_available(t_game *game, double jump_x, double jump_y);
  * @param[in] x Screen column index (0 to WIDTH-1).
  */
 void		raycast_init(t_raycast *raycast, t_game *game, int x);
-
-//	raycast_dda.c
-
-/**
- * @brief DDA algorithm to find wall intersection.
- * 
- * @param[in, out] raycast Pointer to the raycast structure.
- * @param[in] game Pointer to the game structure containing the map.
- */
-void		raycast_dda(t_raycast *raycast, t_game *game);
 
 //	display_frame.c
 
