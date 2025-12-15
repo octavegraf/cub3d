@@ -1,7 +1,7 @@
 CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -MMD
 NAME				=	cub3d
-FILES				=	add_texture close_window display_frame display_minimap doors game_free game_init img_fill key_down_hook key_up_hook main minimap_draw_player_fov minimap_free minimap_get minimap_set_params mouse movement movement_utils parsing parsing_identify parsing_identify_map parsing_utils quadri_get_x quadri_get_y raycast raycast_dda raycast_init raycast_compute raycast_get_texture timeval t_img t_mlx_free t_mlx_init t_player t_scene_free
+FILES				=	add_texture close_window display_frame display_minimap doors game_free game_init img_fill key_down_hook key_up_hook main minimap_draw_player_fov minimap_free minimap_get minimap_set_params mouse movement movement_utils parsing parsing_identify parsing_identify_map parsing_identify_map_extra parsing_utils quadri_get_x quadri_get_y raycast raycast_dda raycast_init raycast_compute raycast_get_texture timeval t_img t_mlx_free t_mlx_init t_player t_scene_free
 SRC					=	$(addprefix src/, $(addsuffix .c, $(FILES)))
 INCLUDES			=	-Ift_printf -Imlx -Ignl -Iinclude
 OBJ_FOLDER			=	objects/

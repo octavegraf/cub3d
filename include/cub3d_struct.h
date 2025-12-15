@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/14 19:11:46 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/15 14:19:41 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@
 # endif
 
 # ifdef BONUS
-#  define MAP_ELEMENTS "10NSEWD"
+#  define MAP_ELEMENTS "10NSEWTD"
 #  define RADIUS_MAP 3
 #  define MIN_DIM_RATIO 0.2
 #  define SIZE_PLAYER 1
 #  define MINIMAP_FOV_STEP 0.01
 
-#  define MINIMAP_WHITE "0MVYIO."
+#  define MINIMAP_WHITE "0MVYIO.T"
 
 #  define HIT_OPEN "YIO."
 
@@ -94,6 +94,7 @@ enum e_direction
 	SO,
 	WE,
 	EA,
+	T,
 	D,
 	F,
 	C,
@@ -344,5 +345,5 @@ typedef struct s_raycast
 # define ERR_MINIMAP_SIZE "Error\nMinimap: invalid minimap dimensions\n"
 # define ERR_FREQ_ANIMATION "Error\nAnimation: invalid update frequence\n"
 # define ERR_DOOR_MISS_WALLS "Error\nMissing texture or walls around a door\n"
-
+# define ERR_SPRITE_TEXTURES "Error\nMissing textures for sprite\n"
 #endif

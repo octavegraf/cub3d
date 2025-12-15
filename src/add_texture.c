@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 11:31:38 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/14 19:13:44 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/15 14:20:39 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	add_texture(t_game *game, char *line, char *file_path)
 		cardinal = EA;
 	else if (!ft_strncmp(line, "D", 1))
 		cardinal = D;
+	else if (!ft_strncmp(line, "T", 1))
+		cardinal = T;
 	else
 		return (ft_dprintf(2, ERR_INVALID_CARDINAL), close(fd), 1);
 	lst = ft_lstnew(file_path);

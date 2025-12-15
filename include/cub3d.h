@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 15:44:44 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 14:17:55 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,17 @@ int			raycast_get_texture(t_game *g,
 				t_raycast *rc, struct timeval *tv, int n);
 int			raycast_compute(t_game *g, t_raycast *r, struct timeval *tv, int n);
 int			raycast(t_game *game, int n);
+int			t_mlx_init(t_mlx *mlx, t_list *files[D + 1]);
 
 # else
-
+/**
+ * @brief Initialize MLX library, window, and load textures.
+ * 
+ * @param[in, out] mlx Pointer to the MLX structure to initialize.
+ * @param[in] files Array of 4 texture file paths (NO, SO, WE, EA).
+ * @return int 1 on success, 0 on failure.
+ */
+int			t_mlx_init(t_mlx *mlx, t_list *files[4]);
 void		raycast_get_texture(t_game *game, t_raycast *raycast);
 void		raycast_compute(int x, t_game *g, t_raycast *r);
 
@@ -308,21 +316,11 @@ int			t_img_init_file(void *mlx_ptr, t_img *img, char *file);
 int			t_mlx_is_valid(t_mlx *mlx);
 
 /**
- * @brief Initialize MLX library, window, and load textures.
- * 
- * @param[in, out] mlx Pointer to the MLX structure to initialize.
- * @param[in] files Array of 4 texture file paths (NO, SO, WE, EA).
- * @return int 1 on success, 0 on failure.
- */
-int			t_mlx_init(t_mlx *mlx, t_list *files[4]);
-
-/**
  * @brief Free all MLX resources (window, images, display).
  * 
  * @param[in, out] mlx Pointer to the MLX structure to free.
  */
 void		t_mlx_free(t_mlx *mlx);
-int			t_mlx_init(t_mlx *mlx, t_list *files[D + 1]);
 void		t_scene_free(t_scene *scene);
 
 //	hooks.c
