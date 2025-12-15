@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/15 14:19:41 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 16:57:06 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,22 @@
 
 #  define HIT_OPEN "YIO."
 
-#  define AVAILABLE_X_NEG "0VUML"
-#  define AVAILABLE_X_POS "0VUML"
-#  define AVAILABLE_Y_NEG "0MLVU"
-#  define AVAILABLE_Y_POS "0MLVU"
+#  define AVAILABLE_X_NEG "0VUMLT"
+#  define AVAILABLE_X_POS "0VUMLT"
+#  define AVAILABLE_Y_NEG "0MLVUT"
+#  define AVAILABLE_Y_POS "0MLVUT"
 
 enum e_door
 {
-	c_l = 'L',
-	c_u = 'U',
-	o_l = 'M',
-	o_u = 'V',
-	d_u_l = 'Y',
-	d_u_r = 'I',
-	d_l_u = 'O',
-	d_l_d = '.'
+	t = 1 << 7 & 1 << 5,
+	c_l = 1 << 5,
+	c_u = 1 << 6,
+	o_l = 1 << 6 && 1 << 5,
+	o_u = 1 << 7,
+	d_u_l = 1 << 1,
+	d_u_r = 1 << 2,
+	d_l_u = 1 << 3,
+	d_l_d = 1 << 4
 };
 
 # else

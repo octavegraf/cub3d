@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 20:10:33 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/15 14:25:18 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 15:18:58 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	identify_textures(char *line, t_game *game)
 	int		is_wall;
 
 	is_wall = 0;
-	if (ft_strncmp(line, "D", 1))
+	if (ft_strncmp(line, "D", 1) && ft_strncmp(line, "T", 1))
 		is_wall++;
 	path = skip_whitespaces(line + is_wall + 1);
 	if (path == line + is_wall + 1)

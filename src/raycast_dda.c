@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 14:52:28 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 16:57:24 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,19 @@
 
 #ifdef BONUS
 
-static void	resolve_hit(t_raycast *raycast, t_game *game, int *hit)
+static void	resolve_hit(t_raycast *raycast, t_game *game, int *hit, int n)
 {
 	if (game->scene.map[raycast->map_x][raycast->map_y] == '1')
+		*hit = 1;
+	else if (n == 3
+			&& raycast->side == 0
+			&& raycast->ray_dir_x > 0
+			&& game->scene.map[raycast->map_x][raycast->map_y] == t)
+		*hit = 1;
+	else if (n == 3
+			&& raycast->side == 0
+			&& raycast->ray_dir_x < 0
+			&& game->scene.map[raycast->map_x + 1][raycast->map_y] == t)
 		*hit = 1;
 	else if (ft_strchr(HIT_OPEN,
 			game->scene.map[raycast->map_x][raycast->map_y]) != NULL)
@@ -41,7 +51,7 @@ static void	resolve_hit(t_raycast *raycast, t_game *game, int *hit)
 	}
 }
 
-void	raycast_dda(t_raycast *raycast, t_game *game)
+void	raycast_dda(t_raycast *raycast, t_game *game, int n)
 {
 	int	hit;
 
@@ -60,7 +70,7 @@ void	raycast_dda(t_raycast *raycast, t_game *game)
 			raycast->map_y += raycast->step_y;
 			raycast->side = 1;
 		}
-		resolve_hit(raycast, game, &hit);
+		resolve_hit(raycast, game, &hit, n);
 	}
 }
 

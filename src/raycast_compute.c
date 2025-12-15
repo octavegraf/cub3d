@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 11:26:18 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 14:05:47 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/15 14:57:40 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	raycast_compute(t_game *game, t_raycast *rc, struct timeval *tv, int n)
 	int			line_height;
 	int			res;
 
-	raycast_dda(rc, game);
+	raycast_dda(rc, game, n);
 	res = raycast_get_texture(game, rc, tv, n);
 	if (n == 2 && res == '1')
 		return ('1');

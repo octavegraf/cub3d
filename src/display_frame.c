@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 15:20:35 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 15:44:53 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	display_frame(void *param)
 	if (raycast(game, 1) == 0)
 		return (mlx_loop_end(((t_mlx *)param)->mlx_ptr));
 	if (raycast(game, 2) == 0)
+		return (mlx_loop_end(((t_mlx *)param)->mlx_ptr));
+	if (raycast(game, 3) == 0)
 		return (mlx_loop_end(((t_mlx *)param)->mlx_ptr));
 	if (game->key_press[MINIMAP_HIDE] == 1
 		&& display_minimap(game, game->scene.minimap_radius_map) == 0)
