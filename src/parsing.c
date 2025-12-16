@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 14:41:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/15 15:14:18 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/16 14:24:16 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	read_cub_file(char *cub_path, t_game *game, int id)
 		buff = get_next_line(fd);
 		if (!buff)
 			return (close(fd), ft_dprintf(2, ERR_WRONG_LINE), 1);
-		ft_printf("parsing: %s\n", buff);
 		if (!ft_wstrlen(buff))
 			continue ;
 		id = identify(buff, game);

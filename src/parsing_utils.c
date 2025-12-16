@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:06:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/16 12:25:13 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/16 15:17:21 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,4 @@ int	map_remove_whitespaces(t_game *game)
 			return (ft_dprintf(2, ERR_MALLOC), 1);
 	}
 	return (0);
-}
-
-void	replace_char(t_game *game)
-{
-	char	**map;
-	int		i;
-	int		j;
-
-	map = game->scene.map;
-	i = -1;
-	while (map[++i])
-	{
-		j = -1;
-		while (map[i][++j])
-		{
-			if (map[i][j] == '0')
-				map[i][j] = empty;
-			else if (map[i][j] == '1')
-				map[i][j] = wall;
-			else if (map[i][j] == 'T')
-				map[i][j] = t;
-			printf("[%d]", map[i][j]);
-		}
-		printf("\n");
-	}
 }

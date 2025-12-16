@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 14:01:16 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/16 14:03:28 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/16 14:41:46 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ int	is_available(t_game *game, double jump_x, double jump_y)
 
 	try_x = game->player.pos_x + jump_x;
 	try_y = game->player.pos_y + jump_y;
-	if (game->scene.map[try_x][try_y] == empty
-		|| game->scene.map[try_x][try_y] == t)
+	if (game->scene.map[try_x][try_y] == empty)
 		return (1);
 	return (0);
 }

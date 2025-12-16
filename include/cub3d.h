@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/16 13:56:56 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/16 14:40:28 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 # ifdef BONUS
 
+int			assign_texture(t_game *g, t_raycast *rc, t_list *textures[D + 1],
+				int n);
 int			raycast_get_texture(t_game *g,
 				t_raycast *rc, struct timeval *tv, int n);
 int			raycast_compute(t_game *g, t_raycast *r, struct timeval *tv, int n);

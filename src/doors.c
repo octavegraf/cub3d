@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 12:50:01 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/16 12:38:25 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/16 14:23:54 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ void	door_hook(t_game *game)
 		game->scene.map[x - 1][y] ^= d_l_u;
 		game->scene.map[x + 1][y] ^= d_l_d;
 	}
+	door_hook_2(game, x, y);
+}
+
+void	door_hook_2(t_game *game, int x, int y)
+{
 	if (game->scene.map[x][y + 1] == c_l)
 	{
 		game->scene.map[x][y + 1] = o_l;
@@ -47,10 +52,22 @@ void	door_hook(t_game *game)
 		game->scene.map[x - 1][y + 1] ^= d_l_u;
 		game->scene.map[x + 1][y + 1] ^= d_l_d;
 	}
-	door_hook_2(game, x, y);
+	if (game->scene.map[x][y] == c_u)
+	{
+		game->scene.map[x][y] = o_u;
+		game->scene.map[x][y - 1] |= d_u_l;
+		game->scene.map[x][y + 1] |= d_u_r;
+	}
+	else if (game->scene.map[x][y] == o_u)
+	{
+		game->scene.map[x][y] = c_u;
+		game->scene.map[x][y - 1] ^= d_u_l;
+		game->scene.map[x][y + 1] ^= d_u_r;
+	}
+	door_hook_3(game, x, y);
 }
 
-void	door_hook_2(t_game *game, int x, int y)
+void	door_hook_3(t_game *game, int x, int y)
 {
 	if (game->scene.map[x + 1][y] == c_u)
 	{
@@ -63,23 +80,6 @@ void	door_hook_2(t_game *game, int x, int y)
 		game->scene.map[x + 1][y] = c_u;
 		game->scene.map[x + 1][y - 1] ^= d_u_l;
 		game->scene.map[x + 1][y + 1] ^= d_u_r;
-	}
-	door_hook_3(game, x, y);
-}
-
-void	door_hook_3(t_game *game, int x, int y)
-{
-	if (game->scene.map[x][y] == c_u)
-	{
-		game->scene.map[x][y] = o_u;
-		game->scene.map[x][y - 1] |= d_u_l;
-		game->scene.map[x][y + 1] |= d_u_r;
-	}
-	else if (game->scene.map[x][y] == o_u)
-	{
-		game->scene.map[x][y] = c_u;
-		game->scene.map[x][y - 1] ^= d_u_l;
-		game->scene.map[x][y + 1] ^= d_u_r;
 	}
 }
 
