@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:06:40 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/15 16:56:44 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/16 12:25:13 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,12 @@ void	replace_char(t_game *game)
 		while (map[i][++j])
 		{
 			if (map[i][j] == '0')
-				map[i][j] = -1;
+				map[i][j] = empty;
 			else if (map[i][j] == '1')
-				map[i][j] = 1;
-			printf("%d", map[i][j]);
+				map[i][j] = wall;
+			else if (map[i][j] == 'T')
+				map[i][j] = t;
+			printf("[%d]", map[i][j]);
 		}
 		printf("\n");
 	}

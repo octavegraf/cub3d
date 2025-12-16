@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:11:12 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/09 13:50:30 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/16 14:02:18 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,11 @@ static void	minimap_get_j(t_game *game, int i, int radius_map, int map_size_x)
 			|| i + ((int)(game->player.pos_x)) - radius_map >= map_size_x
 			|| j + ((int)(game->player.pos_y)) - radius_map < 0
 			|| j + ((int)(game->player.pos_y)) - radius_map >= map_size_y)
-			game->scene.minimap[i][j] = '1';
-		else if (game->scene.map
-			[i + ((int)(game->player.pos_x)) - radius_map]
-				[j + ((int)(game->player.pos_y)) - radius_map] != '0')
-			game->scene.minimap[i][j] = '1';
+			game->scene.minimap[i][j] = wall;
 		else
-			game->scene.minimap[i][j] = '0';
+			game->scene.minimap[i][j] = game->scene.map[i
+				+ ((int)(game->player.pos_x)) - radius_map][j
+				+ ((int)(game->player.pos_y)) - radius_map];
 		j++;
 	}
 }

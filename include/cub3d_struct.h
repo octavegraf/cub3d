@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/15 22:49:10 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/16 13:57:09 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,30 @@
 #  define AVAILABLE_Y_NEG "0MLVUT"
 #  define AVAILABLE_Y_POS "0MLVUT"
 
-enum e_door
+enum e_map_char
 {
+	wall = 1,
+	empty = 2,
 	t = 3,
 	c_l = 4,
 	c_u = 5,
 	o_l = 6,
 	o_u = 7,
-	d_u_l = 1 << 4,
-	d_u_r = 1 << 5,
-	d_l_u = 1 << 6,
-	d_l_d = 1 << 7
+	d_u_l = 1 << 3,
+	d_u_r = 1 << 4,
+	d_l_u = 1 << 5,
+	d_l_d = 1 << 6
 };
 
 # else
 #  define MAP_ELEMENTS "10NSEW"
+
+enum e_map_char
+{
+	wall = 1,
+	empty = 2,
+};
+
 # endif
 
 enum e_screensize

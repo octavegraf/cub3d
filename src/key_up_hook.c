@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 14:53:13 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/16 13:47:59 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	minimap_hook(int keycode, t_game *game)
 	}
 }
 
-/* static void	print_map(char **map)
+static void	print_map(char **map)
 {
 	int	i;
 	int	j;
@@ -39,13 +39,13 @@ static void	minimap_hook(int keycode, t_game *game)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			ft_printf("[%c]", map[i][j]);
+			ft_printf("[%u]", map[i][j]);
 			j++;
 		}
 		ft_printf("\n");
 		i++;
 	}
-} */
+}
 
 int	key_up_hook(int keycode, void *param)
 {
@@ -67,7 +67,10 @@ int	key_up_hook(int keycode, void *param)
 	if (keycode == KEY_D)
 		(game->key_press)[MOVE_RIGHT] = 0;
 	if (keycode == KEY_SPACE || keycode == LEFT_CLICK)
+	{
+		print_map(game->scene.map);
 		door_hook(game);
+	}
 	minimap_hook(keycode, game);
 	return (0);
 }
