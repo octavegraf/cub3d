@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 14:53:13 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/16 14:47:53 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	minimap_hook(int keycode, t_game *game)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			ft_printf("[%c]", map[i][j]);
+			ft_printf("[%u]", map[i][j]);
 			j++;
 		}
 		ft_printf("\n");

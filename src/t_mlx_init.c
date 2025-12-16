@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_mlx_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 10:55:58 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 11:10:05 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/15 14:31:30 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,25 @@ static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[D + 1])
 	return (1);
 }
 
+int	t_mlx_init(t_mlx *mlx, t_list *files[D + 1])
+{
+	if (mlx == NULL)
+		return (0);
+	mlx->frame.img_ptr = NULL;
+	mlx->mlx_ptr = mlx_init();
+	if (mlx->mlx_ptr == NULL)
+		return (ft_dprintf (2, ERR_MLX_INIT), 0);
+	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIDTH, HEIGHT, "Cub3D");
+	if (mlx->win_ptr == NULL)
+		return (ft_dprintf (2, ERR_MLX_NEW_WINDOW),
+			mlx_destroy_display(mlx->mlx_ptr), free(mlx->mlx_ptr), 0);
+	if (t_mlx_textures_init(mlx, files) == 0)
+		return (t_mlx_free(mlx), 0);
+	if (t_img_init(mlx->mlx_ptr, &(mlx->frame), WIDTH, HEIGHT) == 0)
+		return (t_mlx_free(mlx), 0);
+	return (1);
+}
+
 #else
 
 static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
@@ -74,8 +93,6 @@ static int	t_mlx_textures_init(t_mlx *mlx, t_list *files[4])
 	return (1);
 }
 
-#endif
-
 int	t_mlx_init(t_mlx *mlx, t_list *files[4])
 {
 	if (mlx == NULL)
@@ -94,3 +111,5 @@ int	t_mlx_init(t_mlx *mlx, t_list *files[4])
 		return (t_mlx_free(mlx), 0);
 	return (1);
 }
+
+#endif

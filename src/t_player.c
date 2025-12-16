@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:43:24 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/11/11 17:43:24 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/16 11:32:56 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_player	player_init(char **map)
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 			{
 				player_fill_attributes(&player, i, j, c);
-				map[i][j] = '0';
+				map[i][j] = empty;
 			}
 			j++;
 		}

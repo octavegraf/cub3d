@@ -6,12 +6,12 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 16:56:28 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/12 12:36:05 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/15 14:24:47 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 #ifdef BONUS
-# include "cub3d.h"
 
 int	mouse(int x, int y, void *param)
 {
