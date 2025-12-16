@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/11 17:06:57 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/16 13:57:09 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,35 +42,45 @@
 # endif
 
 # ifdef BONUS
-#  define MAP_ELEMENTS "10NSEWD"
+#  define MAP_ELEMENTS "10NSEWTD"
 #  define RADIUS_MAP 3
 #  define MIN_DIM_RATIO 0.2
 #  define SIZE_PLAYER 1
 #  define MINIMAP_FOV_STEP 0.01
 
-#  define MINIMAP_WHITE "0MVYIO."
+#  define MINIMAP_WHITE "0MVYIO.T"
 
 #  define HIT_OPEN "YIO."
 
-#  define AVAILABLE_X_NEG "0VUML"
-#  define AVAILABLE_X_POS "0VUML"
-#  define AVAILABLE_Y_NEG "0MLVU"
-#  define AVAILABLE_Y_POS "0MLVU"
+#  define AVAILABLE_X_NEG "0VUMLT"
+#  define AVAILABLE_X_POS "0VUMLT"
+#  define AVAILABLE_Y_NEG "0MLVUT"
+#  define AVAILABLE_Y_POS "0MLVUT"
 
-enum e_door
+enum e_map_char
 {
-	c_l = 'L',
-	c_u = 'U',
-	o_l = 'M',
-	o_u = 'V',
-	d_u_l = 'Y',
-	d_u_r = 'I',
-	d_l_u = 'O',
-	d_l_d = '.'
+	wall = 1,
+	empty = 2,
+	t = 3,
+	c_l = 4,
+	c_u = 5,
+	o_l = 6,
+	o_u = 7,
+	d_u_l = 1 << 3,
+	d_u_r = 1 << 4,
+	d_l_u = 1 << 5,
+	d_l_d = 1 << 6
 };
 
 # else
 #  define MAP_ELEMENTS "10NSEW"
+
+enum e_map_char
+{
+	wall = 1,
+	empty = 2,
+};
+
 # endif
 
 enum e_screensize
@@ -94,6 +104,7 @@ enum e_direction
 	SO,
 	WE,
 	EA,
+	T,
 	D,
 	F,
 	C,
@@ -318,7 +329,7 @@ typedef struct s_raycast
 	double			step;
 }	t_raycast;
 
-# define ERR_USAGE "Error\nUse program with one map.\n"
+# define ERR_USAGE "Error\nUse program with one map\n"
 # define ERR_NULL_PATH "Error\nnull path\n"
 # define ERR_OPEN_FILE "Error\nopen file: %s \n"
 # define ERR_WRONG_LINE "Error\nWrong line\n"
@@ -326,22 +337,23 @@ typedef struct s_raycast
 # define ERR_TEXTURE_NOT_READABLE "Error\nTexture file not readable\n"
 # define ERR_TEXTURE_NOT_XPM "Error\nTexture file not .xpm\n"
 # define ERR_COLOR_OUT_OF_RANGE "Error\nColor value out of range\n"
+# define ERR_MULTIPLE_COLOR "Error\nDuplicate color value\n"
 # define ERR_UNKNOWN_COLOR_ID "Error\nUnknown color identifier\n"
-# define ERR_INVALID_MAP_CHAR "Error\nInvalid map character or not closed.\n"
+# define ERR_INVALID_MAP_CHAR "Error\nInvalid map character or not closed\n"
 # define ERR_INVALID_PLAYER_COUNT "Error\nInvalid number of player\n"
-# define ERR_MAP_OPEN "Error\nMap open %d,%d \n"
+# define ERR_MAP_OPEN "Error\nMap open %d,%d\n"
 # define ERR_MLX_INIT "Error\nmlx_init()\n"
 # define ERR_MLX_NEW_WINDOW "Error\nmlx_new_window()\n"
 # define ERR_MLX_NEW_IMAGE "Error\nmlx_new_image()\n"
 # define ERR_MLX_GET_DATA_ADDR "Error\nmlx_get_data_addr()\n"
 # define ERR_MLX_XPM_FILE "Error\nmlx_xpm_file_to_image()\n"
 # define ERR_CUB_EXTENSION "Error\n.cub file extension required\n"
-# define ERR_INVALID_CARDINAL "Error\nInvalid cardinal direction\n"
+# define ERR_INVALID_CARDINAL "Error\nInvalid texture identifier\n"
 # define ERR_GETTIMEOFDAY "Error\ngettimeofday()\n"
 # define ERR_MALLOC "Error\nmalloc()\n"
 # define ERR_MINIMAP_PLAYER "Error\nMinimap: invalid player size\n"
 # define ERR_MINIMAP_SIZE "Error\nMinimap: invalid minimap dimensions\n"
 # define ERR_FREQ_ANIMATION "Error\nAnimation: invalid update frequence\n"
 # define ERR_DOOR_MISS_WALLS "Error\nMissing texture or walls around a door\n"
-
+# define ERR_SPRITE_TEXTURES "Error\nMissing textures for sprite\n"
 #endif

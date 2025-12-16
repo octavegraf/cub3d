@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:08:32 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/12 15:11:41 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/16 14:38:30 by ocgraf           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,63 +25,6 @@ static void	update_texture(t_list **node_img, t_list *head_img,
 		if (*node_img == NULL)
 			*node_img = head_img;
 	}
-}
-static int	assign_texture2(t_game *game, t_raycast *raycast,
-				t_list *textures[D + 1], int n);
-
-static int	assign_texture(t_game *g, t_raycast *rc,
-	t_list *textures[D + 1], int n)
-{
-	if (rc->side == 0)
-	{
-		if (rc->ray_dir_x < 0)
-		{
-			if (g->scene.map[rc->map_x + 1][rc->map_y] == c_u)
-				rc->texture = textures[D]->content;
-			else if (n == 2 && g->scene.map[rc->map_x][rc->map_y] == d_l_u)
-				return (rc->texture = textures[D]->content, d_l_u);
-			else
-				rc->texture = textures[NO]->content;
-		}
-		else
-		{
-			if (g->scene.map[rc->map_x][rc->map_y] == c_u)
-				rc->texture = textures[D]->content;
-			else if (n == 2 && g->scene.map[rc->map_x][rc->map_y] == d_l_d)
-				return (rc->texture = textures[D]->content, d_l_d);
-			else
-				rc->texture = textures[SO]->content;
-		}
-	}
-	else
-		return (assign_texture2(g, rc, textures, n));
-	return ('1');
-}
-
-static int	assign_texture2(t_game *g, t_raycast *rc,
-				t_list *textures[D + 1], int n)
-{
-	{
-		if (rc->ray_dir_y < 0)
-		{
-			if (g->scene.map[rc->map_x][rc->map_y + 1] == c_l)
-				rc->texture = textures[D]->content;
-			else if (n == 2 && g->scene.map[rc->map_x][rc->map_y] == d_u_l)
-				return (rc->texture = textures[D]->content, d_u_l);
-			else
-				rc->texture = textures[WE]->content;
-		}
-		else
-		{
-			if (g->scene.map[rc->map_x][rc->map_y] == c_l)
-				rc->texture = textures[D]->content;
-			else if (n == 2 && g->scene.map[rc->map_x][rc->map_y] == d_u_r)
-				return (rc->texture = textures[D]->content, d_u_r);
-			else
-				rc->texture = textures[EA]->content;
-		}
-	}
-	return ('1');
 }
 
 int	raycast_get_texture(t_game *game, t_raycast *raycast, struct timeval *tv,
