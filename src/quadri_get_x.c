@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:11 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/09 12:18:04 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/19 16:40:14 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int	is_above_complete(int i, t_game *game,
 		quadri->x_start = i * game->scene.minimap_scale_screen_map
 			- (x_real * game->scene.minimap_scale_screen_map
 				- game->scene.minimap_radius_screen);
-		quadri->x_end = quadri->x_start + game->scene.minimap_scale_screen_map;
+		quadri->x_end = quadri->x_start + game->scene.minimap_scale_screen_map
+			- 1;
 		return (1);
 	}
 	return (0);
@@ -49,7 +50,7 @@ static int	else_is_above_partial(int i, t_game *game,
 		< (i + 1) * game->scene.minimap_scale_screen_map)
 	{
 		quadri->x_start = 0;
-		quadri->x_end = (i + 1) * game->scene.minimap_scale_screen_map
+		quadri->x_end = (i + 1) * game->scene.minimap_scale_screen_map - 1
 			- (x_real * game->scene.minimap_scale_screen_map
 				- game->scene.minimap_radius_screen);
 		return (1);
@@ -71,8 +72,8 @@ static int	else_is_same_partial(int i, t_game *game,
 		> i * game->scene.minimap_scale_screen_map)
 	{
 		quadri->x_start = 0;
-		quadri->x_end = x_real * game->scene.minimap_scale_screen_map
-			+ game->scene.minimap_radius_screen;
+		quadri->x_end = x_real * game->scene.minimap_scale_screen_map - 1
+			+ game->scene.minimap_radius_screen - 1;
 		return (1);
 	}
 	return (0);
@@ -94,7 +95,8 @@ static int	else_is_under_complete(int i, t_game *game,
 		quadri->x_start = i * game->scene.minimap_scale_screen_map
 			- (x_real * game->scene.minimap_scale_screen_map
 				- game->scene.minimap_radius_screen);
-		quadri->x_end = quadri->x_start + game->scene.minimap_scale_screen_map;
+		quadri->x_end = quadri->x_start + game->scene.minimap_scale_screen_map
+			- 1;
 		return (1);
 	}
 	return (0);
@@ -126,6 +128,6 @@ int	quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map)
 	quadri->x_start = i * game->scene.minimap_scale_screen_map
 		- (x_player_real * game->scene.minimap_scale_screen_map
 			- game->scene.minimap_radius_screen);
-	return (quadri->x_end = 2 * game->scene.minimap_radius_screen, 1);
+	return (quadri->x_end = 2 * game->scene.minimap_radius_screen - 1, 1);
 }
 #endif
