@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:10:03 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/19 16:40:30 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/19 18:34:47 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ static int	else_is_right_complete(int i, t_game *game,
 		quadri->y_start = i * game->scene.minimap_scale_screen_map
 			- (y_real * game->scene.minimap_scale_screen_map
 				- game->scene.minimap_radius_screen);
-		quadri->y_end = quadri->y_start + game->scene.minimap_scale_screen_map;
+		quadri->y_end = quadri->y_start + game->scene.minimap_scale_screen_map
+			- 1;
 		return (1);
 	}
 	return (0);
@@ -120,8 +121,8 @@ int	quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map)
 		quadri->y_start = i * game->scene.minimap_scale_screen_map
 			- (y_player_real * game->scene.minimap_scale_screen_map
 				- game->scene.minimap_radius_screen);
-		quadri->y_end = quadri->y_start + game->scene.minimap_scale_screen_map;
-		return (1);
+		return (quadri->y_end = quadri->y_start
+			+ game->scene.minimap_scale_screen_map - 1, 1);
 	}
 	else if (else_is_right_complete(i, game, quadri, radius_map))
 		return (1);
