@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/16 13:57:09 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/24 15:15:12 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,14 @@
 # define KEY_DOWN 65364
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
+# define KEY_SPACE 32
 
 # ifdef __linux__
 #  define KEY_ESC 65307
-#  define KEY_SPACE 32
 #  define LEFT_CLICK 1
 
 # elif __APPLE__
 #  define KEY_ESC 53
-#  define KEY_SPACE 49
 #  define LEFT_CLICK 1
 # endif
 

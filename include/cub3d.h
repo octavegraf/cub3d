@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/16 14:40:28 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/24 14:46:01 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ void		raycast_dda(t_raycast *raycast, t_game *game, int n);
 int			e_chr_white(unsigned int c);
 int			e_chr_hit_open(unsigned int c);
 int			e_chr_available(unsigned int c);
+void		draw_doors(t_game *game, int radius_map);
+void		fill_quadri_minimap(t_game *game, t_quadri *quadri);
+void		game_minimap_set_params(t_game *game, int radius,
+				float min_dim_ratio);
+void		minimap_free(char ***minimap, int n, int radius_map);
+
+//	display_minimap.c
+
+/**
+ * @brief Render the minimap overlay on the frame.
+ * 
+ * @param[in] game Pointer to the game structure.
+ * @return int 1 on success, 0 on failure.
+ */
+int			display_minimap(t_game *game, int radius);
+void		draw_player_fov_minimap(t_game *game, int radius_map);
+int			minimap_get(t_game *game, int radius_map);
 
 # else
 /**
@@ -78,9 +95,6 @@ void		double_free(char **to_free);
 
 //	game.c
 
-void		game_minimap_set_params(t_game *game, int radius,
-				float min_dim_ratio);
-void		minimap_free(char ***minimap, int n, int radius_map);
 /**
  * @brief Initialize the game structures and MLX library.
  * 
@@ -164,18 +178,6 @@ void		raycast_init(t_raycast *raycast, t_game *game, int x);
  * @return int 1 to continue loop, 0 to exit.
  */
 int			display_frame(void *param);
-
-//	display_minimap.c
-
-/**
- * @brief Render the minimap overlay on the frame.
- * 
- * @param[in] game Pointer to the game structure.
- * @return int 1 on success, 0 on failure.
- */
-int			display_minimap(t_game *game, int radius);
-void		draw_player_fov_minimap(t_game *game, int radius_map);
-int			minimap_get(t_game *game, int radius_map);
 
 //	doors.c
 void		door_hook(t_game *game);
@@ -284,9 +286,9 @@ int			readable_file(char *file_path);
 int			read_cub_file(char *cub_path, t_game *game, int id);
 
 //	quadri_get_x.c
-int			quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map);
+void		quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map);
 //	quadri_get_y.c
-int			quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map);
+void		quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map);
 
 //	t_img.c
 

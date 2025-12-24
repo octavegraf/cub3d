@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:14:16 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/09 16:47:27 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/19 17:40:35 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	fov_ray_in_minimap(t_game *game, int radius_map,
 	coord_x = radius_map * game->scene.minimap_scale_screen_map + ray_x;
 	coord_y = radius_map * game->scene.minimap_scale_screen_map + ray_y;
 	if (coord_x >= 0
-		&& coord_x < radius_map * 2 * game->scene.minimap_scale_screen_map + 1
+		&& coord_x < radius_map * 2 * game->scene.minimap_scale_screen_map
 		&& coord_y >= 0
-		&& coord_y < radius_map * 2 * game->scene.minimap_scale_screen_map + 1)
+		&& coord_y < radius_map * 2 * game->scene.minimap_scale_screen_map)
 		return (1);
 	return (0);
 }

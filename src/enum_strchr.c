@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 16:32:03 by ocgraf            #+#    #+#             */
-/*   Updated: 2025/12/16 13:58:37 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/19 18:31:28 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	e_chr_white(unsigned int c)
 {
-	if (c == empty || c == o_l || c == o_u || c == t)
+	if (c == empty || c == o_l || c == o_u || c == c_l || c == c_u || c == t)
 		return (1);
 	return (0);
 }
@@ -31,6 +31,13 @@ int	e_chr_hit_open(unsigned int c)
 int	e_chr_available(unsigned int c)
 {
 	if (c == empty || c == c_l || c == c_u || c == o_l || c == o_u || c == t)
+		return (1);
+	return (0);
+}
+
+int	e_chr_doors(unsigned int c)
+{
+	if (c == c_l || c == c_u || c == o_l || c == o_u)
 		return (1);
 	return (0);
 }
