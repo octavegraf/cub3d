@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 14:57:29 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/19 18:30:31 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/24 14:51:08 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,16 @@ static void	draw_quadri_minimap(t_game *game, char **minimap, int radius_map)
 	j = 0;
 	while (i < (radius_map * 2) + 1)
 	{
-		if (quadri_get_x(game, i, &quadri, radius_map))
+		quadri_get_x(game, i, &quadri, radius_map);
+		j = 0;
+		while (j < (radius_map * 2) + 1)
 		{
-			j = 0;
-			while (j < (radius_map * 2) + 1)
-			{
-				if (quadri_get_y(game, j, &quadri, radius_map))
-				{
-					quadri.color = BLACK;
-					if (e_chr_white(minimap[i][j]))
-						quadri.color = WHITE;
-					fill_quadri_minimap(game, &quadri);
-				}
-				j++;
-			}
+			quadri_get_y(game, j, &quadri, radius_map);
+			quadri.color = BLACK;
+			if (e_chr_white(minimap[i][j]))
+				quadri.color = WHITE;
+			fill_quadri_minimap(game, &quadri);
+			j++;
 		}
 		i++;
 	}

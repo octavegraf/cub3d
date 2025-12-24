@@ -6,7 +6,7 @@
 /*   By: rchan-re <rchan-re@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:10:03 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/19 18:34:47 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/24 14:49:30 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,32 +103,32 @@ static int	else_is_right_complete(int i, t_game *game,
 	return (0);
 }
 
-int	quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map)
+void	quadri_get_y(t_game *g, int i, t_quadri *quadri, int radius_map)
 {
 	int		y_player_index;
 	float	y_player_real;
 
 	y_player_index = radius_map;
-	y_player_real = radius_map + game->player.pos_y - (int)(game->player.pos_y);
-	if (is_left_complete(i, game, quadri, radius_map))
-		return (1);
-	else if (else_is_left_partial(i, game, quadri, radius_map))
-		return (1);
-	else if (else_is_same_partial(i, game, quadri, radius_map))
-		return (1);
+	y_player_real = radius_map + g->player.pos_y - (int)(g->player.pos_y);
+	if (is_left_complete(i, g, quadri, radius_map))
+		return ;
+	else if (else_is_left_partial(i, g, quadri, radius_map))
+		return ;
+	else if (else_is_same_partial(i, g, quadri, radius_map))
+		return ;
 	else if (i == y_player_index)
 	{
-		quadri->y_start = i * game->scene.minimap_scale_screen_map
-			- (y_player_real * game->scene.minimap_scale_screen_map
-				- game->scene.minimap_radius_screen);
-		return (quadri->y_end = quadri->y_start
-			+ game->scene.minimap_scale_screen_map - 1, 1);
+		quadri->y_start = i * g->scene.minimap_scale_screen_map
+			- (y_player_real * g->scene.minimap_scale_screen_map
+				- g->scene.minimap_radius_screen);
+		quadri->y_end = quadri->y_start + g->scene.minimap_scale_screen_map - 1;
+		return ;
 	}
-	else if (else_is_right_complete(i, game, quadri, radius_map))
-		return (1);
-	quadri->y_start = i * game->scene.minimap_scale_screen_map
-		- (y_player_real * game->scene.minimap_scale_screen_map
-			- game->scene.minimap_radius_screen);
-	return (quadri->y_end = 2 * game->scene.minimap_radius_screen - 1, 1);
+	else if (else_is_right_complete(i, g, quadri, radius_map))
+		return ;
+	quadri->y_start = i * g->scene.minimap_scale_screen_map
+		- (y_player_real * g->scene.minimap_scale_screen_map
+			- g->scene.minimap_radius_screen);
+	quadri->y_end = 2 * g->scene.minimap_radius_screen - 1;
 }
 #endif

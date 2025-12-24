@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 17:46:50 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/19 18:29:36 by rchan-re         ###   ########.fr       */
+/*   Updated: 2025/12/24 14:46:01 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,9 +286,9 @@ int			readable_file(char *file_path);
 int			read_cub_file(char *cub_path, t_game *game, int id);
 
 //	quadri_get_x.c
-int			quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map);
+void		quadri_get_x(t_game *game, int i, t_quadri *quadri, int radius_map);
 //	quadri_get_y.c
-int			quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map);
+void		quadri_get_y(t_game *game, int i, t_quadri *quadri, int radius_map);
 
 //	t_img.c
 
