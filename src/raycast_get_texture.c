@@ -6,7 +6,7 @@
 /*   By: ocgraf <ocgraf@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 17:08:32 by rchan-re          #+#    #+#             */
-/*   Updated: 2025/12/16 14:38:30 by ocgraf           ###   ########.fr       */
+/*   Updated: 2025/12/24 15:04:57 by rchan-re         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ int	raycast_get_texture(t_game *game, t_raycast *raycast, struct timeval *tv,
 
 void	raycast_get_texture(t_game *game, t_raycast *raycast)
 {
-	int				i;
-
-	i = 0;
 	if (raycast->side == 0)
 	{
 		if (raycast->ray_dir_x < 0)
